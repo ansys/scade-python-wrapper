@@ -164,3 +164,8 @@ cython_debug/
 *.sln
 *.pyproj
 TestResults/
+# eclipse
+.metadata/
+# lbsjv
+*.fmb
+backup/
