@@ -23,14 +23,18 @@
 """Unit tests utils."""
 
 from pathlib import Path
+from subprocess import run
+import sys
 
 # note: importing apitools modifies sys.path to access SCADE APIs
-import ansys.scade.apitools  # noqa: F401
+from ansys.scade.apitools.info import get_scade_home
 
 # must be imported after apitools
 # isort: split
 import scade
 import scade.model.project.stdproject as std
+
+from ansys.scade.python_wrapper.kcgpython import KcgPython
 
 # stub the proxy's entries
 import ansys.scade.wux.test.sctoc_stub  # noqa: F401
@@ -51,3 +55,46 @@ def find_configuration(project: std.Project, name: str) -> std.Configuration:
         if configuration.name == name:
             return configuration
     assert False
+
+
+def build_proxy(path: Path, configuration: str) -> bool:
+    """Build the Python proxy if obsolete or not present."""
+    project = load_project(path)
+    # retrieve the configuration
+    conf = find_configuration(project, configuration)
+    if not conf:
+        print(configuration, 'unknown configuration')
+        return False
+    default = '$(Configuration)'
+    target_dir = project.get_scalar_tool_prop_def('GENERATOR', 'TARGET_DIR', default, conf)
+    target_dir = path.parent / target_dir.replace('$(Configuration)', configuration)
+    module = KcgPython.get_module_name(project, conf)
+    dll = target_dir / ('%s.dll' % module)
+    if not dll.exists():
+        obsolete = True
+    else:
+        # check timestamp versus project files
+        ns = dll.stat().st_mtime_ns
+        # advised enhancements:
+        # * consider libraries
+        # * consider only [x]scade files
+        paths = [path] + [Path(_.pathname) for _ in project.file_refs]
+        for file in paths:
+            if file.stat().st_mtime_ns > ns:
+                obsolete = True
+                break
+        else:
+            obsolete = False
+    if obsolete:
+        # run scade -code to rebuild the python proxy
+        exe = get_scade_home() / 'SCADE' / 'bin' / 'scade.exe'
+        cmd = [exe, '-code', str(path), '-conf', configuration, '-sim']
+        cp = run(cmd, capture_output=True, encoding='utf-8')
+        if cp.stdout:
+            print(cp.stdout)
+        if cp.stderr:
+            print(cp.stderr)
+    # add the directory to sys.path
+    if str(target_dir) not in sys.path:
+        sys.path.append(str(target_dir))
+    return dll.exists()

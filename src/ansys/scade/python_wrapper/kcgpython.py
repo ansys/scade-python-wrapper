@@ -200,6 +200,32 @@ class KcgPython:
         return cls.checked
 
     @classmethod
+    def get_module_name(cls, project: Project, configuration: Configuration) -> str:
+        """
+        Return the name of the Python proxy module.
+
+        The name is specified in the wrapper's settings and supports
+        several macros to comply to the most popular naming rules.
+
+        Parameters
+        ----------
+        project : Project
+            Input SCADE Suite project.
+
+        configuration : configuration
+            SCADE Suite configuration selected for the code generation.
+        """
+        name = Path(project.pathname).stem
+        value = props.get_scalar_tool_prop(
+            project, props.PROP_MODULE, props.PROP_MODULE_DEFAULT, configuration
+        )
+        value = value.replace('$(ProjectName)', utils.title_name(name))
+        value = value.replace('$(project_name)', utils.lower_name(name))
+        value = value.replace('$(PROJECT_NAME)', utils.upper_name(name))
+        value = value.replace('$(projectname)', name)
+        return value
+
+    @classmethod
     def _cache_data(cls, model: suite.Model, roots, sensors):
         """Add cross-references between scade.model.suite and scade.code.suite.mapping.c."""
 
