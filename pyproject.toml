@@ -68,6 +68,11 @@ Documentation = "https://python.wrapper.scade.docs.pyansys.com"
 Releases = "https://github.com/ansys/scade-python-wrapper/releases"
 Homepage = "https://www.ansys.com/products/embedded-software/ansys-scade-suite"
 
+[project.entry-points."ansys.scade.registry"]
+srg = "ansys.scade.python_wrapper:srg"
+
+[project.scripts]
+register_ansys_scade_python_wrapper = "ansys.scade.python_wrapper.register:main"
 
 [tool.ruff]
 line-length = 99

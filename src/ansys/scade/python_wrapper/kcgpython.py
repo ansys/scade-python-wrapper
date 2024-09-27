@@ -410,8 +410,8 @@ class KcgPython:
         includes.append(include.as_posix())
 
         # runtime files
-        include = Path(cls.script_dir).parent / 'include'
-        lib = Path(cls.script_dir).parent / 'lib'
+        include = cls.script_dir / 'include'
+        lib = cls.script_dir / 'lib'
         sctoc.add_preprocessor_definitions('WUX_STANDALONE')
         if cls.displays:
             sctoc.add_preprocessor_definitions('DLL_EXPORTS')

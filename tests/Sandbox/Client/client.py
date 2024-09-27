@@ -20,28 +20,54 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Provides a SCADE code generation target that produces a Python proxy to a SCADE application."""
+import sys
 
+# py_box.py/py_box.dll are produced from PyBox.etp
+# add the target directory to the path if not set by the environment
 try:
-    import importlib.metadata as importlib_metadata
+    import py_box as py_box
 except ModuleNotFoundError:
-    import importlib_metadata
-from pathlib import Path
+    # PYTHONPATH not set
+    from pathlib import Path  # noqa
 
-try:
-    __version__ = importlib_metadata.version(__name__.replace('.', '-'))
-except (importlib_metadata.PackageNotFoundError, AttributeError):
-    # Handle the case where version cannot be determined
-    __version__ = '0.0.0'
+    script_dir = Path(__file__).parent
+    sys.path.append(str(script_dir.parent / 'Model' / 'Python'))
+    import py_box as py_box
 
+# get the optional cosimmuation parameter
+cosim = sys.argv[-1] == '-cosim'
 
-def srg() -> str:
-    r"""
-    Return the path of the SCADE Studio registry file.
+# set the sensors
+# P::offset: float64
+py_box.sensors.offset = 0.5
 
-    This function implements the entry point "ansys.scade.registry/srg"
-    introduced in SCADE 2025 R1. It avoids creating an explicit srg file
-    in ``%APPDATA%\Scade\Customize`` when the package is installed.
-    """
-    # the package's srg file is located in the same directory
-    return str(Path(__file__).parent / 'python_wrapper.srg')
+# create an instance of the root operator P::Root
+root = py_box.Root(cosim=cosim)
+# and reset it
+root.call_reset()
+
+# set the inputs
+# P::Root/c: bool
+root.c = True
+# P::Root/v: Speed (defined as float64 ^ 3)
+# root.v = (1.0, 2.0, 3.0)
+root.v[0] = 1.0
+root.v[1] = 2.0
+root.v[2] = 3.0
+# P::Root/v: float64
+root.dt = 0.1
+
+for cycle in range(4):
+    # P::Root/i: int32
+    root.i = cycle + 1
+
+    # call the cyclic function
+    # and force the SCADE Simulator to pause
+    root.call_cycle(debug=True)
+
+    # print the results
+    # P::Root/pos: Position
+    print(root.o, root.pos.x, root.pos.y, root.pos.z)
+
+    # P::Root/c: bool
+    root.c = False

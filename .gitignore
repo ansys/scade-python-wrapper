@@ -169,3 +169,5 @@ TestResults/
 # lbsjv
 *.fmb
 backup/
+*.err
+*.htm

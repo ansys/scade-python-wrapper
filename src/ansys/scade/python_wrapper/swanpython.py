@@ -85,7 +85,7 @@ class SwanPython:
         # generated C files, for makefile
         self.sources = []
         self.defs = []
-        self.lib_dir = Path(__file__).parent.parent / 'lib'
+        self.lib_dir = Path(__file__).parent / 'lib'
         self.no_cg = no_cg
         self.all = all
 

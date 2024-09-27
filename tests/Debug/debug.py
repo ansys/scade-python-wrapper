@@ -67,9 +67,9 @@ sc_to_c_core(options.action, options.configuration)
 
 """
 example of command lines
--p ../Tests/Sandbox/Model/PyBox.etp -c "KCG" -a Generate
--p ../Tests/Sandbox/Model/PyBox.etp -c "KCG IO" -a Generate
--p ../Tests/Display/Model/Variables.etp -c "Python" -a Generate
--p ../Tests/Functions/Model/Model.etp -c "Python" -a Generate
--p ../Tests/Functions/Model/Model.etp -c "Python IO" -a Generate
+-p ../Sandbox/Model/PyBox.etp -c "Python" -a Generate
+-p ../Sandbox/Model/PyBox.etp -c "KCG IO" -a Generate
+-p ../Display/Model/Variables.etp -c "Python" -a Generate
+-p ../Functions/Model/Model.etp -c "Python" -a Generate
+-p ../Functions/Model/Model.etp -c "Python IO" -a Generate
 """
