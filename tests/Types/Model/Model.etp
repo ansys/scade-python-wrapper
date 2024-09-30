@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project id="1" oid_count="121" defaultConfiguration="23">
+<Project id="1" oid_count="135" defaultConfiguration="23">
 	<props>
 		<Prop id="10" name="@STUDIO:PRODUCT">
 			<value>SC</value>
@@ -50,6 +50,7 @@
 			<value>57</value>
 			<value>91</value>
 			<value>106</value>
+			<value>122</value>
 		</Prop>
 		<Prop id="24" name="@GENERATOR:TARGET_DIR">
 			<value>$(Configuration)</value>
@@ -307,6 +308,7 @@
 			<value>65</value>
 			<value>91</value>
 			<value>106</value>
+			<value>122</value>
 		</Prop>
 		<Prop id="86" name="@STUDIO:TOOLCONF">
 			<value>DiffAnalyzer</value>
@@ -320,6 +322,7 @@
 			<value>65</value>
 			<value>91</value>
 			<value>106</value>
+			<value>122</value>
 		</Prop>
 		<Prop id="87" name="@STUDIO:TOOLCONF">
 			<value>Synchronization</value>
@@ -333,6 +336,7 @@
 			<value>65</value>
 			<value>91</value>
 			<value>106</value>
+			<value>122</value>
 		</Prop>
 		<Prop id="88" name="@STUDIO:TOOLCONF">
 			<value>Import/Export</value>
@@ -346,6 +350,7 @@
 			<value>65</value>
 			<value>91</value>
 			<value>106</value>
+			<value>122</value>
 		</Prop>
 		<Prop id="90" name="@GENERATOR:ROOTNODE">
 			<value>P::Node</value>
@@ -472,6 +477,62 @@
 			<value>1</value>
 			<configuration>106</configuration>
 		</Prop>
+		<Prop id="125" name="@GENERATOR:TARGET_ADAPTOR">
+			<value>PYWRAPPER</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="126" name="@GENERATOR:TARGET_DIR">
+			<value>$(Configuration)</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="127" name="@VC6.0:ADD_COMP_OPTIONS">
+			<value>/nologo /ML /O2</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="128" name="@GENERATOR:GENERATOR">
+			<value>C QUAL663</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="129" name="@GENERATOR:USE_TYPES">
+			<value>char</value>
+			<value>float32</value>
+			<value>float64</value>
+			<value>int8</value>
+			<value>int16</value>
+			<value>int32</value>
+			<value>int64</value>
+			<value>uint8</value>
+			<value>uint16</value>
+			<value>uint32</value>
+			<value>uint64</value>
+			<value>size</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="130" name="@GENERATOR:USER_CONFIG">
+			<value>$(TargetDir)\user_macros.h</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="131" name="@SIMULATOR:CPU_TYPE">
+			<value>win64</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="132" name="@GENERATOR:ROOTNODE">
+			<value>P::Node</value>
+			<value>P::Function</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="133" name="@GENERATOR:NO_TIMESTAMP">
+			<value>true</value>
+			<configuration>122</configuration>
+		</Prop>
+		<Prop id="134" name="@GENERATOR:NO_TIMESTAMP">
+			<value>true</value>
+			<configuration>106</configuration>
+		</Prop>
+		<Prop id="135" name="@GENERATOR:NO_TIMESTAMP">
+			<value>true</value>
+			<configuration>91</configuration>
+		</Prop>
 	</props>
 	<roots>
 		<Folder id="3" extensions="vsp;etp" name="SCADE Libraries"/>
@@ -493,5 +554,6 @@
 		<Configuration id="65" name="Cert. Reporter"/>
 		<Configuration id="91" name="Python"/>
 		<Configuration id="106" name="Python IO"/>
+		<Configuration id="122" name="Python No Cosim"/>
 	</configurations>
 </Project>

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--$********** SCADE Suite KCG 32-bit 6.6.4 (build i3) **********
+** Command: kcg664.exe -config D:/AnsysDev/Nobackup/PyAnsys/python-wrapper/tests/Types/Model/Python IO/config.txt
+*************************************************************$-->
+<mapping>
+  <config>
+    <option name="use_types" value="#off#"/>
+    <option name="imported_root_package" value="#off#"/>
+    <option name="root_package" value="#off#"/>
+    <option name="xml_basename" value="kcg_xml_filter_out.scade"/>
+    <option name="state_vector" value="#off#"/>
+    <option name="static" value="#off#"/>
+    <option name="no_separate_io" value="#off#"/>
+    <option name="separate_io" value="#off#"/>
+    <option name="separate_io_all" value="#on#"/>
+    <option name="warn_error" value="#off#"/>
+    <option name="short_circuit" value="#off#"/>
+    <option name="wrap_c_ops" value="#off#"/>
+    <option name="input_file" value="D:/AnsysDev/Nobackup/PyAnsys/python-wrapper/tests/Types/Model/P.xscade"/>
+    <option name="probes" value="#off#"/>
+    <option name="debug" value="#off#"/>
+    <option name="no_observe" value="#off#"/>
+    <option name="observe" value="#off#"/>
+    <option name="user_config" value="./user_macros.h"/>
+    <option name="input_threshold" value="#off#"/>
+    <option name="header" value="#off#"/>
+    <option name="significance_length" value="31"/>
+    <option name="name_length" value="200"/>
+    <option name="globals_prefix" value="#off#"/>
+    <option name="keep_asserts" value="#off#"/>
+    <option name="global_root_context" value="#off#"/>
+    <option name="expall" value="#off#"/>
+    <option name="noexp" value="#off#"/>
+    <option name="exp" value="#off#"/>
+    <option name="target_dir" value="D:/AnsysDev/Nobackup/PyAnsys/python-wrapper/tests/Types/Model/Python IO"/>
+    <option name="target" value="C"/>
+    <option name="root" value="P::Node,P::Function"/>
+    <option name="auth" value="#off#"/>
+  </config>
+  <model>
+    <array id="1" baseType="34" size="2"/>
+    <array id="2" baseType="32" size="2"/>
+    <array id="3" baseType="10" size="3"/>
+    <array id="4" baseType="11" size="8"/>
+    <array id="5" baseType="39" size="3"/>
+    <array id="6" baseType="11" size="4"/>
+    <struct id="7">
+      <field id="8" name="x" type="21"/>
+      <field id="9" name="y" type="21"/>
+    </struct>
+    <array id="10" baseType="21" size="4"/>
+    <predefType id="11" name="bool"/>
+    <predefType id="12" name="char"/>
+    <predefType id="13" name="int8"/>
+    <predefType id="14" name="int16"/>
+    <predefType id="15" name="int32"/>
+    <predefType id="16" name="int64"/>
+    <predefType id="17" name="uint8"/>
+    <predefType id="18" name="uint16"/>
+    <predefType id="19" name="uint32"/>
+    <predefType id="20" name="uint64"/>
+    <predefType id="21" name="float32"/>
+    <predefType id="22" name="float64"/>
+    <predefType id="23" name="size"/>
+    <package id="24" name="P">
+      <constant id="25" name="N" imported="false" type="14"/>
+      <constant id="26" name="A" imported="false" type="3"/>
+      <sensor id="27" name="faults" type="6"/>
+      <enum id="28" name="Enum">
+        <value id="29" name="V1" default="false"/>
+        <value id="30" name="V2" default="false"/>
+        <value id="31" name="V3" default="false"/>
+      </enum>
+      <type id="32" name="Speed" imported="false" type="22"/>
+      <type id="33" name="Speeds" imported="false" type="2"/>
+      <type id="34" name="Point" imported="false" type="7"/>
+      <type id="35" name="Line" imported="false" type="1"/>
+      <type id="36" name="Bits" imported="false" type="4"/>
+      <type id="37" name="Byte" imported="false" type="17"/>
+      <type id="38" name="Arrays" imported="false" type="5"/>
+      <type id="39" name="Array" imported="false" type="10"/>
+      <operator id="40" name="Function" imported="false" root="true" expanded="false">
+        <input id="41" name="inBits" clock="false" type="36"/>
+        <input id="42" name="inBool" clock="false" type="11"/>
+        <input id="43" name="inInt" clock="false" type="15"/>
+        <input id="44" name="inReal" clock="false" type="22"/>
+        <input id="45" name="inChar" clock="false" type="12"/>
+        <input id="46" name="inByte" clock="false" type="37"/>
+        <input id="47" name="inEnum" clock="false" type="28"/>
+        <input id="48" name="inLine" clock="false" type="35"/>
+        <input id="49" name="inPoint" clock="false" type="34"/>
+        <input id="50" name="inSpeed" clock="false" type="32"/>
+        <input id="51" name="inSpeeds" clock="false" type="33"/>
+        <input id="52" name="inArrays" clock="false" type="38"/>
+        <output id="53" name="outBits" clock="false" type="36"/>
+        <output id="54" name="outBool" clock="false" type="11"/>
+        <output id="55" name="outInt" clock="false" type="15"/>
+        <output id="56" name="outReal" clock="false" type="22"/>
+        <output id="57" name="outChar" clock="false" type="12"/>
+        <output id="58" name="outByte" clock="false" type="37"/>
+        <output id="59" name="outEnum" clock="false" type="28"/>
+        <output id="60" name="outLine" clock="false" type="35"/>
+        <output id="61" name="outPoint" clock="false" type="34"/>
+        <output id="62" name="outSpeed" clock="false" type="32"/>
+        <output id="63" name="outSpeeds" clock="false" type="33"/>
+        <output id="64" name="outSensor0" clock="false" type="11"/>
+        <output id="65" name="outArrays" clock="false" type="38"/>
+        <output id="66" name="outArraysConst" clock="false" type="38"/>
+      </operator>
+      <operator id="67" name="Node" imported="false" root="true" expanded="false">
+        <input id="68" name="inBits" clock="false" type="36"/>
+        <input id="69" name="inBool" clock="false" type="11"/>
+        <input id="70" name="inInt" clock="false" type="15"/>
+        <input id="71" name="inReal" clock="false" type="22"/>
+        <input id="72" name="inChar" clock="false" type="12"/>
+        <input id="73" name="inByte" clock="false" type="37"/>
+        <input id="74" name="inEnum" clock="false" type="28"/>
+        <input id="75" name="inLine" clock="false" type="35"/>
+        <input id="76" name="inPoint" clock="false" type="34"/>
+        <input id="77" name="inSpeed" clock="false" type="32"/>
+        <input id="78" name="inSpeeds" clock="false" type="33"/>
+        <input id="79" name="inArrays" clock="false" type="38"/>
+        <output id="80" name="outBits" clock="false" type="36"/>
+        <output id="81" name="outBool" clock="false" type="11"/>
+        <output id="82" name="outInt" clock="false" type="15"/>
+        <output id="83" name="outReal" clock="false" type="22"/>
+        <output id="84" name="outChar" clock="false" type="12"/>
+        <output id="85" name="outByte" clock="false" type="37"/>
+        <output id="86" name="outEnum" clock="false" type="28"/>
+        <output id="87" name="outLine" clock="false" type="35"/>
+        <output id="88" name="outPoint" clock="false" type="34"/>
+        <output id="89" name="outSpeed" clock="false" type="32"/>
+        <output id="90" name="outSpeeds" clock="false" type="33"/>
+        <output id="91" name="outSensor0" clock="false" type="11"/>
+        <output id="92" name="outArrays" clock="false" type="38"/>
+        <output id="93" name="outArraysConst" clock="false" type="38"/>
+        <fby id="94" name="2"/>
+      </operator>
+    </package>
+  </model>
+  <generated>
+    <c>
+      <file id="95" name="Node_P.h">
+        <function id="96" name="Node_init_P">
+          <parameter id="97" name="outC" type="128" pointer="true"/>
+        </function>
+        <function id="98" name="Node_reset_P">
+          <parameter id="99" name="outC" type="128" pointer="true"/>
+        </function>
+        <function id="100" name="Node_P">
+          <parameter id="101" name="inBits" type="211" pointer="true"/>
+          <parameter id="102" name="inBool" type="250" pointer="false"/>
+          <parameter id="103" name="inInt" type="241" pointer="false"/>
+          <parameter id="104" name="inReal" type="248" pointer="false"/>
+          <parameter id="105" name="inChar" type="251" pointer="false"/>
+          <parameter id="106" name="inByte" type="199" pointer="false"/>
+          <parameter id="107" name="inEnum" type="212" pointer="false"/>
+          <parameter id="108" name="inLine" type="204" pointer="true"/>
+          <parameter id="109" name="inPoint" type="205" pointer="true"/>
+          <parameter id="110" name="inSpeed" type="209" pointer="false"/>
+          <parameter id="111" name="inSpeeds" type="208" pointer="true"/>
+          <parameter id="112" name="inArrays" type="200" pointer="true"/>
+          <parameter id="113" name="outBits" type="211" pointer="true"/>
+          <parameter id="114" name="outBool" type="250" pointer="true"/>
+          <parameter id="115" name="outInt" type="241" pointer="true"/>
+          <parameter id="116" name="outReal" type="248" pointer="true"/>
+          <parameter id="117" name="outChar" type="251" pointer="true"/>
+          <parameter id="118" name="outByte" type="199" pointer="true"/>
+          <parameter id="119" name="outEnum" type="212" pointer="true"/>
+          <parameter id="120" name="outLine" type="204" pointer="true"/>
+          <parameter id="121" name="outPoint" type="205" pointer="true"/>
+          <parameter id="122" name="outSpeed" type="209" pointer="true"/>
+          <parameter id="123" name="outSpeeds" type="208" pointer="true"/>
+          <parameter id="124" name="outSensor0" type="250" pointer="true"/>
+          <parameter id="125" name="outArrays" type="200" pointer="true"/>
+          <parameter id="126" name="outArraysConst" type="200" pointer="true"/>
+          <parameter id="127" name="outC" type="128" pointer="true"/>
+        </function>
+        <struct id="128" name="outC_Node_P">
+          <field id="129" name="mem_inEnum" type="212" pointer="false"/>
+          <field id="130" name="init" type="250" pointer="false"/>
+        </struct>
+      </file>
+      <file id="131" name="Function_P.h">
+        <function id="132" name="Function_P">
+          <parameter id="133" name="inBits" type="211" pointer="true"/>
+          <parameter id="134" name="inBool" type="250" pointer="false"/>
+          <parameter id="135" name="inInt" type="241" pointer="false"/>
+          <parameter id="136" name="inReal" type="248" pointer="false"/>
+          <parameter id="137" name="inChar" type="251" pointer="false"/>
+          <parameter id="138" name="inByte" type="199" pointer="false"/>
+          <parameter id="139" name="inEnum" type="212" pointer="false"/>
+          <parameter id="140" name="inLine" type="204" pointer="true"/>
+          <parameter id="141" name="inPoint" type="205" pointer="true"/>
+          <parameter id="142" name="inSpeed" type="209" pointer="false"/>
+          <parameter id="143" name="inSpeeds" type="208" pointer="true"/>
+          <parameter id="144" name="inArrays" type="200" pointer="true"/>
+          <parameter id="145" name="outBits" type="211" pointer="true"/>
+          <parameter id="146" name="outBool" type="250" pointer="true"/>
+          <parameter id="147" name="outInt" type="241" pointer="true"/>
+          <parameter id="148" name="outReal" type="248" pointer="true"/>
+          <parameter id="149" name="outChar" type="251" pointer="true"/>
+          <parameter id="150" name="outByte" type="199" pointer="true"/>
+          <parameter id="151" name="outEnum" type="212" pointer="true"/>
+          <parameter id="152" name="outLine" type="204" pointer="true"/>
+          <parameter id="153" name="outPoint" type="205" pointer="true"/>
+          <parameter id="154" name="outSpeed" type="209" pointer="true"/>
+          <parameter id="155" name="outSpeeds" type="208" pointer="true"/>
+          <parameter id="156" name="outSensor0" type="250" pointer="true"/>
+          <parameter id="157" name="outArrays" type="200" pointer="true"/>
+          <parameter id="158" name="outArraysConst" type="200" pointer="true"/>
+        </function>
+      </file>
+      <file id="159" name="kcg_types.h">
+        <macro id="160" name="kcg_copy_Arrays_P"/>
+        <macro id="161" name="kcg_comp_Arrays_P"/>
+        <macro id="162" name="kcg_copy_Array_P"/>
+        <macro id="163" name="kcg_comp_Array_P"/>
+        <ifdef id="164" name="kcg_use_Speeds_P">
+          <function id="165" name="kcg_comp_Speeds_P" returnType="250">
+            <parameter id="190" name="kcg_c1" type="208" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="208" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="168" name="kcg_use_Bits_P">
+          <function id="169" name="kcg_comp_Bits_P" returnType="250">
+            <parameter id="190" name="kcg_c1" type="211" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="211" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="172" name="kcg_use_array_bool_4">
+          <function id="173" name="kcg_comp_array_bool_4" returnType="250">
+            <parameter id="190" name="kcg_c1" type="210" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="210" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="176" name="kcg_use_Line_P">
+          <function id="177" name="kcg_comp_Line_P" returnType="250">
+            <parameter id="190" name="kcg_c1" type="204" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="204" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="180" name="kcg_use_array_float32_4_3">
+          <function id="181" name="kcg_comp_array_float32_4_3" returnType="250">
+            <parameter id="190" name="kcg_c1" type="201" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="201" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="184" name="kcg_use_array_float32_4">
+          <function id="185" name="kcg_comp_array_float32_4" returnType="250">
+            <parameter id="190" name="kcg_c1" type="203" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="203" pointer="true"/>
+          </function>
+        </ifdef>
+        <ifdef id="188" name="kcg_use_Point_P">
+          <function id="189" name="kcg_comp_Point_P" returnType="250">
+            <parameter id="190" name="kcg_c1" type="205" pointer="true"/>
+            <parameter id="191" name="kcg_c2" type="205" pointer="true"/>
+          </function>
+        </ifdef>
+        <macro id="192" name="kcg_copy_Speeds_P"/>
+        <macro id="193" name="kcg_copy_Bits_P"/>
+        <macro id="194" name="kcg_copy_array_bool_4"/>
+        <macro id="195" name="kcg_copy_Line_P"/>
+        <macro id="196" name="kcg_copy_array_float32_4_3"/>
+        <macro id="197" name="kcg_copy_array_float32_4"/>
+        <macro id="198" name="kcg_copy_Point_P"/>
+        <typedef id="199" name="Byte_P" aliasType="243"/>
+        <typedef id="200" name="Arrays_P" aliasType="201"/>
+        <array id="201" name="array_float32_4_3" baseType="203" size="3"/>
+        <typedef id="202" name="Array_P" aliasType="203"/>
+        <array id="203" name="array_float32_4" baseType="249" size="4"/>
+        <array id="204" name="Line_P" baseType="205" size="2"/>
+        <struct id="205" name="Point_P" tagName="kcg_tag_Point_P">
+          <field id="206" name="x" type="249" pointer="false"/>
+          <field id="207" name="y" type="249" pointer="false"/>
+        </struct>
+        <array id="208" name="Speeds_P" baseType="209" size="2"/>
+        <typedef id="209" name="Speed_P" aliasType="248"/>
+        <array id="210" name="array_bool_4" baseType="250" size="4"/>
+        <array id="211" name="Bits_P" baseType="250" size="8"/>
+        <enum id="212" name="Enum_P" tagName="kcg_tag_Enum_P">
+          <value id="213" name="V1_P"/>
+          <value id="214" name="V2_P"/>
+          <value id="215" name="V3_P"/>
+        </enum>
+        <macro id="216" name="kcg_assign_array"/>
+        <macro id="217" name="kcg_assign_struct"/>
+        <macro id="218" name="kcg_lnot_uint8"/>
+        <macro id="219" name="kcg_lnot_uint16"/>
+        <macro id="220" name="kcg_lnot_uint32"/>
+        <macro id="221" name="kcg_lnot_uint64"/>
+        <macro id="222" name="kcg_lsl_uint8"/>
+        <macro id="223" name="kcg_lsl_uint16"/>
+        <macro id="224" name="kcg_lsl_uint32"/>
+        <macro id="225" name="kcg_lsl_uint64"/>
+        <macro id="226" name="kcg_true"/>
+        <macro id="227" name="kcg_false"/>
+        <macro id="228" name="kcg_lit_int8"/>
+        <macro id="229" name="kcg_lit_int16"/>
+        <macro id="230" name="kcg_lit_int32"/>
+        <macro id="231" name="kcg_lit_int64"/>
+        <macro id="232" name="kcg_lit_uint8"/>
+        <macro id="233" name="kcg_lit_uint16"/>
+        <macro id="234" name="kcg_lit_uint32"/>
+        <macro id="235" name="kcg_lit_uint64"/>
+        <macro id="236" name="kcg_lit_size"/>
+        <macro id="237" name="kcg_lit_float64"/>
+        <macro id="238" name="kcg_lit_float32"/>
+        <predefType id="239" name="kcg_int8"/>
+        <predefType id="240" name="kcg_int16"/>
+        <predefType id="241" name="kcg_int32"/>
+        <predefType id="242" name="kcg_int64"/>
+        <predefType id="243" name="kcg_uint8"/>
+        <predefType id="244" name="kcg_uint16"/>
+        <predefType id="245" name="kcg_uint32"/>
+        <predefType id="246" name="kcg_uint64"/>
+        <predefType id="247" name="kcg_size"/>
+        <predefType id="248" name="kcg_float64"/>
+        <predefType id="249" name="kcg_float32"/>
+        <predefType id="250" name="kcg_bool"/>
+        <predefType id="251" name="kcg_char"/>
+        <macro id="252" name="KCG_MAPW_CPY"/>
+      </file>
+      <file id="253" name="kcg_consts.h">
+        <constant id="254" name="A_P" type="201" pointer="false"/>
+        <macro id="255" name="N_P" type="240"/>
+      </file>
+      <file id="256" name="kcg_sensors.h">
+        <global id="257" name="faults_P" type="210" pointer="false"/>
+      </file>
+    </c>
+    <map srcId="200" dstId="161" role="type-comparison"/>
+    <map srcId="200" dstId="160" role="type-copy"/>
+    <map srcId="202" dstId="163" role="type-comparison"/>
+    <map srcId="202" dstId="162" role="type-copy"/>
+    <map srcId="248" dstId="237" role="wrapped-lit"/>
+    <map srcId="249" dstId="238" role="wrapped-lit"/>
+    <map srcId="247" dstId="236" role="wrapped-lit"/>
+    <map srcId="246" dstId="235" role="wrapped-lit"/>
+    <map srcId="246" dstId="221" role="wrapped-lnot"/>
+    <map srcId="246" dstId="225" role="wrapped-lsl"/>
+    <map srcId="245" dstId="234" role="wrapped-lit"/>
+    <map srcId="245" dstId="220" role="wrapped-lnot"/>
+    <map srcId="245" dstId="224" role="wrapped-lsl"/>
+    <map srcId="244" dstId="233" role="wrapped-lit"/>
+    <map srcId="244" dstId="219" role="wrapped-lnot"/>
+    <map srcId="244" dstId="223" role="wrapped-lsl"/>
+    <map srcId="243" dstId="232" role="wrapped-lit"/>
+    <map srcId="243" dstId="218" role="wrapped-lnot"/>
+    <map srcId="243" dstId="222" role="wrapped-lsl"/>
+    <map srcId="242" dstId="231" role="wrapped-lit"/>
+    <map srcId="241" dstId="230" role="wrapped-lit"/>
+    <map srcId="240" dstId="229" role="wrapped-lit"/>
+    <map srcId="239" dstId="228" role="wrapped-lit"/>
+    <map srcId="208" dstId="164" role="type-use"/>
+    <map srcId="208" dstId="165" role="type-comparison"/>
+    <map srcId="208" dstId="192" role="type-copy"/>
+    <map srcId="205" dstId="188" role="type-use"/>
+    <map srcId="205" dstId="189" role="type-comparison"/>
+    <map srcId="205" dstId="198" role="type-copy"/>
+    <map srcId="211" dstId="168" role="type-use"/>
+    <map srcId="211" dstId="169" role="type-comparison"/>
+    <map srcId="211" dstId="193" role="type-copy"/>
+    <map srcId="210" dstId="172" role="type-use"/>
+    <map srcId="210" dstId="173" role="type-comparison"/>
+    <map srcId="210" dstId="194" role="type-copy"/>
+    <map srcId="204" dstId="176" role="type-use"/>
+    <map srcId="204" dstId="177" role="type-comparison"/>
+    <map srcId="204" dstId="195" role="type-copy"/>
+    <map srcId="201" dstId="180" role="type-use"/>
+    <map srcId="201" dstId="181" role="type-comparison"/>
+    <map srcId="201" dstId="196" role="type-copy"/>
+    <map srcId="203" dstId="184" role="type-use"/>
+    <map srcId="203" dstId="185" role="type-comparison"/>
+    <map srcId="203" dstId="197" role="type-copy"/>
+  </generated>
+  <map modelId="31" generatedId="215"/>
+  <map modelId="30" generatedId="214"/>
+  <map modelId="29" generatedId="213"/>
+  <map modelId="67" generatedId="97" role="context-parameter"/>
+  <map modelId="67" generatedId="96" role="init-method"/>
+  <map modelId="67" generatedId="99" role="context-parameter"/>
+  <map modelId="67" generatedId="98" role="reset-method"/>
+  <map modelId="93" generatedId="126"/>
+  <map modelId="92" generatedId="125"/>
+  <map modelId="91" generatedId="124"/>
+  <map modelId="90" generatedId="123"/>
+  <map modelId="89" generatedId="122"/>
+  <map modelId="88" generatedId="121"/>
+  <map modelId="87" generatedId="120"/>
+  <map modelId="86" generatedId="119"/>
+  <map modelId="85" generatedId="118"/>
+  <map modelId="84" generatedId="117"/>
+  <map modelId="83" generatedId="116"/>
+  <map modelId="82" generatedId="115"/>
+  <map modelId="81" generatedId="114"/>
+  <map modelId="80" generatedId="113"/>
+  <map modelId="79" generatedId="112"/>
+  <map modelId="78" generatedId="111"/>
+  <map modelId="77" generatedId="110"/>
+  <map modelId="76" generatedId="109"/>
+  <map modelId="75" generatedId="108"/>
+  <map modelId="74" generatedId="107"/>
+  <map modelId="73" generatedId="106"/>
+  <map modelId="72" generatedId="105"/>
+  <map modelId="71" generatedId="104"/>
+  <map modelId="70" generatedId="103"/>
+  <map modelId="69" generatedId="102"/>
+  <map modelId="68" generatedId="101"/>
+  <map modelId="67" generatedId="127" role="context-parameter"/>
+  <map modelId="94" generatedId="130" role="init"/>
+  <map modelId="94" generatedId="129" role="memory"/>
+  <map modelId="67" generatedId="128" role="context-type"/>
+  <map modelId="67" generatedId="95" role="interface-file"/>
+  <map modelId="67" generatedId="100" role="cycle-method"/>
+  <map modelId="66" generatedId="158"/>
+  <map modelId="65" generatedId="157"/>
+  <map modelId="64" generatedId="156"/>
+  <map modelId="63" generatedId="155"/>
+  <map modelId="62" generatedId="154"/>
+  <map modelId="61" generatedId="153"/>
+  <map modelId="60" generatedId="152"/>
+  <map modelId="59" generatedId="151"/>
+  <map modelId="58" generatedId="150"/>
+  <map modelId="57" generatedId="149"/>
+  <map modelId="56" generatedId="148"/>
+  <map modelId="55" generatedId="147"/>
+  <map modelId="54" generatedId="146"/>
+  <map modelId="53" generatedId="145"/>
+  <map modelId="52" generatedId="144"/>
+  <map modelId="51" generatedId="143"/>
+  <map modelId="50" generatedId="142"/>
+  <map modelId="49" generatedId="141"/>
+  <map modelId="48" generatedId="140"/>
+  <map modelId="47" generatedId="139"/>
+  <map modelId="46" generatedId="138"/>
+  <map modelId="45" generatedId="137"/>
+  <map modelId="44" generatedId="136"/>
+  <map modelId="43" generatedId="135"/>
+  <map modelId="42" generatedId="134"/>
+  <map modelId="41" generatedId="133"/>
+  <map modelId="40" generatedId="131" role="interface-file"/>
+  <map modelId="40" generatedId="132" role="cycle-method"/>
+  <map modelId="25" generatedId="255"/>
+  <map modelId="26" generatedId="254"/>
+  <map modelId="27" generatedId="257"/>
+  <map modelId="38" generatedId="200"/>
+  <map modelId="39" generatedId="202"/>
+  <map modelId="37" generatedId="199"/>
+  <map modelId="32" generatedId="209"/>
+  <map modelId="28" generatedId="212"/>
+  <map modelId="33" generatedId="208"/>
+  <map modelId="2" generatedId="208"/>
+  <map modelId="9" generatedId="207"/>
+  <map modelId="8" generatedId="206"/>
+  <map modelId="34" generatedId="205"/>
+  <map modelId="7" generatedId="205"/>
+  <map modelId="36" generatedId="211"/>
+  <map modelId="4" generatedId="211"/>
+  <map modelId="6" generatedId="210"/>
+  <map modelId="35" generatedId="204"/>
+  <map modelId="1" generatedId="204"/>
+  <map modelId="3" generatedId="201"/>
+  <map modelId="5" generatedId="201"/>
+  <map modelId="10" generatedId="203"/>
+  <map modelId="12" generatedId="251"/>
+  <map modelId="11" generatedId="250"/>
+  <map modelId="22" generatedId="248"/>
+  <map modelId="21" generatedId="249"/>
+  <map modelId="23" generatedId="247"/>
+  <map modelId="20" generatedId="246"/>
+  <map modelId="19" generatedId="245"/>
+  <map modelId="18" generatedId="244"/>
+  <map modelId="17" generatedId="243"/>
+  <map modelId="16" generatedId="242"/>
+  <map modelId="15" generatedId="241"/>
+  <map modelId="14" generatedId="240"/>
+  <map modelId="13" generatedId="239"/>
+</mapping>
+<!--$********** SCADE Suite KCG 32-bit 6.6.4 (build i3) **********
+** mapping.xml
+*************************************************************$-->

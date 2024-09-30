@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<File xmlns="http://www.esterel-technologies.com/ns/scade/6" xmlns:ed="http://www.esterel-technologies.com/ns/scade/pragmas/editor/8" xmlns:kcg="http://www.esterel-technologies.com/ns/scade/pragmas/codegen/3" xmlns:vrx="unknown_address">
+	<declarations>
+		<Package name="Pkg">
+			<declarations>
+				<Constant name="DELTA">
+					<type>
+						<NamedType>
+							<type>
+								<TypeRef name="float64"/>
+							</type>
+						</NamedType>
+					</type>
+					<value>
+						<ConstValue value="0.1"/>
+					</value>
+					<pragmas>
+						<ed:Constant oid="!ed/3f/5083/2A18/5c4cd45a7100"/>
+					</pragmas>
+				</Constant>
+				<Operator name="Engine" href="Engine.xscade"/>
+			</declarations>
+			<pragmas>
+				<ed:Package oid="!ed/16/5083/2A18/5c4cd3891cfb" xmlns="http://www.esterel-technologies.com/ns/scade/pragmas/editor/8">
+					<diagrams>
+						<TreeDiagram landscape="false" format="A4 (210 297)" oid="!ed/17/5083/2A18/5c4cd389588f" blockKind="constants"/>
+						<TreeDiagram landscape="false" format="A4 (210 297)" oid="!ed/18/5083/2A18/5c4cd3897c24" blockKind="types"/>
+						<TreeDiagram landscape="false" format="A4 (210 297)" oid="!ed/19/5083/2A18/5c4cd3896365" blockKind="sensors"/>
+					</diagrams>
+				</ed:Package>
+			</pragmas>
+		</Package>
+	</declarations>
+</File>

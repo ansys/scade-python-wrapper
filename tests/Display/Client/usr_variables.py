@@ -1,4 +1,4 @@
-# Copyright (C) 2020 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -20,8 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Placeholder for tests."""
+# definition of layers' contexts
+
+import ctypes
+
+from sdyproxy import SdyLayer
 
 
-def test_stub():
-    assert True
+class SpeedLayer(SdyLayer):
+    _fields_ = [('Speed', ctypes.c_double)]
+
+
+class ThrottlesLayer(SdyLayer):
+    _fields_ = [('One', ctypes.c_double), ('Two', ctypes.c_double)]

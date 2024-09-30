@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?dom version="19.0" ?>
+
+<specification>
+    <IDE>
+        <project path="Displays.etp"/>
+        <ratio horizontal="1" vertical="1"/>
+    </IDE>
+    <symbology>
+        <dimension height="64" width="128"/>
+    </symbology>
+    <children>
+        <layer oid="07cb97d5-f003-495c-8240-3c815818159d">
+            <pathFromRoot value=""/>
+            <declaration>
+                <inputs>
+                    <input name="Speed" oid="c87211d0-936c-4deb-8523-a7ebf724e6db" type="float64">
+                        <init>0.0</init>
+                    </input>
+                </inputs>
+            </declaration>
+            <properties name="Speed">
+                <visible>
+                    <init>true</init>
+                </visible>
+                <origin>
+                    <x>
+                        <init>0.0</init>
+                    </x>
+                    <y>
+                        <init>0.0</init>
+                    </y>
+                </origin>
+                <id>
+                    <init>1</init>
+                </id>
+                <ratio horizontal="1" vertical="1"/>
+            </properties>
+            <children>
+                <biFont oid="63882bed-772b-402d-ab84-538de670da1c">
+                    <pathFromRoot value="0"/>
+                    <properties name="bi-font">
+                        <visible>
+                            <init>true</init>
+                        </visible>
+                        <position>
+                            <x>
+                                <init>-48.0</init>
+                            </x>
+                            <y>
+                                <init>-6.0</init>
+                            </y>
+                        </position>
+                        <value>
+                            <init>-12345.12</init>
+                            <expr>real Speed</expr>
+                        </value>
+                        <format separator="46">
+                            <integralPart>
+                                <init>5</init>
+                            </integralPart>
+                            <fractionalPart>
+                                <init>2</init>
+                            </fractionalPart>
+                            <secondFontPos>
+                                <init>0</init>
+                            </secondFontPos>
+                            <leadingZeros>
+                                <init>false</init>
+                            </leadingZeros>
+                            <displaySign>
+                                <init>whenNegative</init>
+                            </displaySign>
+                        </format>
+                        <haloing>
+                            <init>false</init>
+                        </haloing>
+                        <outlineColor>
+                            <init>32</init>
+                        </outlineColor>
+                        <haloColor>
+                            <init>-1</init>
+                        </haloColor>
+                        <firstLineWidth>
+                            <init>2</init>
+                        </firstLineWidth>
+                        <firstFont>
+                            <init>0</init>
+                        </firstFont>
+                        <secondLineWidth>
+                            <init>2</init>
+                        </secondLineWidth>
+                        <secondFont>
+                            <init>0</init>
+                        </secondFont>
+                        <horizAlign>
+                            <init>left</init>
+                        </horizAlign>
+                        <vertAlign>
+                            <init>bottom</init>
+                        </vertAlign>
+                    </properties>
+                </biFont>
+            </children>
+        </layer>
+    </children>
+</specification>
+
+<!-- crc32 : 3975520684 -->
+

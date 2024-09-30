@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?dom version="19.0" ?>
+
+<specification>
+    <IDE>
+        <project path="Displays.etp"/>
+        <ratio horizontal="1" vertical="1"/>
+    </IDE>
+    <symbology>
+        <dimension height="128" width="128"/>
+    </symbology>
+    <children>
+        <layer oid="0872a6f4-79d4-42fc-a99d-9415d240e55f">
+            <pathFromRoot value=""/>
+            <declaration>
+                <inputs>
+                    <input name="One" oid="ee0a9532-33bb-4a85-85f8-2250c7799eac" type="float64">
+                        <init>0.0</init>
+                    </input>
+                    <input name="Two" oid="e1579e54-8294-4f2c-97bf-f9e890091ee6" type="float64">
+                        <init>0.0</init>
+                    </input>
+                </inputs>
+            </declaration>
+            <properties name="Throttles">
+                <visible>
+                    <init>true</init>
+                </visible>
+                <origin>
+                    <x>
+                        <init>0.0</init>
+                    </x>
+                    <y>
+                        <init>0.0</init>
+                    </y>
+                </origin>
+                <id>
+                    <init>2</init>
+                </id>
+                <ratio horizontal="1" vertical="1"/>
+            </properties>
+            <children>
+                <biFont oid="b83db1e4-74b1-4221-846e-98332d8bcf1c">
+                    <pathFromRoot value="0"/>
+                    <properties name="bi-font">
+                        <visible>
+                            <init>true</init>
+                        </visible>
+                        <position>
+                            <x>
+                                <init>-50.0</init>
+                            </x>
+                            <y>
+                                <init>20.0</init>
+                            </y>
+                        </position>
+                        <value>
+                            <init>-12345.12</init>
+                            <expr>real One</expr>
+                        </value>
+                        <format separator="46">
+                            <integralPart>
+                                <init>5</init>
+                            </integralPart>
+                            <fractionalPart>
+                                <init>2</init>
+                            </fractionalPart>
+                            <secondFontPos>
+                                <init>0</init>
+                            </secondFontPos>
+                            <leadingZeros>
+                                <init>false</init>
+                            </leadingZeros>
+                            <displaySign>
+                                <init>whenNegative</init>
+                            </displaySign>
+                        </format>
+                        <haloing>
+                            <init>false</init>
+                        </haloing>
+                        <outlineColor>
+                            <init>32</init>
+                        </outlineColor>
+                        <haloColor>
+                            <init>-1</init>
+                        </haloColor>
+                        <firstLineWidth>
+                            <init>2</init>
+                        </firstLineWidth>
+                        <firstFont>
+                            <init>0</init>
+                        </firstFont>
+                        <secondLineWidth>
+                            <init>2</init>
+                        </secondLineWidth>
+                        <secondFont>
+                            <init>0</init>
+                        </secondFont>
+                        <horizAlign>
+                            <init>left</init>
+                        </horizAlign>
+                        <vertAlign>
+                            <init>bottom</init>
+                        </vertAlign>
+                    </properties>
+                </biFont>
+                <biFont oid="00e67a5d-5d70-45b7-b781-7cf4101d9bfa">
+                    <pathFromRoot value="1"/>
+                    <properties name="bi-font">
+                        <visible>
+                            <init>true</init>
+                        </visible>
+                        <position>
+                            <x>
+                                <init>-50.0</init>
+                            </x>
+                            <y>
+                                <init>-30.0</init>
+                            </y>
+                        </position>
+                        <value>
+                            <init>-12345.12</init>
+                            <expr>real Two</expr>
+                        </value>
+                        <format separator="46">
+                            <integralPart>
+                                <init>5</init>
+                            </integralPart>
+                            <fractionalPart>
+                                <init>2</init>
+                            </fractionalPart>
+                            <secondFontPos>
+                                <init>0</init>
+                            </secondFontPos>
+                            <leadingZeros>
+                                <init>false</init>
+                            </leadingZeros>
+                            <displaySign>
+                                <init>whenNegative</init>
+                            </displaySign>
+                        </format>
+                        <haloing>
+                            <init>false</init>
+                        </haloing>
+                        <outlineColor>
+                            <init>32</init>
+                        </outlineColor>
+                        <haloColor>
+                            <init>-1</init>
+                        </haloColor>
+                        <firstLineWidth>
+                            <init>2</init>
+                        </firstLineWidth>
+                        <firstFont>
+                            <init>0</init>
+                        </firstFont>
+                        <secondLineWidth>
+                            <init>2</init>
+                        </secondLineWidth>
+                        <secondFont>
+                            <init>0</init>
+                        </secondFont>
+                        <horizAlign>
+                            <init>left</init>
+                        </horizAlign>
+                        <vertAlign>
+                            <init>bottom</init>
+                        </vertAlign>
+                    </properties>
+                </biFont>
+            </children>
+        </layer>
+    </children>
+</specification>
+
+<!-- crc32 : 3529298692 -->
+

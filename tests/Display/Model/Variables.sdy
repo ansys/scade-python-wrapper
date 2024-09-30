@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MappingFile>
+	 	<operatorMappings>
+		<OperatorMapping name="Pkg::Engine" oid="!ed/1a/5083/2A18/5c4cd39578d6">
+			<mappingItems>
+				<MappingItem>
+					<output>
+						<Variable name="speed" type="float64" oid="!ed/24/5083/2A18/5c4cd41f4eec" instancepath="Pkg::Engine/"/>
+					</output>
+					<inputs>
+						<Plug name="Speed" type="float64" oid="c87211d0-936c-4deb-8523-a7ebf724e6db" pathname="..\Display\Speed.sgfx" layer="Speed" layerOid="07cb97d5-f003-495c-8240-3c815818159d"/>
+					</inputs>
+				</MappingItem>
+				<MappingItem>
+					<output>
+						<Variable name="throttle1" type="float64" oid="!ed/1c/5083/2A18/5c4cd3b23e0d" instancepath="Pkg::Engine/"/>
+					</output>
+					<inputs>
+						<Plug name="One" type="float64" oid="ee0a9532-33bb-4a85-85f8-2250c7799eac" pathname="..\Display\Throttles.sgfx" layer="Throttles" layerOid="0872a6f4-79d4-42fc-a99d-9415d240e55f"/>
+					</inputs>
+				</MappingItem>
+				<MappingItem>
+					<output>
+						<Variable name="throttle2" type="float64" oid="!ed/23/5083/2A18/5c4cd3c16aaf" instancepath="Pkg::Engine/"/>
+					</output>
+					<inputs>
+						<Plug name="Two" type="float64" oid="e1579e54-8294-4f2c-97bf-f9e890091ee6" pathname="..\Display\Throttles.sgfx" layer="Throttles" layerOid="0872a6f4-79d4-42fc-a99d-9415d240e55f"/>
+					</inputs>
+				</MappingItem>
+			</mappingItems>
+		</OperatorMapping>
+	</operatorMappings>
+</MappingFile>

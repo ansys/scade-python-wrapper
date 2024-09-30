@@ -22,11 +22,10 @@
 
 """Wrapper for creating a SCADE standalone DLL and a Python proxy to access it."""
 
-import os
 from pathlib import Path
 import shutil
 import sys
-from typing import List, Optional
+from typing import Optional
 
 from scade.code.suite.mapping.c import MappingFile
 import scade.code.suite.sctoc as sctoc
@@ -35,6 +34,7 @@ from scade.code.suite.wrapgen.model import MappingHelpers
 from scade.model.project.stdproject import Configuration, Project
 import scade.model.suite as suite
 
+from ansys.scade.apitools.info import get_scade_home
 from ansys.scade.python_wrapper import __version__
 from ansys.scade.python_wrapper.kcg_data_parser import parse_from_kcg_mapping
 import ansys.scade.python_wrapper.props as props
@@ -48,6 +48,7 @@ from ansys.scade.python_wrapper.rd.python_gen import (
 )
 import ansys.scade.python_wrapper.utils as utils
 import ansys.scade.wux.impl.display as wuxdisplay
+import ansys.scade.wux.wux as wux
 
 
 class KcgPython:
@@ -62,39 +63,41 @@ class KcgPython:
     tool = 'Ansys SCADE Python Wrapper'
     banner = '%s (%s)' % (tool, __version__)
 
-    script_path = Path(__file__)
-    script_dir = script_path.parent
+    script_dir = Path(__file__).parent
 
-    # generated C files, for makefile
-    sources = []
-    defs = []
-    libraries = []
+    sessions = suite.get_roots()
 
-    # interface
-    checked: bool = False
+    def __init__(self):
+        # generated C files, for makefile
+        self.sources = []
+        self.defs = []
+        self.libraries = []
 
-    # settings
-    cosim = False
-    kcg_size = ''
-    kcg_false = ''
-    kcg_true = ''
-    pep8 = False
-    # graphical panels
-    panels = []
-    displays = False
+        # interface
+        self.checked: bool = False
+
+        # settings
+        self.cosim = False
+        self.kcg_size = ''
+        self.kcg_false = ''
+        self.kcg_true = ''
+        self.pep8 = False
+        # graphical panels
+        self.panels = []
+        self.displays = False
 
     @classmethod
     def get_services(cls):
         """Declare the generation service Python Wrapper."""
+        cls.instance = KcgPython()
         pyext = (
             '<UNUSED PYWRAPPER>',
-            ('-OnInit', KcgPython.init),
-            ('-OnGenerate', KcgPython.generate),
+            ('-OnInit', cls.instance.init),
+            ('-OnGenerate', cls.instance.generate),
         )
         return [pyext]
 
-    @classmethod
-    def init(cls, target_dir: str, project: Project, configuration: Configuration):
+    def init(self, target_dir: str, project: Project, configuration: Configuration):
         """
         Declare the required generation services and the execution order.
 
@@ -114,24 +117,24 @@ class KcgPython:
         """
         dependencies = []
         dependencies.append(('Code Generator', ('-Order', 'Before')))
-        cls.cosim = props.get_bool_tool_prop(
+        self.cosim = props.get_bool_tool_prop(
             project, props.PROP_COSIM, props.PROP_COSIM_DEFAULT, configuration
         )
-        if cls.cosim:
+        if self.cosim:
             dependencies.append(('Type Utils', ('-Order', 'Before')))
 
-        cls.panels = project.get_tool_prop_def(
+        self.panels = project.get_tool_prop_def(
             'GENERATOR', 'DISPLAY_ENABLED_PANELS', [], configuration
         )
-        if cls.panels:
+        if self.panels:
             # add a dependency to SdyExt and WuxDllExt
             dependencies.append(('WUX2_SDY', ('-Order', 'Before')))
             dependencies.append(('WUX2_DLL_EXT', ('-Order', 'Before')))
+            self.displays = True
 
         return dependencies
 
-    @classmethod
-    def generate(cls, target_dir: str, project: Project, configuration: Configuration):
+    def generate(self, target_dir: str, project: Project, configuration: Configuration):
         """
         Generate the code for this generation service.
 
@@ -149,19 +152,16 @@ class KcgPython:
         configuration : configuration
             SCADE Suite configuration selected for the code generation.
         """
-        print(cls.banner)
+        print(self.banner)
 
-        mf = MappingFile((Path(target_dir) / 'mapping.xml').as_posix())
-        mh = MappingHelpers(mf)
-        roots = mf.get_root_operators()
-        ips = [InterfacePrinter(mh, root.get_scade_path()) for root in roots]
-
-        # only one scade model
-        assert len(suite.get_roots()) == 1
-        model = suite.get_roots()[0].model
+        wux.mf = MappingFile((Path(target_dir) / 'mapping.xml').as_posix())
+        wux.mh = MappingHelpers(wux.mf)
+        roots = wux.mf.get_root_operators()
+        wux.ips = [InterfacePrinter(wux.mh, root.get_scade_path()) for root in roots]
 
         # retrieve pragmas, cross-binding...
-        cls._cache_data(model, roots, mf.get_all_sensors())
+        assert len(self.sessions) == 1
+        self._cache_data(self.sessions[0].model, roots, wux.mf.get_all_sensors())
 
         # settings
         name = Path(project.pathname).stem
@@ -172,61 +172,34 @@ class KcgPython:
         value = value.replace('$(project_name)', utils.lower_name(name))
         value = value.replace('$(PROJECT_NAME)', utils.upper_name(name))
         value = value.replace('$(projectname)', name)
-        cls.module = value
-        cls.kcg_size = props.get_scalar_tool_prop(
+        self.module = value
+        self.kcg_size = props.get_scalar_tool_prop(
             project, props.PROP_KCG_SIZE, props.PROP_KCG_SIZE_DEFAULT, configuration
         )
-        cls.kcg_false = props.get_scalar_tool_prop(
+        self.kcg_false = props.get_scalar_tool_prop(
             project, props.PROP_KCG_FALSE, props.PROP_KCG_FALSE_DEFAULT, configuration
         )
-        cls.kcg_true = props.get_scalar_tool_prop(
+        self.kcg_true = props.get_scalar_tool_prop(
             project, props.PROP_KCG_TRUE, props.PROP_KCG_TRUE_DEFAULT, configuration
         )
-        cls.pep8 = False
+        self.pep8 = False
         props.get_bool_tool_prop(project, props.PROP_PEP8, props.PROP_PEP8_DEFAULT, configuration)
 
-        predefs_ctypes['size'] = PredefInfo('ctypes.c_%s' % cls.kcg_size, '0')
-        predefs_values['false'] = cls.kcg_false
-        predefs_values['true'] = cls.kcg_true
+        predefs_ctypes['size'] = PredefInfo('ctypes.c_%s' % self.kcg_size, '0')
+        predefs_values['false'] = self.kcg_false
+        predefs_values['true'] = self.kcg_true
 
-        if cls._check():
+        if self._check():
             # generate
-            cls._generate_wrappers(target_dir, project, configuration, mf, mh, ips)
+            self._generate_wrappers(target_dir, project, configuration)
 
             # build
-            cls._declare_target(target_dir, project, configuration, roots)
-            cls.checked = True
+            self._declare_target(target_dir, project, configuration, roots)
+            self.checked = True
 
-        return cls.checked
+        return self.checked
 
-    @classmethod
-    def get_module_name(cls, project: Project, configuration: Configuration) -> str:
-        """
-        Return the name of the Python proxy module.
-
-        The name is specified in the wrapper's settings and supports
-        several macros to comply to the most popular naming rules.
-
-        Parameters
-        ----------
-        project : Project
-            Input SCADE Suite project.
-
-        configuration : configuration
-            SCADE Suite configuration selected for the code generation.
-        """
-        name = Path(project.pathname).stem
-        value = props.get_scalar_tool_prop(
-            project, props.PROP_MODULE, props.PROP_MODULE_DEFAULT, configuration
-        )
-        value = value.replace('$(ProjectName)', utils.title_name(name))
-        value = value.replace('$(project_name)', utils.lower_name(name))
-        value = value.replace('$(PROJECT_NAME)', utils.upper_name(name))
-        value = value.replace('$(projectname)', name)
-        return value
-
-    @classmethod
-    def _cache_data(cls, model: suite.Model, roots, sensors):
+    def _cache_data(self, model: suite.Model, roots, sensors):
         """Add cross-references between scade.model.suite and scade.code.suite.mapping.c."""
 
         # set the elements' pragma in new attributes wrp__xx
@@ -265,8 +238,7 @@ class KcgPython:
             sensor.wrp__model = model.get_object_from_path(sensor.get_scade_path())
             sensor.wrp__model.wrp__target = sensor
 
-    @classmethod
-    def _check(cls) -> bool:
+    def _check(self) -> bool:
         """
         Check for possible errors and stop if any.
 
@@ -286,37 +258,33 @@ class KcgPython:
     # generation
     # -----------------------------------------------------------------------
 
-    @classmethod
     def _generate_wrappers(
-        cls,
+        self,
         target_dir,
         project,
         configuration,
-        mf: MappingFile,
-        mh: MappingHelpers,
-        ips: List[InterfacePrinter],
     ):
         dir = Path(target_dir)
-        basename = cls.module
+        basename = self.module
         files = []
 
-        model = parse_from_kcg_mapping(mf)
+        model = parse_from_kcg_mapping(wux.mf)
 
         # definition file: can't be generated in the target directory
         pathname = dir / 'def' / ('%s.def' % basename)
         pathname.parent.mkdir(exist_ok=True)
         files.append('def/' + pathname.name)
-        cls.defs.append(pathname.as_posix())
-        generate_def(model, pathname, cls.cosim, cls.banner)
+        self.defs.append(pathname.as_posix())
+        generate_def(model, pathname, self.cosim, self.banner)
 
         pathname = dir / ('%s.py' % basename)
         files.append(pathname.name)
-        generate_python(model, pathname, cosim=cls.cosim, pep8=cls.pep8, banner=cls.banner)
-        if cls.cosim:
+        generate_python(model, pathname, cosim=self.cosim, pep8=self.pep8, banner=self.banner)
+        if self.cosim:
             # add cosim management functions to the generated file
-            cls._generate_cosim(target_dir, project, configuration, mf, mh, pathname)
+            self._generate_cosim(target_dir, project, configuration, pathname)
 
-        if cls.displays:
+        if self.displays:
             if basename[0].isupper():
                 usr = 'Usr' + basename
                 sdy = 'Sdy' + basename
@@ -325,23 +293,20 @@ class KcgPython:
                 sdy = 'sdy_' + basename
             pathname = dir / ('%s.py' % sdy)
             files.append(pathname.name)
-            cls._generate_display(project, pathname, basename, usr)
+            self._generate_display(project, pathname, basename, usr)
 
         pathname = dir / ('%s.c' % basename)
         files.append(pathname.name)
-        generate_c(model, pathname, cls.banner)
-        cls.sources.append(str(pathname))
+        generate_c(model, pathname, self.banner)
+        self.sources.append(str(pathname))
 
-        sctoc.add_generated_files(cls.tool, files)
+        sctoc.add_generated_files(self.tool, files)
 
-    @classmethod
     def _generate_cosim(
-        cls,
+        self,
         target_dir: str,
         project: Project,
         configuration: Configuration,
-        mf: MappingFile,
-        mh: MappingHelpers,
         py_pathname: Path,
     ):
         """Generate the additional files to support co-simulation."""
@@ -353,7 +318,7 @@ class KcgPython:
             f.write('_project = "%s"\n' % Path(project.pathname).as_posix())
             f.write('_configuration = "Simulation"\n')
             # take the first root
-            root = mf.get_root_operators()[0].get_scade_path().strip('/')
+            root = wux.mf.get_root_operators()[0].get_scade_path().strip('/')
             f.write('_root = "%s"\n' % root)
             port = project.get_scalar_tool_prop_def('SSM', 'PROXYLISTENPORT', '64064', None)
             f.write('_port = %s\n' % port)
@@ -385,8 +350,7 @@ class KcgPython:
             f.write('\n')
             f.write('# end of file\n')
 
-    @classmethod
-    def _generate_display(cls, project: Project, pathname: Path, dll: str, usrmodule: str):
+    def _generate_display(self, project: Project, pathname: Path, dll: str, usrmodule: str):
         """
         Generate a proxy for loading the DLLs.
 
@@ -424,48 +388,75 @@ class KcgPython:
     # build
     # ------------------------------------------------------------------------
 
-    @classmethod
-    def _declare_target(cls, target_dir, project, configuration, roots):
+    def _declare_target(self, target_dir, project, configuration, roots):
         """Declare a DLL rule for the build process."""
         includes = []
         # whitebox simulation
-        scade_dir = Path(os.environ['SCADE'])
+        scade_dir = get_scade_home() / 'SCADE'
         pathname = scade_dir / 'lib' / 'SsmSlaveLib.c'
-        cls.sources.append(str(pathname))
+        self.sources.append(str(pathname))
         include = scade_dir / 'include'
         includes.append(include.as_posix())
 
         # runtime files
-        include = cls.script_dir / 'include'
-        lib = cls.script_dir / 'lib'
+        include = self.script_dir / 'include'
+        lib = self.script_dir / 'lib'
         sctoc.add_preprocessor_definitions('WUX_STANDALONE')
-        if cls.displays:
+        if self.displays:
             sctoc.add_preprocessor_definitions('DLL_EXPORTS')
         includes.append(include.as_posix())
         sctoc.add_include_files(includes, False)
-        if cls.displays:
+        if self.displays:
             # dllmain for sdy
             pathname = lib / 'sdyproxy.c'
-            cls.sources.append(str(pathname))
+            self.sources.append(str(pathname))
 
         # ease the usage by copying ssmproxy.py to the target directory
         shutil.copy(lib / 'ssmproxy.py', target_dir)
-        if cls.displays:
+        if self.displays:
             shutil.copy(lib / 'sdyproxy.py', target_dir)
 
         exts = project.get_tool_prop_def('GENERATOR', 'OTHER_EXTENSIONS', [], configuration)
         exts.append('Code Generator')
-        if cls.displays:
+        if self.displays:
             exts.append('WUX')
-        if cls.cosim:
+        if self.cosim:
             exts.append('Type Utils')
         # exts.append('WUX')
         compiler = project.get_scalar_tool_prop_def('SIMULATOR', 'COMPILER', '', configuration)
         if len(compiler) > 2 and (compiler[:2] == 'VC' or compiler[:2] == 'VS'):
             sctoc.add_dynamic_library_rule(
-                cls.module, cls.sources, cls.libraries, cls.defs, exts, True
+                self.module, self.sources, self.libraries, self.defs, exts, True
             )
         else:
             # assume gcc
-            cls.libraries.extend(cls.defs)
-            sctoc.add_dynamic_library_rule(cls.module, cls.sources, cls.libraries, [], exts, True)
+            self.libraries.extend(self.defs)
+            sctoc.add_dynamic_library_rule(
+                self.module, self.sources, self.libraries, [], exts, True
+            )
+
+
+def get_module_name(project: Project, configuration: Configuration) -> str:
+    """
+    Return the name of the Python proxy module.
+
+    The name is specified in the wrapper's settings and supports
+    several macros to comply to the most popular naming rules.
+
+    Parameters
+    ----------
+    project : Project
+        Input SCADE Suite project.
+
+    configuration : configuration
+        SCADE Suite configuration selected for the code generation.
+    """
+    name = Path(project.pathname).stem
+    value = props.get_scalar_tool_prop(
+        project, props.PROP_MODULE, props.PROP_MODULE_DEFAULT, configuration
+    )
+    value = value.replace('$(ProjectName)', utils.title_name(name))
+    value = value.replace('$(project_name)', utils.lower_name(name))
+    value = value.replace('$(PROJECT_NAME)', utils.upper_name(name))
+    value = value.replace('$(projectname)', name)
+    return value

@@ -33,11 +33,23 @@ from ansys.scade.apitools.info import get_scade_home
 # isort: split
 import scade
 import scade.model.project.stdproject as std
+import scade.model.suite as suite
+import scade.model.suite.displaycoupling as dc
 
-from ansys.scade.python_wrapper.kcgpython import KcgPython
+from ansys.scade.python_wrapper.kcgpython import get_module_name
 
 # stub the proxy's entries
 import ansys.scade.wux.test.sctoc_stub  # noqa: F401
+
+
+def load_session(*paths: Path) -> suite.Session:
+    """
+    Create an instance of Session instance and load the requested models.
+    """
+    session = suite.Session()
+    for path in paths:
+        session.load2(str(path))
+    return session
 
 
 def load_project(path: Path) -> std.Project:
@@ -48,6 +60,14 @@ def load_project(path: Path) -> std.Project:
     """
     project = scade.load_project(str(path))
     return project
+
+
+def load_sdy_application(mapping: Path, display: Path) -> dc.SdyApplication:
+    """Load a Scade Suite - Display mapping file in a separate environment."""
+    app = dc.SdyApplication()
+    app.load_sdy_project_tcl(str(display))
+    app.load_mapping_file_tcl(str(mapping))
+    return app
 
 
 def find_configuration(project: std.Project, name: str) -> std.Configuration:
@@ -68,7 +88,7 @@ def build_proxy(path: Path, configuration: str) -> bool:
     default = '$(Configuration)'
     target_dir = project.get_scalar_tool_prop_def('GENERATOR', 'TARGET_DIR', default, conf)
     target_dir = path.parent / target_dir.replace('$(Configuration)', configuration)
-    module = KcgPython.get_module_name(project, conf)
+    module = get_module_name(project, conf)
     dll = target_dir / ('%s.dll' % module)
     if not dll.exists():
         obsolete = True
