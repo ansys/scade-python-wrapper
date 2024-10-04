@@ -33,7 +33,7 @@ Ansys SCADE Python Wrapper
    :target: https://github.com/astral-sh/ruff
    :alt: Ruff
 
-.. |doc| image:: https://img.shields.io/badge/docs-python-wrapper-green.svg?style=flat
+.. |doc| image:: https://img.shields.io/badge/docs-pythonwrapper-green.svg?style=flat
    :target: https://python-wrapper.scade.docs.pyansys.com
    :alt: Doc
 

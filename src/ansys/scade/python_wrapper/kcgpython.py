@@ -47,7 +47,6 @@ from ansys.scade.python_wrapper.rd.python_gen import (
     predefs_values,
 )
 import ansys.scade.python_wrapper.utils as utils
-import ansys.scade.wux.impl.display as wuxdisplay
 import ansys.scade.wux.wux as wux
 
 
@@ -65,8 +64,6 @@ class KcgPython:
 
     script_dir = Path(__file__).parent
 
-    sessions = suite.get_roots()
-
     def __init__(self):
         # generated C files, for makefile
         self.sources = []
@@ -83,7 +80,6 @@ class KcgPython:
         self.kcg_true = ''
         self.pep8 = False
         # graphical panels
-        self.panels = []
         self.displays = False
 
     @classmethod
@@ -123,12 +119,16 @@ class KcgPython:
         if self.cosim:
             dependencies.append(('Type Utils', ('-Order', 'Before')))
 
-        self.panels = project.get_tool_prop_def(
-            'GENERATOR', 'DISPLAY_ENABLED_PANELS', [], configuration
-        )
-        if self.panels:
-            # add a dependency to SdyExt and WuxDllExt
-            dependencies.append(('WUX2_SDY', ('-Order', 'Before')))
+        panels = [
+            _.split(',')
+            for _ in project.get_tool_prop_def(
+                'GENERATOR', 'DISPLAY_ENABLED_PANELS', [], configuration
+            )
+        ]
+        active_panels = [_ for _ in panels if len(_) > 1 and _[1] != 'None']
+        if active_panels:
+            # add a dependency to SdyProxyExt and WuxDllExt
+            dependencies.append(('WUX2_SDY_PROXY', ('-Order', 'Before')))
             dependencies.append(('WUX2_DLL_EXT', ('-Order', 'Before')))
             self.displays = True
 
@@ -160,8 +160,8 @@ class KcgPython:
         wux.ips = [InterfacePrinter(wux.mh, root.get_scade_path()) for root in roots]
 
         # retrieve pragmas, cross-binding...
-        assert len(self.sessions) == 1
-        self._cache_data(self.sessions[0].model, roots, wux.mf.get_all_sensors())
+        sessions = wux.get_sessions()
+        self._cache_data(sessions[0].model, roots, wux.mf.get_all_sensors())
 
         # settings
         name = Path(project.pathname).stem
@@ -293,7 +293,7 @@ class KcgPython:
                 sdy = 'sdy_' + basename
             pathname = dir / ('%s.py' % sdy)
             files.append(pathname.name)
-            self._generate_display(project, pathname, basename, usr)
+            self._generate_display(project, configuration, pathname, basename, usr)
 
         pathname = dir / ('%s.c' % basename)
         files.append(pathname.name)
@@ -318,6 +318,7 @@ class KcgPython:
             f.write('_project = "%s"\n' % Path(project.pathname).as_posix())
             f.write('_configuration = "Simulation"\n')
             # take the first root
+            assert wux.mf
             root = wux.mf.get_root_operators()[0].get_scade_path().strip('/')
             f.write('_root = "%s"\n' % root)
             port = project.get_scalar_tool_prop_def('SSM', 'PROXYLISTENPORT', '64064', None)
@@ -350,13 +351,20 @@ class KcgPython:
             f.write('\n')
             f.write('# end of file\n')
 
-    def _generate_display(self, project: Project, pathname: Path, dll: str, usrmodule: str):
+    def _generate_display(
+        self,
+        project: Project,
+        configuration: Configuration,
+        pathname: Path,
+        dll: str,
+        usrmodule: str,
+    ):
         """
         Generate a proxy for loading the DLLs.
 
         The proxy has to be completed with a manual definition of the layers' structures.
         """
-        specifications = wuxdisplay.sdy_specifications
+        specifications = wux.get_specifications(project, configuration)
         structures = ', '.join(
             ['%sLayer' % layer.name for spec in specifications for layer in spec.layers]
         )

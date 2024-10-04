@@ -111,4 +111,6 @@ linkcheck_ignore = [
 ]
 
 if switcher_version != 'dev':
-    linkcheck_ignore.append(f'https://github.com/ansys/scade-git/releases/tag/v{__version__}')
+    linkcheck_ignore.append(
+        f'https://github.com/ansys/scade-python-wrapper/releases/tag/v{__version__}'
+    )

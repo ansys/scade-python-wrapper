@@ -62,11 +62,13 @@ def load_project(path: Path) -> std.Project:
     return project
 
 
-def load_sdy_application(mapping: Path, display: Path) -> dc.SdyApplication:
+def load_sdy_application(mapping: Path, model: suite.Model, *displays: Path) -> dc.SdyApplication:
     """Load a Scade Suite - Display mapping file in a separate environment."""
     app = dc.SdyApplication()
-    app.load_sdy_project_tcl(str(display))
+    for display in displays:
+        app.load_sdy_project_tcl(str(display))
     app.load_mapping_file_tcl(str(mapping))
+    app.mapping_file.model = model
     return app
 
 

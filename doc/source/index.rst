@@ -18,6 +18,7 @@ Contents
    getting_started/index
    usage/index
    contributing
+   changelog
 
 Indices and tables
 -------------------

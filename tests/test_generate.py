@@ -36,9 +36,11 @@ from typing import Set
 import pytest
 
 from ansys.scade.python_wrapper.kcgpython import KcgPython
+import ansys.scade.wux.impl.proxyext as wux_proxy
 from ansys.scade.wux.test.sctoc_stub import get_stub
 from ansys.scade.wux.test.utils import ServiceProxy, reset_test_env
-from conftest import find_configuration, load_project, load_session
+import ansys.scade.wux.wux as wux
+from conftest import find_configuration, load_project, load_sdy_application, load_session
 
 
 @pytest.mark.parametrize(
@@ -62,12 +64,12 @@ from conftest import find_configuration, load_project, load_session
             'Python No Cosim',
             {'model.py', 'model.c', 'model.def'},
         ),
-        # not ready, refactoring required on wux
-        # (
-        #     'Display/Model/Variables.etp', 'Display/Display/Displays.etp',
-        #     'Python',
-        #     {'variables.py', 'variables.c', 'variables.def', 'sdy_variables.py'},
-        # ),
+        (
+            'Display/Model/Variables.etp',
+            'Display/Display/Displays.etp',
+            'Python',
+            {'variables.py', 'variables.c', 'variables.def', 'sdy_variables.py'},
+        ),
     ],
 )
 def test_generate(file: str, display: str, name: str, expected: Set[str], tmpdir):
@@ -86,21 +88,18 @@ def test_generate(file: str, display: str, name: str, expected: Set[str], tmpdir
     shutil.copy(path.parent / configuration.name / 'mapping.xml', tmpdir)
     # load the Scade model
     session = load_session(path)
-    # side effect: replace KcgPython.sessions with the loaded one
-    # indeed, suite.get_roots() returns nothing when the unit tests are run
-    KcgPython.sessions = [session]
-    # same process for sdy_applications
-    # if display:
-    #     # load mapping data
-    #     mapping = path.with_suffix('.sdy')
-    #     sdy_path = Path(__file__).parent / display
-    #     sdy_application = load_sdy_application(mapping, sdy_path)
-    #     print('specifications', len(sdy_application.specifications))
-    #     sdyext.SdyExt.sdy_applications = [sdy_application]
-    #     # generate the code for displays
-    #     service = ServiceProxy(sdyext)
-    #     service.init(tmpdir, project, configuration)
-    #     status = service.generate(tmpdir, project, configuration)
+    # side effect: bypass the call to get_roots() that returns nothing when the unit tests are run
+    wux.set_sessions([session])
+    if display:
+        # load mapping data
+        mapping = path.with_suffix('.sdy')
+        sdy_path = Path(__file__).parent / display
+        sdy_application = load_sdy_application(mapping, session.model, sdy_path)
+        wux.set_sdy_applications([sdy_application])
+        # generate the code for displays
+        service = ServiceProxy(wux_proxy)
+        service.init(tmpdir, project, configuration)
+        status = service.generate(tmpdir, project, configuration)
 
     service = ServiceProxy(KcgPython)
     service.init(tmpdir, project, configuration)
