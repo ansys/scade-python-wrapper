@@ -27,6 +27,9 @@ Test objectives:
 
 Verify the conversion functions provide the correct string value
 for a significant set of types.
+
+Reminder: The tests using build_kcg_proxy require specific installation
+steps, that can't be executed for automated tests on ci-cd runners.
 """
 
 import ctypes

@@ -81,7 +81,13 @@ def find_configuration(project: std.Project, name: str) -> std.Configuration:
 
 
 def build_kcg_proxy(path: Path, configuration: str) -> bool:
-    """Build the Python proxy if obsolete or not present."""
+    """
+    Build the Python proxy if obsolete or not present.
+
+    This requires the package to be registered to the version of SCADE used
+    to run the tests, which is possible only on host systems, with a manual
+    installation step.
+    """
     project = load_project(path)
     # retrieve the configuration
     conf = find_configuration(project, configuration)

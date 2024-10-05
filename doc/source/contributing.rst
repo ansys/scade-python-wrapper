@@ -153,7 +153,35 @@ Debug and integration test
 
 .. TODO:
 
-   Get the directives from ansys/scade-wux once they have been reviewed.dir
+   Get the directives from ansys/scade-wux once they have been reviewed.
+
+Install in user mode
+^^^^^^^^^^^^^^^^^^^^
+
+.. TODO:
+
+   Get the directives from ansys/scade-wux once they have been reviewed.
+
+Debug
+^^^^^
+
+.. TODO:
+
+   Get the directives from ansys/scade-wux once they have been reviewed.
+
+Run the integration tests
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. TODO:
+
+   Get the directives from ansys/scade-wux once they have been reviewed.
+
+Uninstall
+^^^^^^^^^
+
+.. TODO:
+
+   Get the directives from ansys/scade-wux once they have been reviewed.
 
 Distribute
 ----------

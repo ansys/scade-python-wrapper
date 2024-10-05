@@ -11,3 +11,9 @@ endfor
 fullname
 isort
 pytest
+kcg
+KCG
+Prototyper
+DLLs
+application
+Hostname
