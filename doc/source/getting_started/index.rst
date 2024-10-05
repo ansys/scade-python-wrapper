@@ -34,11 +34,12 @@ see :ref:`contribute_scade_python-wrapper` for the steps for installing in devel
        python -m pip install --user ansys-scade-python-wrapper
 
 #. For Ansys SCADE releases 2024 R2 and below, complete the installation with
-   this command:
+   these commands:
 
    .. code:: bash
 
       python -m ansys.scade.wux.register
+      python -m ansys.scade.python_wrapper.register
 
    .. Note::
 

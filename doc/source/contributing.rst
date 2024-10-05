@@ -150,10 +150,70 @@ However, the recommended way of checking documentation integrity is to use
 
 Debug and integration test
 --------------------------
+Ansys SCADE Python Wrapper needs to be registered to SCADE for integration testing.
+Indeed, the generation modules are called from a SCADE code generator session.
 
-.. TODO:
+Install in user mode
+^^^^^^^^^^^^^^^^^^^^
+It is not possible to reuse the virtual environment setup for the repository.
+You must install the package in an environment accessible by SCADE, for
+example its own Python distribution, although this is not advised,
+or the Python 3.10 *user* distribution:
 
-   Get the directives from ansys/scade-wux once they have been reviewed.dir
+.. code:: bash
+
+   <python310.exe>  -m pip install --user --editable .
+
+You can reuse any ``<install>\SCADE\contrib\Python310\python.exe``
+or Python 3.10 installation on your computer.
+
+If you are using Ansys SCADE 2024 R2 or below, you must perform one additional
+step, to install a registration file in ``%APPDATA%\SCADE\Customize``:
+
+.. code:: bash
+
+   <python310.exe>  -m ansys.scade.python_wrapper.register
+
+Debug
+^^^^^
+The ``.\tests\Debug\debug.py`` script uses internal SCADE Code Generator entry points
+to start a debug session for the scripts.
+
+You must use the Python 3.10 environment delivered with SCADE, located in
+``<install>\contrib\Python310``.
+
+For example:
+``C:\Program Files\ANSYS Inc\v251\SCADE\contrib\Python310``.
+
+Configure PYTHONPATH to refer to ``<install>\SCADE\bin`` and
+``<install>\SCADE\APIs\Python\lib``. For example:
+
+.. code:: bash
+
+   set PYTHONPATH=C:\Program Files\ANSYS Inc\v251\SCADE\SCADE\bin;C:\Program Files\ANSYS Inc\v251\SCADE\SCADE\APIs\Python\lib
+
+Refer to ``.\tests\Debug\debug.py`` for its command line parameters.
+
+Run the integration tests
+^^^^^^^^^^^^^^^^^^^^^^^^^
+These are manual tests. Refer to the test procedures, contained in each test
+directory as readme files.
+
+Uninstall
+^^^^^^^^^
+Once the test or debug sessions are completed, you may uninstall the package
+as follows:
+
+.. code:: bash
+
+   python -m pip uninstall ansys-scade-python-wrapper
+
+If you are using Ansys SCADE 2024 R2 or below, you should remove the
+registration file:
+
+.. code:: bash
+
+   del %APPDATA%\SCADE\Customize\python_wrapper.srg
 
 Distribute
 ----------

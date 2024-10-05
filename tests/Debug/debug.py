@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# product search paths
+# example of product search paths
 # C:\Program Files\ANSYS Inc\v251\SCADE\SCADE\APIs\Python\lib
 # C:\Program Files\ANSYS Inc\v251\SCADE\SCADE\bin
 
@@ -66,7 +66,7 @@ raw_tcl('KcgMF init "%s"' % options.configuration)
 sc_to_c_core(options.action, options.configuration)
 
 """
-example of command lines
+example of command lines, relative to thr file's directory:
 -p ../Sandbox/Model/PyBox.etp -c "Python" -a Generate
 -p ../Sandbox/Model/PyBox.etp -c "KCG IO" -a Generate
 -p ../Display/Model/Variables.etp -c "Python" -a Generate

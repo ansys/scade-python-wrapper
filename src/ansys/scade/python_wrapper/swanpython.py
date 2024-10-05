@@ -310,7 +310,7 @@ class SwanPython:
             f.write(swan_config)
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description=SwanPython.tool)
     parser.add_argument('cmdjson', help='swan code gen settings file')
     parser.add_argument('-v', '--version', action='store_true', help='display the version')
@@ -352,3 +352,7 @@ if __name__ == '__main__':
         cls.main()
     else:
         print("Error, {} file doesn't exist".format(str(cmdjson)))
+
+
+if __name__ == '__main__':
+    main()

@@ -20,9 +20,8 @@ maintainers = [
 dependencies=[
     "importlib-metadata >= 1.0; python_version < '3.8'",
     "importlib-metadata >= 4.0; python_version >= '3.8'",
-    # not published yet
-    # "ansys-scade-wux",
     "ansys-scade-apitools",
+    "ansys-scade-wux",
 ]
 classifiers=[
     "Development Status :: 4 - Beta",
@@ -73,6 +72,7 @@ srg = "ansys.scade.python_wrapper:srg"
 
 [project.scripts]
 register_ansys_scade_python_wrapper = "ansys.scade.python_wrapper.register:main"
+ansys_scade_python_wrapper_swanpython = "ansys.scade.python_wrapper.swanpython:main"
 
 [tool.ruff]
 line-length = 99
