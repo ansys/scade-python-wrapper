@@ -25,7 +25,7 @@ from pathlib import Path
 import sys
 import time
 
-# py_box.py/py_box.dll are produced from PyBox.etp
+# variables.py/variables.dll are produced from Variables.etp
 # add the target directory to the path if not set by the environment
 try:
     import variables

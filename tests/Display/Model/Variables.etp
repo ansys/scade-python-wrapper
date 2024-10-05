@@ -589,7 +589,7 @@
 		<Configuration id="59" name="MetricRule"/>
 		<Configuration id="62" name="Timing and Stack"/>
 		<Configuration id="71" name="Cert. Reporter"/>
-		<Configuration id="142" name="Python"/>
-		<Configuration id="161" name="Python GCC"/>
+		<Configuration id="142" name="Python VS"/>
+		<Configuration id="161" name="Python"/>
 	</configurations>
 </Project>

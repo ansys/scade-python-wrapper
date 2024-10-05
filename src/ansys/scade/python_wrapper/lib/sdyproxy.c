@@ -23,7 +23,7 @@
  */
 
 #include <windows.h>
-#include "WuxSdyExt.h"
+#include "WuxSdyProxy.h"
 #include "WuxDllExt.h"
 
 __declspec(dllexport) int py_load_sdy_dlls()
