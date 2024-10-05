@@ -1,0 +1,21 @@
+{
+  "files": [
+    "D:\\AnsysDev\\Nobackup\\PyAnsys\\python-wrapper\\tests\\Types\\SOne\\Model\\assets\\P.swan",
+    "D:\\AnsysDev\\Nobackup\\PyAnsys\\python-wrapper\\tests\\Types\\SOne\\Model\\assets\\P.swani"
+  ],
+  "roots": [
+    "P::Node"
+  ],
+  "target_dir": "D:\\AnsysDev\\Nobackup\\PyAnsys\\python-wrapper\\tests\\Types\\SOne\\Model\\jobs\\codegen_8ad36ba\\out",
+  "target": "C",
+  "keep_asserts": false,
+  "short_circuit": false,
+  "wrap_c_ops": false,
+  "name_length": 200,
+  "significance_length": 31,
+  "static_locals": false,
+  "globals_prefix": "",
+  "metadata": {
+    "date": "2024-10-05T12:20:06.1312627Z"
+  }
+}

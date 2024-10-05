@@ -33,24 +33,32 @@ from pathlib import Path
 
 import pytest
 
-from conftest import build_proxy
+from conftest import build_kcg_proxy, build_swancg_proxy
 
 # fixtures
 test_dir = Path(__file__).parent
 
 
 @pytest.fixture(scope='session')
-def proxy_types() -> bool:
+def proxy_kcg_types() -> bool:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
-    return build_proxy(path, 'Python')
+    return build_kcg_proxy(path, 'Python')
 
 
 @pytest.fixture(scope='session')
-def proxy_types_io() -> bool:
+def proxy_kcg_types_io() -> bool:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
-    return build_proxy(path, 'Python IO')
+    return build_kcg_proxy(path, 'Python IO')
+
+
+@pytest.fixture(scope='session')
+def proxy_swang_types() -> bool:
+    """Ensure the proxy is built and up-to-date."""
+    path = test_dir / 'Types' / 'SOne' / 'Model'
+    configuration = test_dir / 'Types' / 'SOne' / 'Proxy' / 'types_.json'
+    return build_swancg_proxy(path, configuration)
 
 
 def set_inputs(root, t):
@@ -108,8 +116,8 @@ def check_outputs(root, t):
 
 
 # unit tests
-def test_int_types(proxy_types):
-    if not proxy_types:
+def test_int_kcg_types(proxy_kcg_types):
+    if not proxy_kcg_types:
         print('test skipped')
         return
 
@@ -123,13 +131,28 @@ def test_int_types(proxy_types):
         check_outputs(root, t)
 
 
-def test_int_types_io(proxy_types_io):
-    if not proxy_types_io:
+def test_int_kcg_types_io(proxy_kcg_types_io):
+    if not proxy_kcg_types_io:
         print('test skipped')
         return
 
     # sys.path must have been updated so that types_ is accessible
     import types_io as t
+
+    for root in t.Function(cosim=False), t.Node(cosim=False):
+        root.call_reset()
+        set_inputs(root, t)
+        root.call_cycle()
+        check_outputs(root, t)
+
+
+def test_int_swancg_types(proxy_swang_types):
+    if not proxy_swang_types:
+        print('test skipped')
+        return
+
+    # sys.path must have been updated so that types_ is accessible
+    import types_ as t
 
     for root in t.Function(cosim=False), t.Node(cosim=False):
         root.call_reset()

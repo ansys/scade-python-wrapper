@@ -37,6 +37,7 @@ import scade.model.suite as suite
 import scade.model.suite.displaycoupling as dc
 
 from ansys.scade.python_wrapper.kcgpython import get_module_name
+from ansys.scade.python_wrapper.swanpython import SwanPython
 
 # stub the proxy's entries
 import ansys.scade.wux.test.sctoc_stub  # noqa: F401
@@ -79,7 +80,7 @@ def find_configuration(project: std.Project, name: str) -> std.Configuration:
     assert False
 
 
-def build_proxy(path: Path, configuration: str) -> bool:
+def build_kcg_proxy(path: Path, configuration: str) -> bool:
     """Build the Python proxy if obsolete or not present."""
     project = load_project(path)
     # retrieve the configuration
@@ -119,4 +120,33 @@ def build_proxy(path: Path, configuration: str) -> bool:
     # add the directory to sys.path
     if str(target_dir) not in sys.path:
         sys.path.append(str(target_dir))
+    return dll.exists()
+
+
+def build_swancg_proxy(project_dir: Path, configuration: Path) -> bool:
+    """Build the Python proxy if obsolete or not present."""
+    # the name of the module is the basename of the configuration file
+    module = configuration.stem
+    # target directory: expected to be the the configuration file's directory
+    target_dir = configuration.parent / 'code'
+    # the name of the project must be the name of its directory
+    project = project_dir / (project_dir.stem + '.sproj')
+    cls = SwanPython(
+        configuration,
+        configuration.stem,
+        str(project),
+        # options.pep8,
+        swan_size='swan_int32',
+        swan_false='0',
+        swan_true='1',
+        # code generation required
+        no_cg=False,
+        # generate only if the dll is obsolete with respect to the Scade One model files
+        all=False,
+    )
+    cls.main()
+    # add the target directory to sys.path
+    if str(target_dir) not in sys.path:
+        sys.path.append(str(target_dir))
+    dll = target_dir / ('%s.dll' % module)
     return dll.exists()

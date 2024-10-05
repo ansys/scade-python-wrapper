@@ -36,4 +36,4 @@ repos:
   - id: debug-statements
   - id: check-yaml
   - id: trailing-whitespace
-    exclude: (?x)^(.*\.tot)$
+    exclude: (?x)^(?:.*\.tot|.*\.swan.?)$

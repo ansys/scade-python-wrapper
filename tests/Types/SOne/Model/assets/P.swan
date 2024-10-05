@@ -1,0 +1,2151 @@
+-- version: 2024.0
+function Function (inBits: Bits;
+                   inBool: bool;
+                   inInt: int32;
+                   inReal: float64;
+                   inChar: char;
+                   inByte: Byte;
+                   inEnum: Enum;
+                   inLine: Line;
+                   inPoint: Point;
+                   inSpeed: Speed;
+                   inSpeeds: Speeds;
+                   inArrays: Arrays;)
+  returns (outBits: Bits;
+           outBool: bool;
+           outInt: int32;
+           outReal: float64;
+           outChar: char;
+           outByte: Byte;
+           outEnum: Enum;
+           outLine: Line;
+           outPoint: Point;
+           outSpeed: Speed;
+           outSpeeds: Speeds;
+           outSensor0: bool;
+           outArrays: Arrays;
+           outArraysConst: Arrays;)
+{
+  diagram
+    (#1 expr inChar)
+    (#2 expr inReal)
+    (#3 expr inInt)
+    (#4 def outChar)
+    (#5 def outReal)
+    (#6 def outInt)
+    (#7 expr inBool)
+    (#8 def outBool)
+    (#9 def outArraysConst)
+    (#10 expr A)
+    (#11 def outArrays)
+    (#12 expr inArrays)
+    (#14 expr #13[0]
+      where
+        (#13 group))
+    (#15 def outSensor0)
+    (#16 expr faults)
+    (#17 expr inSpeeds)
+    (#18 expr inSpeed)
+    (#19 expr inPoint)
+    (#20 expr inLine)
+    (#21 expr inEnum)
+    (#22 expr inByte)
+    (#23 expr inBits)
+    (#24 def outSpeeds)
+    (#25 def outSpeed)
+    (#26 def outPoint)
+    (#27 def outLine)
+    (#28 def outEnum)
+    (#29 def outByte)
+    (#30 def outBits)
+    
+    (#31 wire #21 => #28)
+    (#32 wire #22 => #29)
+    (#33 wire #23 => #30)
+    (#34 wire #10 => #9)
+    (#35 wire #7 => #8)
+    (#36 wire #3 => #6)
+    (#37 wire #17 => #24)
+    (#38 wire #19 => #26)
+    (#39 wire #12 => #11)
+    (#40 wire #18 => #25)
+    (#41 wire #20 => #27)
+    (#42 wire #16 => #13)
+    (#43 wire #1 => #4)
+    (#44 wire #2 => #5)
+    (#45 wire #14 => #15)
+}
+
+node Node (inBits: Bits;
+           inBool: bool;
+           inInt: int32;
+           inReal: float64;
+           inChar: char;
+           inByte: Byte;
+           inEnum: Enum;
+           inLine: Line;
+           inPoint: Point;
+           inSpeed: Speed;
+           inSpeeds: Speeds;
+           inArrays: Arrays;)
+  returns (outBits: Bits;
+           outBool: bool;
+           outInt: int32;
+           outReal: float64;
+           outChar: char;
+           outByte: Byte;
+           outEnum: Enum;
+           outLine: Line;
+           outPoint: Point;
+           outSpeed: Speed;
+           outSpeeds: Speeds;
+           outSensor0: bool;
+           outArrays: Arrays;
+           outArraysConst: Arrays;)
+{
+  diagram
+    (#1 expr inChar)
+    (#2 expr inReal)
+    (#3 expr inInt)
+    (#4 def outChar)
+    (#5 def outReal)
+    (#6 def outInt)
+    (#7 def outBool)
+    (#8 expr inBool)
+    (#9 expr A)
+    (#10 def outArraysConst)
+    (#11 expr inArrays)
+    (#12 def outArrays)
+    (#14 expr #13[0]
+      where
+        (#13 group))
+    (#15 def outSensor0)
+    (#16 expr faults)
+    (#19 expr #18 pre #17
+      where
+        (#18 group)
+        (#17 group))
+    (#20 expr inSpeeds)
+    (#21 expr inSpeed)
+    (#22 expr inPoint)
+    (#23 expr inLine)
+    (#24 expr inEnum)
+    (#25 expr inByte)
+    (#26 expr inBits)
+    (#27 def outSpeeds)
+    (#28 def outSpeed)
+    (#29 def outPoint)
+    (#30 def outLine)
+    (#31 def outEnum)
+    (#32 def outByte)
+    (#33 def outBits)
+    
+    (#34 wire #2 => #5)
+    (#35 wire #11 => #12)
+    (#36 wire #9 => #10)
+    (#37 wire #8 => #7)
+    (#38 wire #21 => #28)
+    (#39 wire #20 => #27)
+    (#40 wire #24 => #17, #18)
+    (#41 wire #26 => #33)
+    (#42 wire #25 => #32)
+    (#43 wire #1 => #4)
+    (#44 wire #3 => #6)
+    (#45 wire #16 => #13)
+    (#46 wire #14 => #15)
+    (#47 wire #19 => #31)
+    (#48 wire #22 => #29)
+    (#49 wire #23 => #30)
+}
+
+__END__
+{
+  "ModelTree": {
+    "Children": {
+      "body[0]": {
+        "Children": {
+          "operator[0]": {
+            "Children": {
+              "input[0]": {},
+              "input[1]": {},
+              "input[10]": {},
+              "input[11]": {},
+              "input[2]": {},
+              "input[3]": {},
+              "input[4]": {},
+              "input[5]": {},
+              "input[6]": {},
+              "input[7]": {},
+              "input[8]": {},
+              "input[9]": {},
+              "output[0]": {},
+              "output[1]": {},
+              "output[10]": {},
+              "output[11]": {},
+              "output[12]": {},
+              "output[13]": {},
+              "output[2]": {},
+              "output[3]": {},
+              "output[4]": {},
+              "output[5]": {},
+              "output[6]": {},
+              "output[7]": {},
+              "output[8]": {},
+              "output[9]": {},
+              "scope[0]": {
+                "Children": {
+                  "diagram[0]": {
+                    "Children": {
+                      "block_def[10]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1133.1,
+                              "Y": 1234.1999999999998
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[13]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1138.6,
+                              "Y": 1337.4499999999998
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[22]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1133.1,
+                              "Y": 1131.15
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[23]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1127.6,
+                              "Y": 1027.9499999999998
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[24]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1127.6,
+                              "Y": 924.7
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[25]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 821.5
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[26]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 718.35
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[27]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 615.15
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[28]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 99.25
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[3]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 408.75
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[4]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 305.65
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[5]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1116.6,
+                              "Y": 202.45000000000002
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[7]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 511.95000000000005
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[8]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1160.6,
+                              "Y": 1440.6
+                            },
+                            "Size": {
+                              "Width": 180.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[0]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 408.75
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[1]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 305.6
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[11]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 163.6,
+                              "Y": 1234.25
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[12]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 647.8,
+                              "Y": 1338.85
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 70.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[14]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 1337.4499999999998
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[15]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 163.5,
+                              "Y": 1131.1
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[16]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 169.0,
+                              "Y": 1027.9499999999998
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[17]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 169.0,
+                              "Y": 924.75
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[18]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 821.55
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[19]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 718.35
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[2]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 180.1,
+                              "Y": 202.4
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[20]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 615.15
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[21]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 99.25
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[6]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 511.95000000000005
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[9]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 190.1,
+                              "Y": 1441.9499999999998
+                            },
+                            "Size": {
+                              "Width": 80.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "wire[29]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 718.35
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 718.35
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[30]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 615.15
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 615.15
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[31]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 99.25
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 99.25
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[32]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 215.1,
+                                  "Y": 1441.9499999999998
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 889.1999999999999,
+                                    "Y": 1441.9499999999998
+                                  },
+                                  {
+                                    "X": 889.1999999999999,
+                                    "Y": 1440.6
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1085.6,
+                                  "Y": 1440.6
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[33]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 511.95000000000005
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 511.95000000000005
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[34]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 215.1,
+                                  "Y": 202.4
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 1044.35,
+                                    "Y": 202.4
+                                  },
+                                  {
+                                    "X": 1044.35,
+                                    "Y": 202.45000000000002
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1081.6,
+                                  "Y": 202.45000000000002
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[35]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 208.5,
+                                  "Y": 1131.1
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1131.1
+                                  },
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1131.15
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1078.1,
+                                  "Y": 1131.15
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[36]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 214.0,
+                                  "Y": 924.75
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 887.6999999999999,
+                                    "Y": 924.75
+                                  },
+                                  {
+                                    "X": 887.6999999999999,
+                                    "Y": 924.7
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1082.6,
+                                  "Y": 924.7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[37]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 208.6,
+                                  "Y": 1234.25
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1234.25
+                                  },
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1234.1999999999998
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1078.1,
+                                  "Y": 1234.1999999999998
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[38]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 214.0,
+                                  "Y": 1027.9499999999998
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1082.6,
+                                  "Y": 1027.9499999999998
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[39]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 821.55
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 884.9499999999999,
+                                    "Y": 821.55
+                                  },
+                                  {
+                                    "X": 884.9499999999999,
+                                    "Y": 821.5
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 821.5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[40]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 1337.4499999999998
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 408.94999999999993,
+                                    "Y": 1337.4499999999998
+                                  },
+                                  {
+                                    "X": 408.94999999999993,
+                                    "Y": 1338.85
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 602.8,
+                                  "Y": 1338.85
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[41]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 408.75
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 408.75
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[42]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 305.6
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 643.3499999999999,
+                                    "Y": 305.6
+                                  },
+                                  {
+                                    "X": 643.3499999999999,
+                                    "Y": 305.65
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 305.65
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[43]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 692.8,
+                                  "Y": 1338.85
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 888.1999999999999,
+                                    "Y": 1338.85
+                                  },
+                                  {
+                                    "X": 888.1999999999999,
+                                    "Y": 1337.4499999999998
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1083.6,
+                                  "Y": 1337.4499999999998
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "operator[1]": {
+            "Children": {
+              "input[0]": {},
+              "input[1]": {},
+              "input[10]": {},
+              "input[11]": {},
+              "input[2]": {},
+              "input[3]": {},
+              "input[4]": {},
+              "input[5]": {},
+              "input[6]": {},
+              "input[7]": {},
+              "input[8]": {},
+              "input[9]": {},
+              "output[0]": {},
+              "output[1]": {},
+              "output[10]": {},
+              "output[11]": {},
+              "output[12]": {},
+              "output[13]": {},
+              "output[2]": {},
+              "output[3]": {},
+              "output[4]": {},
+              "output[5]": {},
+              "output[6]": {},
+              "output[7]": {},
+              "output[8]": {},
+              "output[9]": {},
+              "scope[0]": {
+                "Children": {
+                  "diagram[0]": {
+                    "Children": {
+                      "block_def[11]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1133.1,
+                              "Y": 1234.25
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[13]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1138.6,
+                              "Y": 1337.4499999999998
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[23]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1133.1,
+                              "Y": 1131.15
+                            },
+                            "Size": {
+                              "Width": 140.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[24]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1127.6,
+                              "Y": 1027.9499999999998
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[25]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1127.6,
+                              "Y": 924.7
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[26]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 821.5
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[27]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 718.35
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[28]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 615.15
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[29]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 99.25
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[3]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 511.95000000000005
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[4]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 408.75
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[5]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1116.6,
+                              "Y": 305.65
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[6]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1122.1,
+                              "Y": 202.45000000000002
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_def[9]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 1160.6,
+                              "Y": 1440.65
+                            },
+                            "Size": {
+                              "Width": 180.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[0]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 511.95000000000005
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[1]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 408.75
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[10]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 163.6,
+                              "Y": 1234.25
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[12]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 647.8,
+                              "Y": 1338.8000000000002
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 70.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[14]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 1337.4499999999998
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[15]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 640.4,
+                              "Y": 719.7
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 70.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[16]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 163.5,
+                              "Y": 1131.1
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[17]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 169.0,
+                              "Y": 1027.9499999999998
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[18]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 169.0,
+                              "Y": 924.75
+                            },
+                            "Size": {
+                              "Width": 120.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[19]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 821.55
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[2]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 180.1,
+                              "Y": 305.6
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[20]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 718.35
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[21]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 615.15
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[22]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.5,
+                              "Y": 99.25
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[7]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 174.6,
+                              "Y": 202.45000000000002
+                            },
+                            "Size": {
+                              "Width": 100.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "block_expr[8]": {
+                        "Properties": {
+                          "Graph": {
+                            "DisplayedDirection": "NorthEast",
+                            "ContentOrientation": "None",
+                            "Coordinates": {
+                              "X": 190.1,
+                              "Y": 1442.0
+                            },
+                            "Size": {
+                              "Width": 80.0,
+                              "Height": 32.0
+                            }
+                          }
+                        }
+                      },
+                      "wire[30]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 408.75
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 408.75
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[31]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 208.6,
+                                  "Y": 1234.25
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1078.1,
+                                  "Y": 1234.25
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[32]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 215.1,
+                                  "Y": 1442.0
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 889.1999999999999,
+                                    "Y": 1442.0
+                                  },
+                                  {
+                                    "X": 889.1999999999999,
+                                    "Y": 1440.65
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1085.6,
+                                  "Y": 1440.65
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[33]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 202.45000000000002
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 202.45000000000002
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[34]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 214.0,
+                                  "Y": 1027.9499999999998
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1082.6,
+                                  "Y": 1027.9499999999998
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[35]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 208.5,
+                                  "Y": 1131.1
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1131.1
+                                  },
+                                  {
+                                    "X": 885.4499999999999,
+                                    "Y": 1131.15
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1078.1,
+                                  "Y": 1131.15
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[36]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 718.35
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 329.0,
+                                    "Y": 718.35
+                                  },
+                                  {
+                                    "X": 329.0,
+                                    "Y": 738.7
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 595.4,
+                                  "Y": 738.7
+                                }
+                              }
+                            }
+                          },
+                          "target[1]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 329.0,
+                                    "Y": 718.35
+                                  },
+                                  {
+                                    "X": 329.0,
+                                    "Y": 728.35
+                                  },
+                                  {
+                                    "X": 483.26666666666665,
+                                    "Y": 728.35
+                                  },
+                                  {
+                                    "X": 483.26666666666665,
+                                    "Y": 700.7
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 595.4,
+                                  "Y": 700.7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[37]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 99.25
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 99.25
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[38]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 615.15
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 615.15
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[39]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.6,
+                                  "Y": 511.95000000000005
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 511.95000000000005
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[40]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 215.1,
+                                  "Y": 305.6
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 803.5,
+                                    "Y": 305.6
+                                  },
+                                  {
+                                    "X": 803.5,
+                                    "Y": 305.65
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1081.6,
+                                  "Y": 305.65
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[41]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 1337.4499999999998
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 408.94999999999993,
+                                    "Y": 1337.4499999999998
+                                  },
+                                  {
+                                    "X": 408.94999999999993,
+                                    "Y": 1338.8000000000002
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 602.8,
+                                  "Y": 1338.8000000000002
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[42]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 692.8,
+                                  "Y": 1338.8000000000002
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 888.1999999999999,
+                                    "Y": 1338.8000000000002
+                                  },
+                                  {
+                                    "X": 888.1999999999999,
+                                    "Y": 1337.4499999999998
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1083.6,
+                                  "Y": 1337.4499999999998
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[43]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 685.4,
+                                  "Y": 719.7
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 881.25,
+                                    "Y": 719.7
+                                  },
+                                  {
+                                    "X": 881.25,
+                                    "Y": 718.35
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 718.35
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[44]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 214.0,
+                                  "Y": 924.75
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 887.6999999999999,
+                                    "Y": 924.75
+                                  },
+                                  {
+                                    "X": 887.6999999999999,
+                                    "Y": 924.7
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1082.6,
+                                  "Y": 924.7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "wire[45]": {
+                        "Children": {
+                          "source[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Coordinates": {
+                                  "X": 209.5,
+                                  "Y": 821.55
+                                }
+                              }
+                            }
+                          },
+                          "target[0]": {
+                            "Properties": {
+                              "Graph": {
+                                "Points": [
+                                  {
+                                    "X": 884.9499999999999,
+                                    "Y": 821.55
+                                  },
+                                  {
+                                    "X": 884.9499999999999,
+                                    "Y": 821.5
+                                  }
+                                ],
+                                "Coordinates": {
+                                  "X": 1077.1,
+                                  "Y": 821.5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Properties": {
+          "Graph": {
+            "Order": 0
+          }
+        }
+      }
+    },
+    "Properties": {
+      "version": "1.0"
+    }
+  }
+}

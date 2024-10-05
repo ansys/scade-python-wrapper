@@ -86,6 +86,7 @@ class SwanPython:
         self.sources = []
         self.defs = []
         self.lib_dir = Path(__file__).parent / 'lib'
+        self.include_dir = Path(__file__).parent / 'include'
         self.no_cg = no_cg
         self.all = all
 
@@ -299,7 +300,7 @@ class SwanPython:
             includes = includes + '\n' + '#include "{}"'.format(str(resource))
 
         # create swan_config.h
-        swan_config_default_file = self.lib_dir / 'swan_config_default.h'
+        swan_config_default_file = self.include_dir / 'swan_config_default.h'
         with swan_config_default_file.open() as f:
             swan_config_default = f.read()
         swan_config = swan_config_default.replace(

@@ -34,7 +34,7 @@ from pathlib import Path
 
 import pytest
 
-from conftest import build_proxy
+from conftest import build_kcg_proxy
 
 
 # buffer for C conversion functions
@@ -63,7 +63,7 @@ test_dir = Path(__file__).parent
 def proxy_types() -> bool:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
-    return build_proxy(path, 'Python')
+    return build_kcg_proxy(path, 'Python')
 
 
 def test_int_cvt(proxy_types):

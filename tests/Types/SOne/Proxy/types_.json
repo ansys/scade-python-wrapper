@@ -1,0 +1,12 @@
+{
+    "files": [
+        "..\\Model\\assets\\P.swan",
+        "..\\Model\\assets\\P.swani"
+    ],
+    "roots": [
+        "P::Node",
+        "P::Function"
+    ],
+    "target_dir": ".",
+    "target": "C"
+}
