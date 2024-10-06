@@ -47,8 +47,8 @@ The tool has the following parameters:
 
 .. code:: bash
 
-   usage: swanpython.py [-h] [-v] -n <name> [-p <project>] [--size <swan_size>] [--false <swan_false>]
-                        [--true <swan_true>]
+   usage: swanpython.py [-h] [-v] -n <name> [-p <project>] [-a] [--size <swan_size>] [--false <swan_false>]
+                        [--true <swan_true>] [--no_cg]
                         cmdjson
 
    Scade One Python Proxy
@@ -63,9 +63,11 @@ The tool has the following parameters:
                            name of the output python module
      -p <project>, --project <project>
                            Swan project file (*.sproj)
-     --size <swan_size>   type of swan_size
+     -a, --all             force rebuild
+     --size <swan_size>    type of swan_size
      --false <swan_false>  value of swan_false
      --true <swan_true>    value of swan_true
+     --no_cg               do not run swan_cg
 
 * You must set the ``S_ONE_HOME`` environment variable to the installation of Scade One
   to consider, for example:
