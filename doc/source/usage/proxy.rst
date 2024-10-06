@@ -81,7 +81,7 @@ Access to values
      root.array[0] = 3.14
      root.points[2].x = 0
 
-* Complex Values: Use ctypes literals
+* Complex Values: Use ``ctypes`` literals
 
   Consider the following types:
 
