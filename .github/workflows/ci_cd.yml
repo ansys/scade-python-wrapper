@@ -12,6 +12,7 @@ env:
   MAIN_PYTHON_VERSION: '3.10'
   DOCUMENTATION_CNAME: 'python-wrapper.scade.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-scade-python-wrapper'
+  PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
