@@ -1,0 +1,21 @@
+[Scade/Simulator/Extensions/PYWRAPPER24R2]
+"Server1"="PYWRAPPER24R2"
+"Server2"="DisplayExt"
+"Kind"="Target"
+"Version"="23200"
+"Expire"="25100"
+"DisplayName"="Proxy for Python"
+
+[Scade/Generator/PYWRAPPER24R2]
+"Version"="23200"
+"Expire"="25100"
+"Pathname"="%TARGETDIR%/ansys/scade/python_wrapper/KcgPython.py"
+
+[Studio/Work Interfaces/PYWRAPPER24R2]
+"Version"="23200"
+"Expire"="25100"
+"Pathname"="ETCUST.DLL"
+"Products"="SC"
+
+[Custom/Studio/Extensions/PYWRAPPER24R2]
+"Pathname"="%TARGETDIR%/ansys/scade/python_wrapper/gui.py"

@@ -1,0 +1,121 @@
+-- version: 2024.0
+function Function(
+    inBits: Bits;
+    inBool: bool;
+    inInt: int32;
+    inReal: float64;
+    inChar: char;
+    inByte: Byte;
+    inEnum: Enum;
+    inLine: Line;
+    inPoint: Point;
+    inSpeed: Speed;
+    inSpeeds: Speeds;
+    inArrays: Arrays)
+  returns (
+    outBits: Bits;
+    outBool: bool;
+    outInt: int32;
+    outReal: float64;
+    outChar: char;
+    outByte: Byte;
+    outEnum: Enum;
+    outLine: Line;
+    outPoint: Point;
+    outSpeed: Speed;
+    outSpeeds: Speeds;
+    outSensor0: bool;
+    outArrays: Arrays;
+    outArraysConst: Arrays);
+
+node Node(
+    inBits: Bits;
+    inBool: bool;
+    inInt: int32;
+    inReal: float64;
+    inChar: char;
+    inByte: Byte;
+    inEnum: Enum;
+    inLine: Line;
+    inPoint: Point;
+    inSpeed: Speed;
+    inSpeeds: Speeds;
+    inArrays: Arrays)
+  returns (
+    outBits: Bits;
+    outBool: bool;
+    outInt: int32;
+    outReal: float64;
+    outChar: char;
+    outByte: Byte;
+    outEnum: Enum;
+    outLine: Line;
+    outPoint: Point;
+    outSpeed: Speed;
+    outSpeeds: Speeds;
+    outSensor0: bool;
+    outArrays: Arrays;
+    outArraysConst: Arrays);
+
+type Array = float32^4;
+
+type Arrays = Array^3;
+
+type Bits = bool^8;
+
+type Byte = unsigned<<8>>;
+
+type Enum = enum {
+    V1,
+    V2,
+    V3
+  };
+
+type Line = Point^2;
+
+type Point = { x : float32, y : float32 };
+
+type Speed = float64;
+
+type Speeds = Speed^N;
+
+const A : float32^4^3 =
+    [[0.0, 0.0, 0.0, 0.0], [1.0, 2.0, 3.0, 4.0], [2.0, 4.0, 8.0, 16.0]];
+
+const N : int16 = 2;
+
+sensor faults : bool^4;
+
+__END__
+{
+  "ModelTree": {
+    "Children": {
+      "interface[0]": {
+        "Children": {
+          "constant[11]": {},
+          "constant[12]": {},
+          "operator[0]": {},
+          "operator[1]": {},
+          "sensor[13]": {},
+          "type[10]": {},
+          "type[2]": {},
+          "type[3]": {},
+          "type[4]": {},
+          "type[5]": {},
+          "type[6]": {},
+          "type[7]": {},
+          "type[8]": {},
+          "type[9]": {}
+        },
+        "Properties": {
+          "Graph": {
+            "Order": 1
+          }
+        }
+      }
+    },
+    "Properties": {
+      "version": "1.0"
+    }
+  }
+}

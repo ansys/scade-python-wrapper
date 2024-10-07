@@ -1,0 +1,222 @@
+<ecore:EPackage xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:version="2.0" name="Data">
+  <eAnnotations source="lbsjv">
+    <details key="oid" value="1"/>
+    <details key="lastOid" value="60"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EEnum" name="CK">
+    <eLiterals name="CONTEXT" value="1"><eAnnotations source="lbsjv"><details key="oid" value="57"/></eAnnotations></eLiterals>
+    <eLiterals name="INPUT"><eAnnotations source="lbsjv"><details key="oid" value="58"/></eAnnotations></eLiterals>
+    <eLiterals name="OUTPUT" value="2"><eAnnotations source="lbsjv"><details key="oid" value="59"/></eAnnotations></eLiterals>
+  <eAnnotations source="lbsjv"><details key="oid" value="56"/></eAnnotations></eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Context" eSuperTypes="#//Typed">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="20"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO" eOpposite="#//IO/context">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="37"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pointer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="45"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//CK"><eAnnotations source="lbsjv"><details key="oid" value="60"/></eAnnotations></eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="4"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Entity" derived="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="6"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="32"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="#//Typed">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="21"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="22"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//Entity">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="38"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1" eType="#//Typed">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="39"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="return_" eType="#//Typed">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="40"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Global" eSuperTypes="#//Feature">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="43"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IO" eSuperTypes="#//Feature">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="14"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="input" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="15"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="return_" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="16"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context" eOpposite="#//Context/io">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="36"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pointer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="44"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="26"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//Type" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="27"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operator" upperBound="-1" eType="#//Operator" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="28"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sensor" upperBound="-1" eType="#//Global" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="29"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="48"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="elaboration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="55"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//Entity">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="7"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inContext" eType="#//Context" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="11"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="12"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="13"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cycle" lowerBound="1" eType="#//Function" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="33"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="#//Function" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="34"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reset" eType="#//Function" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="35"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="header" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="47"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Scalar" eSuperTypes="#//Type">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="30"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Structure" eSuperTypes="#//Type">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="24"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" upperBound="-1" eType="#//Feature" containment="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="25"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="54"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//Entity">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="18"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scalar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" derived="true">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="19"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Typed" abstract="true" eSuperTypes="#//Entity">
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="41"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="42"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="46"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>
