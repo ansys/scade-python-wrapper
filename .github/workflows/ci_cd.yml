@@ -54,7 +54,6 @@ jobs:
 
   tests:
     name: "Tests"
-    # runs-on: ${{ matrix.os }}
     runs-on: [self-hosted, 'SCADE']
     needs: [smoke-tests]
     strategy:
@@ -66,18 +65,18 @@ jobs:
       - name: "Install Git and clone project"
         uses: actions/checkout@v4
 
-      # - uses: ansys/scade-actions/scade-tests-pytest@v2
-      #   with:
-      #     checkout: false
-      #     pytest-extra-args: "--cov=ansys --cov-report=term --cov-branch --cov-report=html:.cov/html --cov-report=xml:.cov/xml"
-      #     scade-version: ${{ matrix.scade-version }}
+      - uses: ansys/scade-actions/scade-tests-pytest@v2
+        with:
+          checkout: false
+          pytest-extra-args: "--cov=ansys --cov-report=term --cov-branch --cov-report=html:.cov/html --cov-report=xml:.cov/xml"
+          scade-version: ${{ matrix.scade-version }}
 
-      # - name: "Upload coverage reports to Codecov"
-      #   uses: codecov/codecov-action@v4
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     slug: ansys/scade-python-wrapper
-      #     files: .cov/xml
+      - name: "Upload coverage reports to Codecov"
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: ansys/scade-python-wrapper
+          files: .cov/xml
 
   doc-build:
     name: "Build documentation"
