@@ -18,6 +18,7 @@ The package is made of the following components:
   wrappers.
 
 * Scade One (2024 R2)
+
   * Command-line tool
 
 Contents
