@@ -4,6 +4,7 @@
 "Kind"="Target"
 "Version"="25100"
 "DisplayName"="Proxy for Python"
+"CPU"="win64"
 
 [Scade/Generator/PYWRAPPER]
 "Class"="ansys.scade.python_wrapper.kcgpython.KcgPython"

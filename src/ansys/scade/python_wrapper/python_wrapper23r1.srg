@@ -5,6 +5,7 @@
 "Version"="21200"
 "Expire"="23200"
 "DisplayName"="Proxy for Python"
+"CPU"="win64"
 
 [Scade/Generator/PYWRAPPER23R1]
 "Version"="21200"
