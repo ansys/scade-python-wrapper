@@ -15,10 +15,8 @@ section of the user documentation.
 However, it is easier to derive the configuration file from a template,
 ``config.json``, you obtain with a Code Generator job:
 
-.. figure:: /_static/sone.png
+.. image:: /_static/sone.png
    :width: 90%
-
-   Scade One configuration
 
 Create your configuration file from the template and edit it with
 respect to your model. For example:

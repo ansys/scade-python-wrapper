@@ -5,15 +5,11 @@ Settings
 --------
 Select the target ``Proxy for Python`` in the ``Code Integration`` tab.
 
-.. figure:: /_static/integration.png
-
-   Code Integration
+.. image:: /_static/integration.png
 
 The settings page ``Python`` is visible when the target is selected:
 
-.. figure:: /_static/python.png
-
-   Code Integration Python
+.. image:: /_static/python.png
 
 * Module name (default $(project_name)): Name of the Python proxy.
   Provide either a name or use one of the following macros:

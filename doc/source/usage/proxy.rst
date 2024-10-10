@@ -37,9 +37,7 @@ The python module's usage is straightforward:
 
 The script hereafter example is an example of client for the following model:
 
-.. figure:: /_static/interface.png
-
-   Model interface
+.. image:: /_static/interface.png
 
 .. code::
 
@@ -85,9 +83,7 @@ Access to values
 
   Consider the following types:
 
-  .. figure:: /_static/types.png
-
-     Types
+  .. image:: /_static/types.png
 
   * OK
 
