@@ -10,7 +10,7 @@
 [Scade/Generator/PYWRAPPER24R2]
 "Version"="23200"
 "Expire"="25100"
-"Pathname"="%TARGETDIR%/ansys/scade/python_wrapper/KcgPython.py"
+"Pathname"="%TARGETDIR%/KcgPython.py"
 
 [Studio/Work Interfaces/PYWRAPPER24R2]
 "Version"="23200"
@@ -19,4 +19,4 @@
 "Products"="SC"
 
 [Custom/Studio/Extensions/PYWRAPPER24R2]
-"Pathname"="%TARGETDIR%/ansys/scade/python_wrapper/gui.py"
+"Pathname"="%TARGETDIR%/gui.py"
