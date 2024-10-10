@@ -162,7 +162,7 @@ or the Python 3.10 *user* distribution:
 
 .. code:: bash
 
-   <python310.exe>  -m pip install --user --editable .
+   <python310.exe> -m pip install --user --editable .
 
 You can reuse any ``<install>\SCADE\contrib\Python310\python.exe``
 or Python 3.10 installation on your computer.
@@ -206,7 +206,7 @@ as follows:
 
 .. code:: bash
 
-   python -m pip uninstall ansys-scade-python-wrapper
+   <python310.exe> -m pip uninstall ansys-scade-python-wrapper
 
 If you are using Ansys SCADE 2024 R2 or below, you should remove the
 registration file:
