@@ -45,6 +45,8 @@ from ansys.scade.python_wrapper.swan_data_parser import parse_from_swan_mapping
 
 
 class SwanPython:
+    """Implementation of the tool."""
+
     # identification
     tool = 'Scade One Python Proxy'
     version = '1.7.1'
@@ -95,6 +97,7 @@ class SwanPython:
         self.projects = {}
 
     def main(self):
+        """Run the tool for the given parameters."""
         print(self.banner)
 
         # get the list of involved projects
@@ -121,11 +124,12 @@ class SwanPython:
             return
 
     def load_projects(self):
-        # retrieve all projects with dependencies
+        """Retrieve all projects with their dependencies."""
         if self.project:
             self.load_project(self.project)
 
     def load_project(self, path: Path):
+        """Load a project with its dependencies."""
         if path in self.projects:
             # dependency already loaded
             return
@@ -157,6 +161,7 @@ class SwanPython:
     # -----------------------------------------------------------------------
 
     def is_obsolete(self) -> bool:
+        """Return whether the DLL is obsolete with respect to the model."""
         dll = self.target_dir / ('%s.dll' % self.module)
         if not dll.exists():
             return True
@@ -167,6 +172,7 @@ class SwanPython:
         return False
 
     def generate_code(self) -> bool:
+        """Run ``swan_cg``."""
         # S_ONE_HOME must exist even if no code is generated
         if 'S_ONE_HOME' in os.environ:
             if self.no_cg:
@@ -195,6 +201,7 @@ class SwanPython:
             return False
 
     def generate_wrappers(self):
+        """Generate the files."""
         self.target_dir.mkdir(exist_ok=True)
         files = []
 
@@ -246,6 +253,7 @@ class SwanPython:
         return True
 
     def build(self):
+        """Build the DLL."""
         if 'S_ONE_HOME' in os.environ:
             new_env = os.environ.copy()
             new_env['PATH'] = (
@@ -286,6 +294,7 @@ class SwanPython:
             return False
 
     def generate_swan_config(self, swan_config_pathname: Path):
+        """Generate the configuration file."""
         includes = ''
         resources = []
         for path, project in self.projects.items():
@@ -311,6 +320,7 @@ class SwanPython:
 
 
 def main():
+    """Analyze the command line and call the main function."""
     parser = argparse.ArgumentParser(description=SwanPython.tool)
     parser.add_argument('cmdjson', help='swan code gen settings file')
     parser.add_argument('-v', '--version', action='store_true', help='display the version')

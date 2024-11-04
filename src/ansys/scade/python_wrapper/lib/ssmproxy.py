@@ -26,8 +26,9 @@ import ctypes
 from enum import Enum
 
 
-# SsmProxy errors
 class SPE(Enum):
+    """SsmProxy errors."""
+
     OK = 0
 
     # 1 - 1000 : Error related to gateway
@@ -50,13 +51,17 @@ class SPE(Enum):
 
 
 class Buffer:
+    """Buffer for conversion functions."""
+
     def __init__(self):
         self.buffer = b''
 
     def reset(self):
+        """Reset the buffer."""
         self.buffer = b''
 
     def append(self, text: bytes) -> int:
+        """Append a text to the buffer."""
         self.buffer += text
         return 1
 
@@ -66,6 +71,8 @@ _str_append = _PFN_STR_APPEND(lambda value, buffer: buffer.append(value))
 
 
 class SsmProxy:
+    """Python interface for the SCADE Simulator co-simulation interface."""
+
     def __init__(
         self,
         dll: str,
@@ -120,52 +127,67 @@ class SsmProxy:
         self._buffer = Buffer()
 
     def close_scade_simulator(self):
+        """Close SCADE Simulator GUI."""
         return SPE(self._close_scade_simulator())
 
     def dbg_step(self, cycle: int = 1):
+        """Execute a simulation step and waiting until you press SCADE Simulator Go button."""
         return self._dbg_step(cycle)
 
     def gui_activate(self):
+        """View SCADE Simulator GUI as foreground window."""
         return self._gui_activate()
 
     def gui_refresh(self):
+        """Refresh simulation values in SCADE GUI."""
         return self._gui_refresh()
 
     def open_scade_simulator(self, project: str, configuration: str, root: str, port: int):
+        """Open SCADE Simulator GUI."""
         return self._open_scade_simulator(
             bytes(project, 'utf-8'), bytes(configuration, 'utf-8'), bytes(root, 'utf-8'), port
         )
 
     def set_input(self, input: str, value: str):
+        """Set a value to an input."""
         return self._set_input(bytes(input, 'utf-8'), bytes(value, 'utf-8'))
 
     # additional function used by the wrapper KCG-Python
     def set_c_input(self, input: str, c_pointer, cvt):
+        """Set an input from its binary value."""
         # cvt is expected to be a the conversion function from Type Utils
         self._buffer.reset()
         cvt(c_pointer, _str_append, self._buffer)
         return self._set_input(bytes(input, 'utf-8'), self._buffer.buffer)
 
     def set_input_vector(self, vector: str):
+        """Send input to SCADE Simulator as formatted vector."""
         return self._set_input_vector(bytes(vector, 'utf-8'))
 
     def set_connect_retry(self, retry: int):
+        """Set the number of retries when calling open_scade_simulator (default is 100)."""
         return self._set_connect_retry(retry)
 
     def set_host_name(self, host: str):
+        """Set the host name for co-simulaton."""
         return self._set_host_name(bytes(host, 'utf-8'))
 
     def set_scade_install_path(self, scade: str):
+        """Specify the SCADE installation directory."""
         return self._set_scade_install_path(bytes(scade, 'utf-8'))
 
     def step(self, cycle: int = 1, refresh: bool = True):
+        """Execute simulation steps."""
         return self._step(cycle, refresh)
 
     def pause(self):
+        """Pause the simulation."""
         return self._pause()
 
     def save_scenario(self, path: str):
+        """Save a scenario from the input vectors."""
         return self._save_scenario(bytes(path, 'utf-8'))
 
     def __del__(self):
+        """End the simulation session."""
         self.close_scade_simulator()

@@ -60,45 +60,58 @@ dy = 30
 
 
 class LabelEditBox(EditBox):
+    """Label and EditBox in the same line."""
+
     def __init__(self, owner, text: str, wl: int, x=10, y=10, w=50, h=14, **kwargs):
         self.label = Label(owner, text, x=x, y=y + 4, w=wl, h=H_LABEL)
         super().__init__(owner, x=x + wl, y=y, w=w - wl, h=H_EDIT, **kwargs)
         self.owner = owner
 
     def on_layout(self):
+        """Layout the control."""
         self.set_constraint(Widget.RIGHT, self.owner, Widget.RIGHT, -xl1)
 
 
 class CheckBoxEx(CheckBox):
+    """Resizable CheckBox."""
+
     def __init__(self, owner, text: str, x=10, y=10, w=50, h=14, **kwargs):
         super().__init__(owner, text, x=x, y=y, w=w, h=H_BUTTON, **kwargs)
         self.owner = owner
 
     def on_layout(self):
+        """Layout the control."""
         pass
 
 
 class PageUtils:
+    """Utilities for settings pages."""
+
     def __init__(self):
         scade.output('initialized controls\n')
         # self.controls = []
 
     def add_edit(self, y: int, text: str) -> EditBox:
+        """Add an edit box."""
         edit = LabelEditBox(self, text, wl1, x=xl1, y=y, w=wl1 + wf1)
         self.controls.append(edit)
         return edit
 
     def add_cb(self, y: int, text: str) -> CheckBox:
+        """Add a check box."""
         cb = CheckBoxEx(self, text, x=xl1, y=y, w=wl1 + wf1)
         self.controls.append(cb)
         return cb
 
     def layout_controls(self):
+        """Layout the controls."""
         for control in self.controls:
             control.on_layout()
 
 
 class SettingsPageEx(SettingsPage, PageUtils):
+    """Extended settings page."""
+
     def __init__(self, *args):
         super(PageUtils, self).__init__()
         super().__init__(*args)
@@ -108,12 +121,15 @@ class SettingsPageEx(SettingsPage, PageUtils):
         self.properties: List[callable, callable, str, str] = []
 
     def on_layout(self):
+        """Layout the page."""
         self.layout_controls()
 
     def on_close(self):
+        """Close the page."""
         pass
 
     def on_display(self, project: Project, configuration: Configuration):
+        """Display the page."""
         for _, pfnset, name, default in self.properties:
             if isinstance(default, bool):
                 value = props.get_bool_tool_prop(project, name, default, configuration)
@@ -122,6 +138,7 @@ class SettingsPageEx(SettingsPage, PageUtils):
             pfnset(value)
 
     def on_validate(self, project: Project, configuration: Configuration):
+        """Validate the page."""
         for pfnget, _, name, default in self.properties:
             value = pfnget()
             if isinstance(value, bool):
@@ -138,6 +155,8 @@ TITLE = 'Python'
 
 
 class SettingsPagePython(SettingsPageEx):
+    """Settings page for Python Wrapper."""
+
     def __init__(self):
         super().__init__(TITLE)
 
@@ -150,6 +169,7 @@ class SettingsPagePython(SettingsPageEx):
         self.cb_pep8 = None
 
     def on_build(self):
+        """Build the page."""
         # alignment for the first line
         y = 10
 

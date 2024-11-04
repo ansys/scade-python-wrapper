@@ -87,11 +87,6 @@ lint.ignore = [
     "D203",  # One blank line required before class docstring.
     "D204",  # One blank line required after class docstring.
     "D206",  # To ignore: conflict with the formatter
-    # this package is a tool, not a library
-    "D101",  # Missing docstring in public class
-    "D102",  # Missing docstring in public method
-    "D103",  # Missing docstring in public function
-    "D105",  # Missing docstring in magic method
 ]
 exclude = [
     # generated file
@@ -113,6 +108,8 @@ convention = "numpy"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = ["D",]
+# generated file
+"src/ansys/scade/python-wrapper/pydata.py" = ["D101", "D102", "D103"]
 # naming rules not applicable
 "tools/BuildData/*.py" = ["N",]
 

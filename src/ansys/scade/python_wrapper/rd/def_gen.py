@@ -28,6 +28,8 @@ import ansys.scade.python_wrapper.pydata as data
 
 
 def generate_def(model: data.Model, def_pathname: Path, cosim: bool, banner: str = '') -> None:
+    """Generate the C definition file for the DLL."""
+
     def add_export(function: data.Function):
         nonlocal f, i
         if function:
