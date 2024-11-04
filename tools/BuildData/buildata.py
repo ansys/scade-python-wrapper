@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 """
-Generates parts of the ``pydata.py`` module from is ``pydata.ecore`` ecore model.
+Generates parts of the ``pydata.py`` module from is ``pydata.ecore`` model.
 
-This modules adapts the ``lbsjv`` generator by overrding and extending its generation services.
+This modules adapts the ``lbsjv`` generator by overriding and extending its generation services.
 """
 
 from pathlib import Path
@@ -49,7 +49,10 @@ from lbsjv.interfaces import IBlockManager
 
 
 class DataTypedObjectVisitor(TypedObjectVisitor):
+    """Redefinition of the visitor for the typed objects."""
+
     def VisitETypedElement(self, eTypedElement, class_name, reference_name):
+        """Add a ``s`` for the collections."""
         super().VisitETypedElement(eTypedElement, class_name, reference_name)
         # default: same name
         eTypedElement.targetVar = GetLowerName(eTypedElement.targetName)
@@ -63,21 +66,14 @@ class DataTypedObjectVisitor(TypedObjectVisitor):
 
 
 class DataModel(Model):
+    """Customization of the of the default Model."""
+
     def __init__(self, filename, ident, library):
         super().__init__(filename, ident, library)
 
-    # overrides
-    def PrepareModel(self, checkOid=False):
-        super().PrepareModel(checkOid)
-        if not self.library:
-            self.AddInits()
-
     def PrepareTypedObjects(self):
+        """Run the customized visitor."""
         DataTypedObjectVisitor().Visit(self.model)
-
-    # new services
-    def AddInits(self):
-        return
 
 
 # ---------------------------------------------------------------------------
@@ -86,21 +82,26 @@ class DataModel(Model):
 
 
 class ExtendedService(EObjectService):
+    """Extension of the ecore model."""
+
     def __init__(self):
         super().__init__(use_args=True, local_typing=True)
 
     # IService interface
     def Init(self, manager):
+        """Initialize the service."""
         super().Init(manager)
         svcclass = self.manager.FindService('class')
         svcclass.AddExtension(AddExtension(self))
 
     def AddEContents(self, cls: EClass):
+        """Prevent the default implementation."""
         # don't need this function
         return None
 
     # IService interface
     def ExtendData(self, iter):
+        """Extend the ecore model."""
         result = super().ExtendData(iter)
         for cls in self.model.iterClasses():
             if not isinstance(cls, EClass) or cls.name == 'EObject':
@@ -116,6 +117,7 @@ class ExtendedService(EObjectService):
         return result
 
     def AddAdd(self, cls: EClass, reference: EReference):
+        """Add the ``Add`` operations to a class."""
         prefix = 'Add' if reference.many else 'Set'
         name = '%s%s%s' % (prefix, reference.name[0].upper(), reference.name[1:])
         for operation in cls.eOperations:
@@ -146,11 +148,14 @@ class ExtendedService(EObjectService):
 
 
 class AddExtension(Extension):
+    """Generation of the operations ``AddXxx``."""
+
     def __init__(self, service: EObjectService):
         super().__init__('add')
         self.service = service
 
     def Flush(self, new: bool, data: object, blockManager: IBlockManager):
+        """Generate the function body."""
         # data is an operation
         operation = data
         reference = operation.reference
@@ -173,6 +178,7 @@ class AddExtension(Extension):
 
 
 def Generate(model, libraries, targetDir):
+    """Run the generation."""
     print('generating classes for ' + Path(model).name + '...')
 
     # load files, replace pathnames by models

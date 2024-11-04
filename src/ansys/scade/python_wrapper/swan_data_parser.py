@@ -32,6 +32,8 @@ import ansys.scade.python_wrapper.pydata as data
 
 # classes
 class EK(Enum):
+    """Sections of the KCG mapping file."""
+
     PREDEFINED = 'predefined_type'
     ARRAY = 'array'
     ENUM = 'enum'
@@ -80,6 +82,7 @@ def _get_model_decl(id: int):
 
 
 def parse_from_swan_mapping(mf: Path) -> tuple[data.Model, list]:
+    """Build the intermediate model from the KCG mapping file."""
     model = data.Model(prefix='swan')
     with mf.open() as f:
         j = json.load(f)
@@ -200,7 +203,7 @@ def _build_type(model: data.Model, id: int):
                 continue
             _, m_field_atts = m_field_decl
             field = data.Feature(
-                m_name=get_projected_name(m_field_atts),
+                m_name=_get_projected_name(m_field_atts),
                 c_name=c_field_atts['name'],
             )
             _build_typed(model, field, c_field_atts['type'])
@@ -224,7 +227,7 @@ def _build_type(model: data.Model, id: int):
     return [], type_
 
 
-def get_projected_name(atts) -> str:
+def _get_projected_name(atts) -> str:
     name = atts['name']
     projection = atts.get('projection')
     if not projection:
@@ -260,12 +263,12 @@ def _build_model(model: data.Model, j):
             model.add_operator(op)
             model.map_item(atts['id'], op)
             for input in atts.get('inputs', []):
-                m_name = get_projected_name(input)
+                m_name = _get_projected_name(input)
                 io = data.IO(m_name=m_name, input=True)
                 op.add_io(io)
                 model.map_item(input['id'], io)
             for output in atts.get('outputs', []):
-                m_name = get_projected_name(output)
+                m_name = _get_projected_name(output)
                 io = data.IO(m_name=m_name, input=False)
                 op.add_io(io)
                 model.map_item(output['id'], io)

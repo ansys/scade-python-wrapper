@@ -27,10 +27,14 @@ from typing import List, Tuple
 
 
 class SdyLayer(ctypes.Structure):
+    """Opaque declaration of a layer."""
+
     pass
 
 
 class SdyProxy:
+    """Python interface for the SCADE Display graphical panels."""
+
     def __init__(self, lib, basename: str, layer_types: List[Tuple[str, SdyLayer]]):
         self._lib = lib
         # self._lib.py_load_sdy_dlls()
@@ -51,18 +55,23 @@ class SdyProxy:
             )
 
     def init(self) -> int:
+        """Call DLL's ``init`` function."""
         return self._init()
 
     def draw(self) -> int:
+        """Call DLL's ``draw`` function."""
         return self._draw()
 
     def lockio(self) -> int:
+        """Call DLL's ``lockio`` function."""
         return self._lockio()
 
     def unlockio(self) -> int:
+        """Call DLL's ``unlockio`` function."""
         return self._unlockio()
 
     def cancelled(self) -> bool:
+        """Call DLL's ``cancelled`` function."""
         return self._cancelled() != 0
 
     # def __del__(self):

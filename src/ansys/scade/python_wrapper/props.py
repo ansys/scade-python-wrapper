@@ -52,18 +52,21 @@ PROP_PEP8_DEFAULT = True
 def get_tool_prop(
     object: Annotable, name: str, default: List[str], configuration: Configuration = None
 ) -> List[str]:
+    """Get the values of a property for the current tool."""
     return object.get_tool_prop_def(_TOOL, name, default, configuration)
 
 
 def get_scalar_tool_prop(
     object: Annotable, name: str, default: str, configuration: Configuration = None
 ) -> str:
+    """Get the value of a scalar property for the current tool."""
     return object.get_scalar_tool_prop_def(_TOOL, name, default, configuration)
 
 
 def get_bool_tool_prop(
     object: Annotable, name: str, default: bool, configuration: Configuration = None
 ) -> bool:
+    """Get the bool value of a property for the current tool."""
     return object.get_bool_tool_prop_def(_TOOL, name, default, configuration)
 
 
@@ -74,16 +77,19 @@ def set_tool_prop(
     default: List[str],
     configuration: Configuration = None,
 ):
+    """Set the values of a property for the current tool."""
     object.set_tool_prop_def(_TOOL, name, values, default, configuration)
 
 
 def set_scalar_tool_prop(
     object: Annotable, name: str, value: str, default: str, configuration: Configuration = None
 ):
+    """Get the scalar value of a property for the current tool."""
     object.set_scalar_tool_prop_def(_TOOL, name, value, default, configuration)
 
 
 def set_bool_tool_prop(
     object: Annotable, name: str, value: bool, default: bool, configuration: Configuration = None
 ):
+    """Set the bool value of a property for the current tool."""
     object.set_bool_tool_prop_def(_TOOL, name, value, default, configuration)

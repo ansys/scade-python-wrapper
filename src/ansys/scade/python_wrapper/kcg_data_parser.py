@@ -29,6 +29,7 @@ import ansys.scade.python_wrapper.pydata as data
 
 
 def parse_from_kcg_mapping(mf) -> data.Model:
+    """Build the intermediate model from the KCG mapping file."""
     model = data.Model(prefix='kcg')
     # sensors
     for m_sensor in mf.get_all_sensors():

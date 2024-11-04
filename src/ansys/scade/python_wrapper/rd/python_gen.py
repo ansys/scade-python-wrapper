@@ -200,6 +200,7 @@ def _cache(model: data.Model):
 def generate_python(
     model: data.Model, py_pathname: Path, cosim: bool, pep8: bool, banner: str = ''
 ) -> None:
+    """Generate the Python wrapping file for the DLL."""
     global _pep8
 
     def write_accessors(typed: data.Feature):

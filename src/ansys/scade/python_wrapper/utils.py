@@ -26,8 +26,11 @@
 # naming
 # ----------------------------------------------------------------------------
 
+from typing import List
 
-def tokenize_name(fullname):
+
+def tokenize_name(fullname: str) -> List[str]:
+    """Return the tokens of a word."""
     tokens = []
     for name in fullname.split('_'):
         # there must be a more clever algorithm, one pass
@@ -56,21 +59,26 @@ def tokenize_name(fullname):
 
 
 def lower_name(name: str) -> str:
+    """Get the snake case form of a word."""
     return '_'.join(tokenize_name(name)).lower()
 
 
 def upper_name(name: str) -> str:
+    """Get the screaming snake case form of a word."""
     return '_'.join(tokenize_name(name)).upper()
 
 
 def title_name(name: str) -> str:
+    """Get the Pascal case form of a word."""
     return ''.join([token.title() for token in tokenize_name(name)])
 
 
 def acronym(name: str) -> str:
+    """Return the acronym of a word."""
     return ''.join([token[0] for token in tokenize_name(name)]).upper()
 
 
 def local_name(name: str) -> str:
+    """Get the camel case form of a word."""
     name = title_name(name)
     return name[0].lower() + name[1:]
