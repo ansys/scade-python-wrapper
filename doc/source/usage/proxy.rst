@@ -35,7 +35,7 @@ The python module's usage is straightforward:
   * Call the cyclic function
   * Get the outputs
 
-The script hereafter example is an example of client for the following model:
+The script hereafter is an example of client for the following model:
 
 .. image:: /_static/interface.png
 

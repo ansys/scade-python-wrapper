@@ -39,5 +39,5 @@ Build the application using the Code Generator target ``Proxy for Python``,
 as described in the former section.
 This produces a DLL and its Python interface.
 The implementation of the generated module relies on the ``ctypes`` module.
-This is important to know its usage to access I/Os of complex types,
+It is important to know its usage to access I/Os of complex types,
 for example structures and arrays.
