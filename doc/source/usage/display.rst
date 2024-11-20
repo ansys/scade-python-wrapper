@@ -5,10 +5,10 @@ Overview
 --------
 
 The support of SCADE Display or SCADE Rapid Prototyper is possible and is
-partially automated: The SCADE Display DLLs are built and loaded at run time,
-and the DLL export all the required functions to access the displays.
+partially automated: the SCADE Display DLLs are built and loaded at run time,
+and the DLL exports all the required functions to access the displays.
 However, the Python ``ctype`` structures corresponding to the layers' contexts
-must be written manually, for now.
+must be written manually for now.
 
 .. Note::
 
@@ -17,7 +17,7 @@ must be written manually, for now.
 
     Rationale: Although the proxy considers a single instance of each
     graphical panel, the current design allows several instances of SCADE
-    root operators: The mapping can't be applied.
+    root operators. The mapping cannot be applied.
 
 Usage
 -----
@@ -35,10 +35,10 @@ module generated for SCADE Suite. This file defines one global variable
 * One member per layer in the graphical panels, corresponding to the contexts:
   The name of the variable is the name of the layer.
 
-The type of these contexts **must be written manually**, in a file called
+The type of these contexts **must be written manually** in a file called
 ``usr_xxx.py``.
 The class defining these contexts must inherit from ``SdyLayer``, defined in
-the ``sdyproxy.py`` resource file and must be named ``XxxLayer`` where ``Xxx``
+the ``sdyproxy.py`` resource file and must be named ``XxxLayer``, where ``Xxx``
 is the name of the corresponding layer.
 
 Example

@@ -11,14 +11,14 @@ Requirements
 The ``ansys-scade-python-wrapper`` package supports only the versions of Python delivered with
 Ansys SCADE, starting from 2021 R2:
 
-* 2021 R2 through 2023 R1: Python 3.7
+* 2021 R2 to 2023 R1: Python 3.7
 * 2023 R2 and later: Python 3.10
 
 Install in user mode
 --------------------
 The following steps are for installing Ansys SCADE Python Wrapper in user mode.
 If you want to contribute to Ansys SCADE Python Wrapper,
-see :ref:`contribute_scade_python-wrapper` for the steps for installing in developer mode.
+see :ref:`contribute_scade_python-wrapper` for installing in developer mode.
 
 #. Before installing Ansys SCADE Python Wrapper in user mode, run this command to ensure that
    you have the latest version of `pip`_:
