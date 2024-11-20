@@ -67,7 +67,7 @@ The tool has the following parameters:
      --true <swan_true>    value of swan_true
      --no_cg               do not run swan_cg
 
-* You must set the ``S_ONE_HOME`` environment variable to the Scade One installation 
+* You must set the ``S_ONE_HOME`` environment variable to the Scade One installation
   to consider, for example:
 
   ``set S_ONE_HOME=C:\Program Files\ANSYS Inc\v242\Scade One``
