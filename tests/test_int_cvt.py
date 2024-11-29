@@ -34,6 +34,7 @@ steps, that can't be executed for automated tests on ci-cd runners.
 
 import ctypes
 from pathlib import Path
+import sys
 
 import pytest
 
@@ -63,19 +64,30 @@ test_dir = Path(__file__).parent
 
 
 @pytest.fixture(scope='session')
-def proxy_types() -> bool:
+def proxy_types() -> Path | None:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python')
 
 
 def test_int_cvt(proxy_types):
-    if not proxy_types:
+    if proxy_types is None:
+        # DLL can't be built on GH runners
         print('test skipped')
         return
 
-    # sys.path must have been updated so that types_ is accessible
-    import types_ as t
+    # update sys.path to access the generated files
+    old_path = sys.path.copy()
+    sys.path.append(str(proxy_types.parent))
+    try:
+        import types_ as t
+
+        import_error = ''
+    except BaseException as e:
+        import_error = str(e)
+    # restore the path
+    sys.path = old_path
+    assert import_error == ''
 
     # bool
     buffer.reset()

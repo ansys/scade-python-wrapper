@@ -33,6 +33,7 @@ steps, that can't be executed for automated tests on ci-cd runners.
 """
 
 from pathlib import Path
+import sys
 
 import pytest
 
@@ -43,21 +44,21 @@ test_dir = Path(__file__).parent
 
 
 @pytest.fixture(scope='session')
-def proxy_kcg_types() -> bool:
+def proxy_kcg_types() -> Path | None:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python')
 
 
 @pytest.fixture(scope='session')
-def proxy_kcg_types_io() -> bool:
+def proxy_kcg_types_io() -> Path | None:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python IO')
 
 
 @pytest.fixture(scope='session')
-def proxy_swang_types() -> bool:
+def proxy_swancg_types() -> Path | None:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'SOne' / 'Model'
     configuration = test_dir / 'Types' / 'SOne' / 'Proxy' / 'types_.json'
@@ -120,12 +121,23 @@ def check_outputs(root, t):
 
 # unit tests
 def test_int_kcg_types(proxy_kcg_types):
-    if not proxy_kcg_types:
+    if proxy_kcg_types is None:
+        # DLL can't be built on GH runners
         print('test skipped')
         return
 
-    # sys.path must have been updated so that types_ is accessible
-    import types_ as t
+    # update sys.path to access the generated files
+    old_path = sys.path.copy()
+    sys.path.append(str(proxy_kcg_types.parent))
+    try:
+        import types_ as t
+
+        import_error = ''
+    except BaseException as e:
+        import_error = str(e)
+    # restore the path
+    sys.path = old_path
+    assert import_error == ''
 
     for root in t.Function(cosim=False), t.Node(cosim=False):
         root.call_reset()
@@ -135,12 +147,23 @@ def test_int_kcg_types(proxy_kcg_types):
 
 
 def test_int_kcg_types_io(proxy_kcg_types_io):
-    if not proxy_kcg_types_io:
+    if proxy_kcg_types_io is None:
+        # DLL can't be built on GH runners
         print('test skipped')
         return
 
-    # sys.path must have been updated so that types_ is accessible
-    import types_io as t
+    # update sys.path to access the generated files
+    old_path = sys.path.copy()
+    sys.path.append(str(proxy_kcg_types_io.parent))
+    try:
+        import types_io as t
+
+        import_error = ''
+    except BaseException as e:
+        import_error = str(e)
+    # restore the path
+    sys.path = old_path
+    assert import_error == ''
 
     for root in t.Function(cosim=False), t.Node(cosim=False):
         root.call_reset()
@@ -149,13 +172,21 @@ def test_int_kcg_types_io(proxy_kcg_types_io):
         check_outputs(root, t)
 
 
-def test_int_swancg_types(proxy_swang_types):
-    if not proxy_swang_types:
-        print('test skipped')
-        return
+def test_int_swancg_types(proxy_swancg_types):
+    assert proxy_swancg_types
 
-    # sys.path must have been updated so that types_ is accessible
-    import types_ as t
+    # update sys.path to access the generated files
+    old_path = sys.path.copy()
+    sys.path.append(str(proxy_swancg_types.parent))
+    try:
+        import types_ as t
+
+        import_error = ''
+    except BaseException as e:
+        import_error = str(e)
+    # restore the path
+    sys.path = old_path
+    assert import_error == ''
 
     for root in t.Function(cosim=False), t.Node(cosim=False):
         root.call_reset()

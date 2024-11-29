@@ -22,9 +22,12 @@
 
 """Unit tests utils."""
 
+import os
 from pathlib import Path
+import platform
 from subprocess import run
 import sys
+import winreg as reg
 
 # note: importing apitools modifies sys.path to access SCADE APIs
 from ansys.scade.apitools.info import get_scade_home
@@ -41,6 +44,30 @@ from ansys.scade.python_wrapper.swanpython import SwanPython
 
 # stub the proxy's entries
 import ansys.scade.wux.test.sctoc_stub  # noqa: F401
+
+
+def _get_scade_one_homes(min='v241', max='v999'):
+    """Get the list of Scade One installation directories."""
+    if platform.system() != 'Windows':
+        return []
+    names = []
+    try:
+        hklm = reg.OpenKey(reg.HKEY_LOCAL_MACHINE, r'SOFTWARE\Ansys Inc')
+    except OSError:
+        return []
+    for i in range(reg.QueryInfoKey(hklm)[0]):
+        name = reg.EnumKey(hklm, i)
+        if name < min or name >= max:
+            continue
+        try:
+            dir, _ = reg.QueryValueEx(reg.OpenKey(hklm, r'%s\Ansys Scade One' % name), 'Path')
+            names.append((name, dir))
+        except FileNotFoundError:
+            pass
+    dirs = []
+    for name, dir in sorted(names, key=lambda x: x[0]):
+        dirs.append(dir)
+    return dirs
 
 
 def load_session(*paths: Path) -> suite.Session:
@@ -80,7 +107,7 @@ def find_configuration(project: std.Project, name: str) -> std.Configuration:
     assert False
 
 
-def build_kcg_proxy(path: Path, configuration: str) -> bool:
+def build_kcg_proxy(path: Path, configuration: str) -> Path | None:
     """
     Build the Python proxy if obsolete or not present.
 
@@ -93,8 +120,9 @@ def build_kcg_proxy(path: Path, configuration: str) -> bool:
     conf = find_configuration(project, configuration)
     if not conf:
         print(configuration, 'unknown configuration')
-        return False
+        return None
     default = '$(Configuration)'
+    # os.environ['ANSYSLMD_LICENSE_FILE'] = '1055@127.0.0.1'
     target_dir = project.get_scalar_tool_prop_def('GENERATOR', 'TARGET_DIR', default, conf)
     target_dir = path.parent / target_dir.replace('$(Configuration)', configuration)
     module = get_module_name(project, conf)
@@ -123,14 +151,21 @@ def build_kcg_proxy(path: Path, configuration: str) -> bool:
             print(cp.stdout)
         if cp.stderr:
             print(cp.stderr)
-    # add the directory to sys.path
-    if str(target_dir) not in sys.path:
-        sys.path.append(str(target_dir))
-    return dll.exists()
+    return dll if dll.exists() else None
 
 
-def build_swancg_proxy(project_dir: Path, configuration: Path) -> bool:
+def build_swancg_proxy(project_dir: Path, configuration: Path) -> Path | None:
     """Build the Python proxy if obsolete or not present."""
+    s_one_home = 'S_ONE_HOME'
+    home = None
+    if not os.environ.get(s_one_home):
+        homes = _get_scade_one_homes()
+        home = homes[-1] if homes else None
+    if home:
+        os.environ[s_one_home] = home
+        print('set S_ONE_HOME to', os.environ.get(s_one_home))
+    else:
+        print('using S_ONE_HOME =', os.environ.get(s_one_home))
     # the name of the module is the basename of the configuration file
     module = configuration.stem
     # target directory: expected to be the the configuration file's directory
@@ -150,9 +185,13 @@ def build_swancg_proxy(project_dir: Path, configuration: Path) -> bool:
         # generate only if the dll is obsolete with respect to the Scade One model files
         all=False,
     )
+    dll = target_dir / ('%s.dll' % module)
     cls.main()
     # add the target directory to sys.path
     if str(target_dir) not in sys.path:
         sys.path.append(str(target_dir))
     dll = target_dir / ('%s.dll' % module)
-    return dll.exists()
+    if home:
+        # remove the added variable
+        os.environ.pop(s_one_home)
+    return dll if dll.exists() else None
