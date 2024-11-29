@@ -185,7 +185,6 @@ def build_swancg_proxy(project_dir: Path, configuration: Path) -> Path | None:
         # generate only if the dll is obsolete with respect to the Scade One model files
         all=False,
     )
-    dll = target_dir / ('%s.dll' % module)
     cls.main()
     # add the target directory to sys.path
     if str(target_dir) not in sys.path:
