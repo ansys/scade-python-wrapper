@@ -122,7 +122,6 @@ def build_kcg_proxy(path: Path, configuration: str) -> Path | None:
         print(configuration, 'unknown configuration')
         return None
     default = '$(Configuration)'
-    # os.environ['ANSYSLMD_LICENSE_FILE'] = '1055@127.0.0.1'
     target_dir = project.get_scalar_tool_prop_def('GENERATOR', 'TARGET_DIR', default, conf)
     target_dir = path.parent / target_dir.replace('$(Configuration)', configuration)
     module = get_module_name(project, conf)
