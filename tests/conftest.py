@@ -64,9 +64,7 @@ def _get_scade_one_homes(min='v241', max='v999'):
             names.append((name, dir))
         except FileNotFoundError:
             pass
-    dirs = []
-    for name, dir in sorted(names, key=lambda x: x[0]):
-        dirs.append(dir)
+    dirs = [dir for _, dir in sorted(names, key=lambda x: x[0])]
     return dirs
 
 
