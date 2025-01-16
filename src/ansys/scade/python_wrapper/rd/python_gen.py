@@ -448,7 +448,7 @@ def generate_python(
                         % (io.py_member, py_type, index)
                     )
                     index += 1
-                elif io.pointer:
+                else:
                     py_type = _get_python_type_name(io.type, False, io.sizes)
                     f.write('        %s = %s()\n' % (io.py_member, py_type))
 
