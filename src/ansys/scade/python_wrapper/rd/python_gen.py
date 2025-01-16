@@ -197,6 +197,15 @@ def _cache(model: data.Model):
                 io.py_value = io.py_member + '.value' if io.scalar() else io.py_member
 
 
+def _get_runtime_text() -> str:
+    # read the runtime from lib/pywrprt.py
+    path = Path(__file__).parent.parent / 'lib' / 'pywrprt.py'
+    lines = path.read_text().split('\n')
+    start = lines.index('# begin-include')
+    end = lines.index('# end-include')
+    return '\n'.join(lines[start + 2 : end - 1])
+
+
 def generate_python(
     model: data.Model, py_pathname: Path, cosim: bool, pep8: bool, banner: str = ''
 ) -> None:
@@ -246,7 +255,8 @@ def generate_python(
                     % (typed.py_value, predefs_values['true'], predefs_values['false'])
                 )
             else:
-                f.write('        %s = value\n' % typed.py_value)
+                py_type = _get_python_type_name(typed.type, False, typed.sizes)
+                f.write('        %s = make_value(value, %s)\n' % (typed.py_value, py_type))
             if cosim:
                 f.write(
                     "        if _proxy: _proxy.set_c_input('%s', %s, %s)\n"
@@ -297,6 +307,10 @@ def generate_python(
             f.write('    global _proxy\n')
             f.write('    _proxy = proxy\n')
             f.write('\n')
+
+        rt = _get_runtime_text()
+        f.write(rt)
+        f.write('\n')
 
         if model.sensors:
             f.write('\n')
