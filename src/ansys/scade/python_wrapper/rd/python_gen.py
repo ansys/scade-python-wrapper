@@ -197,15 +197,6 @@ def _cache(model: data.Model):
                 io.py_value = io.py_member + '.value' if io.scalar() else io.py_member
 
 
-def _get_runtime_text() -> str:
-    # read the runtime from lib/pywrprt.py
-    path = Path(__file__).parent.parent / 'lib' / 'pywrprt.py'
-    lines = path.read_text().split('\n')
-    start = lines.index('# begin-include')
-    end = lines.index('# end-include')
-    return '\n'.join(lines[start + 2 : end - 1])
-
-
 def generate_python(
     model: data.Model, py_pathname: Path, cosim: bool, pep8: bool, banner: str = ''
 ) -> None:
@@ -226,9 +217,9 @@ def generate_python(
             arg_type = ''
             return_type = ''
         f.write('    @property\n')
+        ctx = typed.context if isinstance(typed, data.IO) else None
         if cosim:
             c_name = typed.c_name if typed.c_name else typed.py_name
-            ctx = typed.context if isinstance(typed, data.IO) else None
             if ctx:
                 cvt_field = '%s._ptr_%s' % (ctx.py_member, c_name)
             elif type_.scalar:
@@ -255,8 +246,11 @@ def generate_python(
                     % (typed.py_value, predefs_values['true'], predefs_values['false'])
                 )
             else:
-                py_type = _get_python_type_name(typed.type, False, typed.sizes)
-                f.write('        %s = make_value(value, %s)\n' % (typed.py_value, py_type))
+                if ctx or typed.scalar():
+                    f.write('        %s = value\n' % typed.py_value)
+                else:
+                    py_type = _get_python_type_name(typed.type, False, typed.sizes)
+                    f.write('        %s = make_value(value, %s)\n' % (typed.py_value, py_type))
             if cosim:
                 f.write(
                     "        if _proxy: _proxy.set_c_input('%s', %s, %s)\n"
@@ -308,8 +302,10 @@ def generate_python(
             f.write('    _proxy = proxy\n')
             f.write('\n')
 
-        rt = _get_runtime_text()
-        f.write(rt)
+        f.write('\n')
+        f.write('def make_value(value, type_: type):\n')
+        f.write('    """Return a ctypes value from a Python literal."""\n')
+        f.write('    return type_(*value) if isinstance(value, tuple) else value\n')
         f.write('\n')
 
         if model.sensors:
@@ -462,7 +458,7 @@ def generate_python(
                         % (io.py_member, py_type, index)
                     )
                     index += 1
-                else:
+                elif not io.context:
                     py_type = _get_python_type_name(io.type, False, io.sizes)
                     f.write('        %s = %s()\n' % (io.py_member, py_type))
 
