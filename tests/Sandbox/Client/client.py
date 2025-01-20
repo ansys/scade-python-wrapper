@@ -50,10 +50,7 @@ root.call_reset()
 # P::Root/c: bool
 root.c = True
 # P::Root/v: Speed (defined as float64 ^ 3)
-# root.v = (1.0, 2.0, 3.0)
-root.v[0] = 1.0
-root.v[1] = 2.0
-root.v[2] = 3.0
+root.v = (1.0, 2.0, 3.0)
 # P::Root/v: float64
 root.dt = 0.1
 

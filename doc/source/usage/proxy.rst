@@ -79,7 +79,7 @@ Access to values
      root.array[0] = 3.14
      root.points[2].x = 0
 
-* Complex Values: Use ``ctypes`` literals
+* Complex Values: Use Python tuples or ``ctypes`` literals
 
   Consider the following types:
 
@@ -90,7 +90,10 @@ Access to values
     .. code::
 
        root.array = (ctypes.double*3)([3, 1, 4])
+       root.array = (3, 1, 4)
        root.points[2] = CPosition_P(x=1, y=2, z=3)
+       root.points[2] = (1, 2, 3)
+       root.points = ((1, 2, 3), (3, 4, 5), (6, 7, 8))
 
   * NOK
 
@@ -98,8 +101,6 @@ Access to values
 
        root.array = [3, 1, 4]
        root.points[2] = {"x": 1, "y": 2, "z": 3}
-
-Possible enhancement: Support Python arrays and dictionaries for read/write access.
 
 Limitations
 -----------
