@@ -9,6 +9,49 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`2.1.0 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.1.0>`_ - 2025-01-20
+=========================================================================================
+
+Added
+^^^^^
+
+- feat: Accept Python literals for inputs `#19 <https://github.com/ansys/scade-python-wrapper/pull/19>`_
+
+
+Fixed
+^^^^^
+
+- fix: technical review `#12 <https://github.com/ansys/scade-python-wrapper/pull/12>`_
+- fix: Avoid name conflict with legacy WrapUtilsEx 1.x `#18 <https://github.com/ansys/scade-python-wrapper/pull/18>`_
+
+
+Dependencies
+^^^^^^^^^^^^
+
+- chore(deps): bump the dependencies group with 4 updates `#9 <https://github.com/ansys/scade-python-wrapper/pull/9>`_
+- chore(deps): bump the dependencies group across 1 directory with 4 updates `#16 <https://github.com/ansys/scade-python-wrapper/pull/16>`_
+
+
+Documentation
+^^^^^^^^^^^^^
+
+- chore: update CHANGELOG for v2.0.0 `#6 <https://github.com/ansys/scade-python-wrapper/pull/6>`_
+- chore: update CHANGELOG for v2.0.1 `#8 <https://github.com/ansys/scade-python-wrapper/pull/8>`_
+- docs: Add minimal doc-strings. `#10 <https://github.com/ansys/scade-python-wrapper/pull/10>`_
+- docs: review of user documentation `#11 <https://github.com/ansys/scade-python-wrapper/pull/11>`_
+
+
+Maintenance
+^^^^^^^^^^^
+
+- chore(deps): bump codecov/codecov-action from 4 to 5 in the actions group `#15 <https://github.com/ansys/scade-python-wrapper/pull/15>`_
+
+
+Test
+^^^^
+
+- chore: Update license headers `#17 <https://github.com/ansys/scade-python-wrapper/pull/17>`_
+
 `2.0.1 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.0.1>`_ - 2024-10-10
 =========================================================================================
 
