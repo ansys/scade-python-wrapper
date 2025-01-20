@@ -1,4 +1,4 @@
-# Copyright (C) 2020 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -47,7 +47,13 @@ from ansys.scade.python_wrapper.rd.python_gen import (
     predefs_values,
 )
 import ansys.scade.python_wrapper.utils as utils
-import ansys.scade.wux.wux as wux
+
+# SCADE evaluates the wrappers' main script instead of importing them:
+# * this may lead to name conflicts in the global namespace
+# * the legacy version of WUX declares a global variable wux
+#   -> use wux2 instead of wux to ensure compatibility until
+#      the legacy version is updated
+import ansys.scade.wux.wux as wux2
 
 
 class KcgPython:
@@ -154,14 +160,14 @@ class KcgPython:
         """
         print(self.banner)
 
-        wux.mf = MappingFile((Path(target_dir) / 'mapping.xml').as_posix())
-        wux.mh = MappingHelpers(wux.mf)
-        roots = wux.mf.get_root_operators()
-        wux.ips = [InterfacePrinter(wux.mh, root.get_scade_path()) for root in roots]
+        wux2.mf = MappingFile((Path(target_dir) / 'mapping.xml').as_posix())
+        wux2.mh = MappingHelpers(wux2.mf)
+        roots = wux2.mf.get_root_operators()
+        wux2.ips = [InterfacePrinter(wux2.mh, root.get_scade_path()) for root in roots]
 
         # retrieve pragmas, cross-binding...
-        sessions = wux.get_sessions()
-        self._cache_data(sessions[0].model, roots, wux.mf.get_all_sensors())
+        sessions = wux2.get_sessions()
+        self._cache_data(sessions[0].model, roots, wux2.mf.get_all_sensors())
 
         # settings
         name = Path(project.pathname).stem
@@ -268,7 +274,7 @@ class KcgPython:
         basename = self.module
         files = []
 
-        model = parse_from_kcg_mapping(wux.mf)
+        model = parse_from_kcg_mapping(wux2.mf)
 
         # definition file: can't be generated in the target directory
         pathname = dir / 'def' / ('%s.def' % basename)
@@ -318,8 +324,8 @@ class KcgPython:
             f.write('_project = "%s"\n' % Path(project.pathname).as_posix())
             f.write('_configuration = "Simulation"\n')
             # take the first root
-            assert wux.mf
-            root = wux.mf.get_root_operators()[0].get_scade_path().strip('/')
+            assert wux2.mf
+            root = wux2.mf.get_root_operators()[0].get_scade_path().strip('/')
             f.write('_root = "%s"\n' % root)
             port = project.get_scalar_tool_prop_def('SSM', 'PROXYLISTENPORT', '64064', None)
             f.write('_port = %s\n' % port)
@@ -364,7 +370,7 @@ class KcgPython:
 
         The proxy has to be completed with a manual definition of the layers' structures.
         """
-        specifications = wux.get_specifications(project, configuration)
+        specifications = wux2.get_specifications(project, configuration)
         structures = ', '.join(
             ['%sLayer' % layer.name for spec in specifications for layer in spec.layers]
         )

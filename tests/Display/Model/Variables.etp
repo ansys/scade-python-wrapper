@@ -529,7 +529,7 @@
 			<configuration>161</configuration>
 		</Prop>
 		<Prop id="178" name="@GNU Cwin64:ADD_COMP_OPTIONS">
-			<value>-static -lstdc++</value>
+			<value></value>
 			<configuration>161</configuration>
 		</Prop>
 		<Prop id="180" name="@SIMULATOR:COMPILER">
