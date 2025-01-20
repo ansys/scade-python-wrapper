@@ -12,7 +12,6 @@ env:
   MAIN_PYTHON_VERSION: '3.10'
   DOCUMENTATION_CNAME: 'python-wrapper.scade.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-scade-python-wrapper'
-  PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -128,19 +127,11 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     steps:
 
-      - name: "Release to private PyPI"
-        uses: ansys/actions/release-pypi-private@v8
+      - name: "Release to the public PyPI repository"
+        uses: ansys/actions/release-pypi-public@v7
         with:
           library-name: ${{ env.LIBRARY_NAME }}
-          twine-username: "__token__"
-          twine-token: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
-
-      # not public yet
-      # - name: "Release to the public PyPI repository"
-      #   uses: ansys/actions/release-pypi-public@v7
-      #   with:
-      #     library-name: ${{ env.LIBRARY_NAME }}
-      #     use-trusted-publisher: true
+          use-trusted-publisher: true
 
       - name: "Release to GitHub"
         uses: ansys/actions/release-github@v8
