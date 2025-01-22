@@ -1,0 +1,17 @@
+[
+  {
+    "name": "dev",
+    "version": "dev",
+    "url": "https://python-wrapper.scade.docs.pyansys.com/version/dev/"
+  },
+  {
+    "name": "2.2 (stable)",
+    "version": "2.2",
+    "url": "https://python-wrapper.scade.docs.pyansys.com/version/stable/"
+  },
+  {
+    "name": "2.0",
+    "version": "2.0",
+    "url": "https://python-wrapper.scade.docs.pyansys.com/version/2.0/"
+  }
+]
