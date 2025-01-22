@@ -63,7 +63,7 @@ name = "ansys.scade.python_wrapper"
 Source = "https://github.com/ansys/scade-python-wrapper"
 Issues = "https://github.com/ansys/scade-python-wrapper/issues"
 Discussions = "https://github.com/ansys/scade-python-wrapper/discussions"
-Documentation = "https://python.wrapper.scade.docs.pyansys.com"
+Documentation = "https://python-wrapper.scade.docs.pyansys.com/"
 Releases = "https://github.com/ansys/scade-python-wrapper/releases"
 Homepage = "https://www.ansys.com/products/embedded-software/ansys-scade-suite"
 
