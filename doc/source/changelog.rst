@@ -9,6 +9,14 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`2.2.2 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.2.2>`_ - 2025-01-22
+=========================================================================================
+
+Fixed
+^^^^^
+
+- fix: documentation link `#23 <https://github.com/ansys/scade-python-wrapper/pull/23>`_
+
 `2.0.dev0 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.0.dev0>`_ - 2025-01-22
 ===============================================================================================
 
