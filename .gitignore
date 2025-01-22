@@ -171,3 +171,5 @@ TestResults/
 backup/
 *.err
 *.htm
+# swan_cg
+cg_log.json
