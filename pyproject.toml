@@ -69,10 +69,14 @@ Homepage = "https://www.ansys.com/products/embedded-software/ansys-scade-suite"
 
 [project.entry-points."ansys.scade.registry"]
 srg = "ansys.scade.python_wrapper:srg"
+register = "ansys.scade.python_wrapper.register:register"
+unregister = "ansys.scade.python_wrapper.unregister:unregister"
 
 [project.scripts]
-register_ansys_scade_python_wrapper = "ansys.scade.python_wrapper.register:main"
 ansys_scade_python_wrapper_swanpython = "ansys.scade.python_wrapper.swanpython:main"
+# backward compatibility
+register_ansys_scade_python_wrapper = "ansys.scade.python_wrapper.register:main"
+unregister_ansys_scade_python_wrapper = "ansys.scade.python_wrapper.unregister:main"
 
 [tool.ruff]
 line-length = 99
