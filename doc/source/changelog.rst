@@ -9,6 +9,32 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`2.2.3 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.2.3>`_ - March 20, 2025
+=============================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Added
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - feat: Add register and unregister entry points for Extensions Manager
+          - `#28 <https://github.com/ansys/scade-python-wrapper/pull/28>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - ci: Fix steps for creating a release
+          - `#27 <https://github.com/ansys/scade-python-wrapper/pull/27>`_
+
+
 `2.2.2 <https://github.com/ansys/scade-python-wrapper/releases/tag/v2.2.2>`_ - 2025-01-22
 =========================================================================================
 
