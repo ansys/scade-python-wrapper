@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name="ansys-scade-python-wrapper"
-version="2.2.2"
+version="2.2.3"
 description="SCADE code generation target to produce a Python proxy to a SCADE application."
 readme="README.rst"
 
