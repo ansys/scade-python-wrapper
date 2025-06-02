@@ -47,7 +47,7 @@ class CK(Enum):
 #%% classes
 
 #{{class(2)
-class Entity(object):
+class Entity:
     def __init__(self, c_name: str = '', m_name: str = '', path: str = '', *args, **kwargs):
         self.c_name: str = c_name
         self.m_name: str = m_name
@@ -107,6 +107,10 @@ class IO(Feature):
         self.return_: bool = return_
         self.context: Context = None
         self.pointer: bool = pointer
+
+    def set_context(self, context: 'Context'):
+        self.context = context
+        context.ios.append(self)
 #}}class
 
 
@@ -124,9 +128,11 @@ class Structure(Type):
         self.fields: List[Feature] = []
         self.context: Context = None
 
-    def add_field(self, field: Feature):
+    def add_field(self, field: 'Feature'):
         self.fields.append(field)
+        #<<link_25
         field._owner = self
+        #>>link_25
 #}}class
 
 
@@ -138,14 +144,14 @@ class Context(Typed):
         self.pointer: bool = pointer
         self.kind: CK = kind
 
+    def add_io(self, io: 'IO'):
+        self.ios.append(io)
+        io.context = self
+
     #<<cls
     def link_type(self, type_: Type):
         self.type = type_
         type_.context = self
-
-    def link_io(self, io: IO):
-        self.ios.append(io)
-        io.context = self
     #>>cls
 #}}class
 
@@ -165,10 +171,10 @@ class Function(Entity):
         self.parameters: List[Typed] = []
         self.return_: Typed = None
 
-    #<<cls
-    def link_parameter(self, typed: Typed):
-        self.parameters.append(typed)
+    def add_parameter(self, parameter: 'Typed'):
+        self.parameters.append(parameter)
 
+    #<<cls
     def link_return(self, typed: Typed):
         self.return_ = typed
     #>>cls
@@ -187,34 +193,46 @@ class Operator(Entity):
         self.reset: Function = None
         self.header: str = header
 
-    def set_in_context(self, in_context: Context):
+    def set_in_context(self, in_context: 'Context'):
         self.in_context = in_context
+        #<<link_11
         in_context._owner = self
+        #>>link_11
 
-    def set_context(self, context: Context):
+    def set_context(self, context: 'Context'):
         self.context = context
+        #<<link_12
         context._owner = self
+        #>>link_12
 
-    def add_io(self, io: IO):
+    def add_io(self, io: 'IO'):
         self.ios.append(io)
+        #<<link_13
         io._owner = self
+        #>>link_13
 
-    def set_cycle(self, cycle: Function):
+    def set_cycle(self, cycle: 'Function'):
         self.cycle = cycle
+        #<<link_33
         cycle._owner = self
+        #>>link_33
 
-    def set_init(self, init: Function):
+    def set_init(self, init: 'Function'):
         self.init = init
+        #<<link_34
         init._owner = self
+        #>>link_34
 
-    def set_reset(self, reset: Function):
+    def set_reset(self, reset: 'Function'):
         self.reset = reset
+        #<<link_35
         reset._owner = self
+        #>>link_35
 #}}class
 
 
 #{{class(26)
-class Model(object):
+class Model:
     def __init__(self, prefix: str = '', elaboration: str = '', *args, **kwargs):
         self.types: List[Type] = []
         self.operators: List[Operator] = []
@@ -226,17 +244,23 @@ class Model(object):
         self._mapping = {}
         #>>init
 
-    def add_type(self, type: Type):
+    def add_type(self, type: 'Type'):
         self.types.append(type)
+        #<<link_27
         type._owner = self
+        #>>link_27
 
-    def add_operator(self, operator: Operator):
+    def add_operator(self, operator: 'Operator'):
         self.operators.append(operator)
+        #<<link_28
         operator._owner = self
+        #>>link_28
 
-    def add_sensor(self, sensor: Global):
+    def add_sensor(self, sensor: 'Global'):
         self.sensors.append(sensor)
+        #<<link_29
         sensor._owner = self
+        #>>link_29
 
     #<<cls
     def get_mapped_entity(self, item: object) -> Entity:

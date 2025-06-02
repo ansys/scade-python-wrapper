@@ -149,9 +149,9 @@ def _build_operator(model: data.Model, m_op: m.Operator):
         op.context.pointer = True
         # if assertions fail, remove shortcomings in the implementation
         assert len(c_op.get_init().get_parameters()) == 1
-        op.init.link_parameter(op.context)
+        op.init.add_parameter(op.context)
         assert len(c_op.get_reset().get_parameters()) == 1
-        op.reset.link_parameter(op.context)
+        op.reset.add_parameter(op.context)
 
     for m_input in m_op.get_inputs():
         c_input = m_input.get_generated()
@@ -169,10 +169,10 @@ def _build_operator(model: data.Model, m_op: m.Operator):
         op.add_io(io)
         if isinstance(c_input, c.Parameter):
             assert op.cycle
-            op.cycle.link_parameter(io)
+            op.cycle.add_parameter(io)
         else:
             assert op.in_context
-            op.in_context.link_io(io)
+            op.in_context.add_io(io)
         model.map_item(c_input, io)
 
     for m_output in m_op.get_outputs():
@@ -191,10 +191,10 @@ def _build_operator(model: data.Model, m_op: m.Operator):
             io.sizes, io.type = _build_type(model, c_type)
             if isinstance(c_output, c.Parameter):
                 assert op.cycle
-                op.cycle.link_parameter(io)
+                op.cycle.add_parameter(io)
             else:
                 assert op.context
-                op.context.link_io(io)
+                op.context.add_io(io)
             model.map_item(c_output, io)
         else:
             # single scalar output
@@ -215,9 +215,9 @@ def _build_operator(model: data.Model, m_op: m.Operator):
     # update the parameters of cycle w.r.t. the contexts
     if op.in_context:
         assert not op.cycle.parameters
-        op.cycle.link_parameter(op.in_context)
+        op.cycle.add_parameter(op.in_context)
     if op.context:
-        op.cycle.link_parameter(op.context)
+        op.cycle.add_parameter(op.context)
 
     model.add_operator(op)
     model.map_item(c_op, op)

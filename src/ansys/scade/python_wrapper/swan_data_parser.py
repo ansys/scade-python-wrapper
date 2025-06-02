@@ -335,7 +335,7 @@ def _build_function(model: data.Model, file, atts):
             typed.pointer = parameter['pointer']
             if not typed.type:
                 _build_typed(model, typed, parameter['type'])
-            function.link_parameter(typed)
+            function.add_parameter(typed)
 
     type_id = atts.get('return_type')
     if type_id:
@@ -354,7 +354,7 @@ def _build_function(model: data.Model, file, atts):
         for field in op.context.type.fields:
             io = ios.get(field.m_name)
             if io:
-                op.context.link_io(io)
+                op.context.add_io(io)
                 io.sizes = field.sizes
                 io.type = field.type
                 io.c_name = field.c_name
