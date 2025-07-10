@@ -31,7 +31,7 @@ from pathlib import Path
 import re
 from shutil import copy
 import string
-import subprocess
+import subprocess  # nosec B404  # used to call Scade One and make command line tools
 
 from ansys.scade.python_wrapper.rd.c_gen import generate_c
 from ansys.scade.python_wrapper.rd.def_gen import generate_def
@@ -183,7 +183,7 @@ class SwanPython:
                 os.path.join(os.environ['S_ONE_HOME'], 'tools', 'swan_cg.exe'),
                 str(self.cmdjson),
             ]
-            gencode = subprocess.run(
+            gencode = subprocess.run(  # nosec B603  # inputs checked
                 cmd,
                 capture_output=True,
                 text=True,
@@ -273,7 +273,7 @@ class SwanPython:
                 'Makefile',
                 'MODULE={}'.format(self.module),
             ]
-            build = subprocess.run(
+            build = subprocess.run(  # nosec B602  # inputs checked
                 cmd,
                 capture_output=True,
                 text=True,
