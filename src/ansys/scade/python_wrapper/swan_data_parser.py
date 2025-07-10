@@ -189,7 +189,7 @@ def _build_type(model: data.Model, id: int) -> Tuple[List[int], Optional[data.Ty
     # the same ids w/o link, such as structs, and other have different ids
     # and links, like predefined operators
     m_type_decl = _get_model_decl(id)
-    assert not m_type_decl or m_type_decl[0] == c_ek
+    # assert not m_type_decl or m_type_decl[0] == c_ek
 
     m_atts = m_type_decl[1] if m_type_decl else {}
 
@@ -214,7 +214,8 @@ def _build_type(model: data.Model, id: int) -> Tuple[List[int], Optional[data.Ty
             _build_typed(model, field, c_field_atts['type'])
             type_.add_field(field)
             model.map_item(c_field_atts['id'], field)
-    elif c_ek == EK.ENUM:
+    else:
+        assert c_ek == EK.ENUM  # nosec B101  # last enumeration's values for types
         type_ = data.Scalar(
             # no name/path for enums
             m_name=m_atts.get('name', 'int32'),
@@ -223,8 +224,6 @@ def _build_type(model: data.Model, id: int) -> Tuple[List[int], Optional[data.Ty
             c_name='swan_int32',
             path=m_atts.get('path'),
         )
-    else:
-        assert False
 
     model.add_type(type_)
     model.map_item(id, type_)
@@ -283,8 +282,10 @@ def _build_sensor(model: data.Model, c_atts) -> Optional[data.Feature]:
     m_decl = _m_id_j.get(c_atts['id'])
     if not m_decl:
         return None
-    m_ek, m_atts = m_decl
-    assert m_ek == EK.SENSOR
+    # avoid usage of assert and unreferenced local variables
+    # m_ek, m_atts = m_decl
+    # assert m_ek == EK.SENSOR
+    _, m_atts = m_decl
     sensor = data.Global(
         m_name=m_atts['path'].split('::')[-1],
         path=m_atts['path'],
@@ -318,7 +319,7 @@ def _build_function(model: data.Model, file, atts):
     elif role == 'ResetMethod':
         op.set_reset(function)
     else:
-        assert role == 'InitMethod'
+        # assert role == 'InitMethod'
         op.set_init(function)
 
     for parameter in atts.get('parameters', []):
@@ -350,10 +351,10 @@ def _build_function(model: data.Model, file, atts):
         # must be a single (scalar) output
         # and function must be the cycle function
         io = op.ios[-1]
-        assert not io.input
+        # assert not io.input
         io.return_ = True
         _build_typed(model, io, type_id)
-        assert function == op.cycle
+        # assert function == op.cycle
         function.link_return(io)
 
     if role == 'CycleMethod' and op.context:

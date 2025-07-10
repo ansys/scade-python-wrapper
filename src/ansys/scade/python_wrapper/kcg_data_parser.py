@@ -93,7 +93,7 @@ def _build_type(model: data.Model, c_type: c.Type) -> Tuple[List[int], data.Type
             else:
                 c_fields = [_ for _ in c_type.get_fields()]
             for c_field in c_fields:
-                assert c_field.get_model()
+                assert c_field.get_model()  # nosec B101  # addresses linter
                 c_field_type = c_field.get_type()
                 field = data.Feature(
                     m_name=c_field.get_model().get_name(),
@@ -103,14 +103,13 @@ def _build_type(model: data.Model, c_type: c.Type) -> Tuple[List[int], data.Type
                 field.sizes, field.type = _build_type(model, c_field_type)
                 type_.add_field(field)
                 model.map_item(c_field, field)
-        elif c_type.is_enum():
+        else:
+            assert c_type.is_enum()  # nosec B101  # addresses linter
             type_ = data.Scalar(
                 m_name='int32',
                 c_name='kcg_int32',
                 path=c_type.get_model().get_scade_path(),
             )
-        else:
-            assert False
 
         model.add_type(type_)
         model.map_item(c_type, type_)
@@ -161,13 +160,10 @@ def _build_operator(model: data.Model, m_op: m.Operator):
         op.context.link_type(type_)
         op.context.c_type = c_op.get_context().get_name()
         op.context.pointer = True
-        # if assertions fail, remove shortcomings in the implementation
-        assert len(c_op.get_init().get_parameters()) == 1
         # if there is a context, init and op functions must exist
         assert op.init is not None  # nosec B101  # addresses linter
         assert op.reset is not None  # nosec B101  # addresses linter
         op.init.add_parameter(op.context)
-        assert len(c_op.get_reset().get_parameters()) == 1
         op.reset.add_parameter(op.context)
 
     for m_input in m_op.get_inputs():
@@ -229,7 +225,6 @@ def _build_operator(model: data.Model, m_op: m.Operator):
 
     # update the parameters of cycle w.r.t. the contexts
     if op.in_context:
-        assert not op.cycle.parameters
         op.cycle.add_parameter(op.in_context)
     if op.context:
         op.cycle.add_parameter(op.context)

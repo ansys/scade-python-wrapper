@@ -118,7 +118,6 @@ def _get_python_type_name(type_: data.Type, native: bool, sizes=None) -> str:
         if not native:
             prefix += 'C'
         if False and type_.m_name:
-            assert type_.path
             # the type names are less visible: use the path to ensure a unique name
             name = '_'.join(type_.path.strip('/').split('::'))
             # prefix = ''
@@ -137,9 +136,6 @@ def _get_python_type_name(type_: data.Type, native: bool, sizes=None) -> str:
 
 
 def _get_python_typed_name(typed: data.Typed) -> str:
-    # if I'm not wrong, we should always have elements
-    # generated from the model, else remove the assertion
-    assert typed.m_name
     name = typed.m_name if typed.m_name else typed.c_name
     return utils.lower_name(name) if _pep8 else name
 

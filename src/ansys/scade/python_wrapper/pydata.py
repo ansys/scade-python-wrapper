@@ -268,7 +268,6 @@ class Model(Entity):
         return self._mapping.get(item, None)
 
     def map_item(self, item: object, entity: Entity):
-        assert entity not in self._mapping
         self._mapping[item] = entity
     #>>cls
 #}}class
