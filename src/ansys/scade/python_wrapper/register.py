@@ -38,12 +38,12 @@ from typing import Tuple
 
 from ansys.scade.python_wrapper import get_srg_name
 
-_APPDATA = os.getenv('APPDATA')
+# APPDATA must be defined
+_APPDATA = os.environ['APPDATA']
 
 
 def _register_srg_file(srg: Path, install: Path):
     # copy the srg file to Customize and patch it with the installation directory.
-    assert _APPDATA
     text = srg.open().read()
     text = text.replace('%TARGETDIR%', install.as_posix())
     dst = Path(_APPDATA, 'SCADE', 'Customize', srg.name)
