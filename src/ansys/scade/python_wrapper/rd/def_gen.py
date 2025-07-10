@@ -23,6 +23,7 @@
 """Produces the def file for declaring the exported functions of the DLL."""
 
 from pathlib import Path
+from typing import Optional
 
 import ansys.scade.python_wrapper.pydata as data
 
@@ -30,7 +31,7 @@ import ansys.scade.python_wrapper.pydata as data
 def generate_def(model: data.Model, def_pathname: Path, cosim: bool, banner: str = '') -> None:
     """Generate the C definition file for the DLL."""
 
-    def add_export(function: data.Function):
+    def add_export(function: Optional[data.Function]):
         nonlocal f, i
         if function:
             f.write('\t%s @ %d;\n' % (function.c_name, i))

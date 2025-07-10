@@ -130,7 +130,8 @@ def test_int_kcg_types(proxy_kcg_types):
     old_path = sys.path.copy()
     sys.path.append(str(proxy_kcg_types.parent))
     try:
-        import types_ as t
+        # types_ has been produced by proxy_kcg_types
+        import types_ as t  # type: ignore
 
         import_error = ''
     except BaseException as e:
@@ -156,7 +157,8 @@ def test_int_kcg_types_io(proxy_kcg_types_io):
     old_path = sys.path.copy()
     sys.path.append(str(proxy_kcg_types_io.parent))
     try:
-        import types_io as t
+        # types_ has been produced by proxy_kcg_types_io
+        import types_io as t  # type: ignore
 
         import_error = ''
     except BaseException as e:
@@ -179,7 +181,8 @@ def test_int_swancg_types(proxy_swancg_types):
     old_path = sys.path.copy()
     sys.path.append(str(proxy_swancg_types.parent))
     try:
-        import types_ as t
+        # types_ has been produced by proxy_swancg_types
+        import types_ as t  # type: ignore
 
         import_error = ''
     except BaseException as e:

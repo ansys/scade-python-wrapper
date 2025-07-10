@@ -55,7 +55,7 @@ def generate_c(model: data.Model, c_pathname: Path, banner: str = '') -> None:
                 f.write('    return 0;\n')
             else:
                 # if there is a context, the operator must have a reset function
-                assert op.reset
+                assert op.reset is not None  # nosec B101  # addresses linter
                 if not op.reset.parameters:
                     # global context: nothing to allocate
                     if op.init is not None:

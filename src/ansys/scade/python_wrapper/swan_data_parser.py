@@ -26,6 +26,7 @@ from enum import Enum
 import json
 from pathlib import Path
 import re
+from typing import List, Optional, Tuple
 
 import ansys.scade.python_wrapper.pydata as data
 
@@ -62,7 +63,7 @@ _m_id_j = {}
 _c_id_j = {}
 
 
-def _get_model(model: data.Model, c_id: int, role: str = None) -> data.Entity:
+def _get_model(model: data.Model, c_id: int, role: str) -> data.Entity:
     m_id = _links.get((c_id, role), c_id)
     return model.get_mapped_entity(m_id)
 
@@ -154,16 +155,19 @@ def _index_mapping(model: data.Model, j):
 
 
 def _build_typed(model, typed: data.Typed, id: int):
-    _, atts = _c_id_j.get(id)
+    _, atts = _c_id_j[id]
     typed.c_type = atts['name']
     if isinstance(typed, data.Context):
-        typed.link_type(_build_type(model, id)[1])
-        assert isinstance(typed.type, data.Structure)
+        _, type_ = _build_type(model, id)
+        # The context's type must be a structure
+        assert isinstance(type_, data.Structure)  # nosec B101  # addresses linter
+        typed.link_type(type_)
     else:
+        assert isinstance(typed, data.Feature)  # nosec B101  # addresses linter
         typed.sizes, typed.type = _build_type(model, id)
 
 
-def _build_type(model: data.Model, id: int):
+def _build_type(model: data.Model, id: int) -> Tuple[List[int], Optional[data.Type]]:
     """Return a tuple list<size>, <type>."""
     if not id:
         return [], None
@@ -177,6 +181,7 @@ def _build_type(model: data.Model, id: int):
     type_ = model.get_mapped_entity(id)
     if type_:
         # type already built
+        assert isinstance(type_, data.Type)  # nosec B101  # addresses linter
         return [], type_
 
     # model counterpart, if any...
@@ -274,7 +279,7 @@ def _build_model(model: data.Model, j):
                 model.map_item(output['id'], io)
 
 
-def _build_sensor(model: data.Model, c_atts) -> data.Feature:
+def _build_sensor(model: data.Model, c_atts) -> Optional[data.Feature]:
     m_decl = _m_id_j.get(c_atts['id'])
     if not m_decl:
         return None
@@ -300,6 +305,7 @@ def _build_function(model: data.Model, file, atts):
     else:
         # not a root operator or unexpected role
         return
+    assert isinstance(op, data.Operator)  # nosec B101  # addresses linter
 
     function = data.Function(c_name=atts['name'])
     # link the function to the operator
@@ -331,6 +337,8 @@ def _build_function(model: data.Model, file, atts):
         if not typed:
             print('%s/%s: parameter not found' % (op.path, parameter['name']))
         else:
+            # typed must be either an IO or a context
+            assert isinstance(typed, data.IO) or isinstance(typed, data.Context)  # nosec B101  # addresses linter
             typed.c_name = parameter['name']
             typed.pointer = parameter['pointer']
             if not typed.type:
@@ -351,6 +359,7 @@ def _build_function(model: data.Model, file, atts):
     if role == 'CycleMethod' and op.context:
         # bind the context to optional ios
         ios = {_.m_name: _ for _ in op.ios}
+        assert isinstance(op.context.type, data.Structure)  # nosec B101  # addresses linter
         for field in op.context.type.fields:
             io = ios.get(field.m_name)
             if io:

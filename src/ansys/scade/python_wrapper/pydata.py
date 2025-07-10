@@ -34,7 +34,7 @@ Provides a Python implementation of the ecore data model.
 
 #%% import
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
 #%% types
 
@@ -53,11 +53,11 @@ class Entity:
         self.m_name: str = m_name
         self.path: str = path
         #<<init
-        self._owner = None
+        self._owner : Optional[Entity]= None
         #>>init
 
     @property
-    def owner(self) -> 'Entity':
+    def owner(self) -> 'Optional[Entity]':
         #<<6
         return self._owner
         #>>6
@@ -81,7 +81,7 @@ class Type(Entity):
 class Typed(Entity):
     def __init__(self, c_type: str = '', *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.type: Type = None
+        self.type: Optional[Type] = None
         self.c_type: str = c_type
 #}}class
 
@@ -94,7 +94,7 @@ class Feature(Typed):
 
     #<<cls
     def scalar(self) -> bool:
-        return self.type and self.type.scalar and not self.sizes
+        return self.type is not None and self.type.scalar and not self.sizes
     #>>cls
 #}}class
 
@@ -105,7 +105,7 @@ class IO(Feature):
         super().__init__(*args, **kwargs)
         self.input: bool = input
         self.return_: bool = return_
-        self.context: Context = None
+        self.context: Optional[Context] = None
         self.pointer: bool = pointer
 
     def set_context(self, context: 'Context'):
@@ -126,7 +126,7 @@ class Structure(Type):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields: List[Feature] = []
-        self.context: Context = None
+        self.context: Optional[Context] = None
 
     def add_field(self, field: 'Feature'):
         self.fields.append(field)
@@ -149,7 +149,7 @@ class Context(Typed):
         io.context = self
 
     #<<cls
-    def link_type(self, type_: Type):
+    def link_type(self, type_: Structure):
         self.type = type_
         type_.context = self
     #>>cls
@@ -169,7 +169,7 @@ class Function(Entity):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.parameters: List[Typed] = []
-        self.return_: Typed = None
+        self.return_: Optional[Typed] = None
 
     def add_parameter(self, parameter: 'Typed'):
         self.parameters.append(parameter)
@@ -185,12 +185,12 @@ class Function(Entity):
 class Operator(Entity):
     def __init__(self, header: str = '', *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.in_context: Context = None
-        self.context: Context = None
+        self.in_context: Optional[Context] = None
+        self.context: Optional[Context] = None
         self.ios: List[IO] = []
-        self.cycle: Function = None
-        self.init: Function = None
-        self.reset: Function = None
+        self.cycle: Optional[Function] = None
+        self.init: Optional[Function] = None
+        self.reset: Optional[Function] = None
         self.header: str = header
 
     def set_in_context(self, in_context: 'Context'):
@@ -232,8 +232,9 @@ class Operator(Entity):
 
 
 #{{class(26)
-class Model:
+class Model(Entity):
     def __init__(self, prefix: str = '', elaboration: str = '', *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.types: List[Type] = []
         self.operators: List[Operator] = []
         self.sensors: List[Global] = []

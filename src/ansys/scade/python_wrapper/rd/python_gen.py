@@ -37,6 +37,7 @@
 from collections import namedtuple
 from keyword import iskeyword
 from pathlib import Path
+from typing import Optional
 
 import ansys.scade.python_wrapper.pydata as data
 import ansys.scade.python_wrapper.utils as utils
@@ -82,7 +83,7 @@ predefs_values = {'false': '0', 'true': '1'}
 _pep8 = None
 
 
-def _get_predef_info(c_type_name: str, native: bool) -> PredefInfo:
+def _get_predef_info(c_type_name: str, native: bool) -> Optional[PredefInfo]:
     if native:
         return predefs_native[c_type_name] if c_type_name in predefs_native else None
     else:
@@ -108,10 +109,11 @@ def _get_python_type_name(type_: data.Type, native: bool, sizes=None) -> str:
         # must be a predefined type
         # TODO: what about imported scalar types?
         pi = _get_predef_info(type_.m_name, native)
+        assert pi is not None  # nosec B101  # addresses linter
         name = pi.type_name
     else:
         # the type names are less visible: use the path to ensure a unique name
-        assert isinstance(type_, data.Structure)
+        assert isinstance(type_, data.Structure)  # nosec B101  # addresses linter
         prefix = '' if type_.m_name else '_'
         if not native:
             prefix += 'C'
@@ -206,8 +208,13 @@ def generate_python(
     def write_accessors(typed: data.Feature):
         # typed is either a sensor or an i/o
         type_ = typed.type
+        assert type_ is not None  # nosec B101  # addresses linter
         # generate setters for sensors and inputs
-        setter = isinstance(typed, data.Global) or typed.input
+        if isinstance(typed, data.Global):
+            setter = True
+        else:
+            assert isinstance(typed, data.IO)  # nosec B101  # addresses linter
+            setter = typed.input
         # TODO: no name for not scalar types
         if typed.scalar():
             type_name = _get_python_type_name(type_, True)
@@ -314,6 +321,7 @@ def generate_python(
             f.write('class _Sensors:\n')
             f.write('    def __init__(self):\n')
             for sensor in model.sensors:
+                assert sensor.type is not None  # nosec B101  # addresses linter
                 type_name = _get_python_type_name(sensor.type, False, sensor.sizes)
                 f.write(
                     '        %s = %s.in_dll(_lib, "%s")\n'
@@ -403,6 +411,7 @@ def generate_python(
                 f.write('            set_ssm_proxy(proxy)\n')
                 f.write('\n')
             if op.in_context:
+                assert op.in_context.type is not None  # nosec B101  # addresses linter
                 f.write(
                     '        %s = %s()\n'
                     % (op.in_context.py_member, _get_python_type_name(op.in_context.type, False))
@@ -423,6 +432,7 @@ def generate_python(
             if op.reset:
                 f.write('        self.reset_fct = _lib.%s\n' % (op.reset.c_name))
                 f.write('        self.reset_fct.restype = ctypes.c_void_p\n')
+            assert op.cycle is not None  # nosec B101  # addresses linter
             f.write('        self.cycle_fct = _lib.%s\n' % (op.cycle.c_name))
             f.write('        self.cycle_fct.argtypes = [\n')
             for parameter in op.cycle.parameters:
@@ -430,7 +440,9 @@ def generate_python(
                     # opaque pointer
                     py_type = 'ctypes.c_void_p'
                 else:
+                    assert isinstance(parameter, data.IO)  # nosec B101  # addresses linter
                     sizes = None if isinstance(parameter, data.Context) else parameter.sizes
+                    assert parameter.type is not None  # nosec B101  # addresses linter
                     py_type = _get_python_type_name(parameter.type, False, sizes)
                 if parameter.pointer:
                     py_type = 'ctypes.POINTER(%s)' % py_type
@@ -450,6 +462,7 @@ def generate_python(
             index = 0
             for io in op.ios:
                 # if io.py_member != io.py_value:
+                assert io.type is not None  # nosec B101  # addresses linter
                 if not io.input and io.context:
                     # use the offset
                     py_type = _get_python_type_name(io.type, False, io.sizes)

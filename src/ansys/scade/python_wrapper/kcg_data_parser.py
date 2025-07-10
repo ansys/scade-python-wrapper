@@ -22,6 +22,8 @@
 
 """Intermediate model for Python proxy for SCADE standalone DLL."""
 
+from typing import List, Optional, Tuple
+
 import scade.code.suite.mapping.c as c
 import scade.code.suite.mapping.model as m
 
@@ -42,7 +44,7 @@ def parse_from_kcg_mapping(mf) -> data.Model:
     return model
 
 
-def _build_sensor(model: data.Model, m_sensor: m.Sensor) -> data.Feature:
+def _build_sensor(model: data.Model, m_sensor: m.Sensor) -> Optional[data.Feature]:
     c_sensor = m_sensor.get_generated()
     c_type = c_sensor.get_type()
     if not c_sensor:
@@ -58,13 +60,15 @@ def _build_sensor(model: data.Model, m_sensor: m.Sensor) -> data.Feature:
     return sensor
 
 
-def _build_type(model: data.Model, c_type: c.Type):
+def _build_type(model: data.Model, c_type: c.Type) -> Tuple[List[int], data.Type]:
     """Return a tuple list<size>, <type>."""
     if not c_type:
         return [], None
     elif c_type.is_typedef():
+        assert isinstance(c_type, c.TypeDef)  # nosec B101  # addresses linter
         return _build_type(model, c_type.get_aliased_type())
     elif c_type.is_array():
+        assert isinstance(c_type, c.Array)  # nosec B101  # addresses linter
         sizes, type_ = _build_type(model, c_type.get_base_type())
         return sizes + [c_type.get_size()], type_
 
@@ -75,6 +79,7 @@ def _build_type(model: data.Model, c_type: c.Type):
             # extract model name from kcg_<name>
             type_ = data.Scalar(m_name=c_name.split('_')[-1], c_name=c_name)
         elif c_type.is_struct():
+            assert isinstance(c_type, c.Struct)  # nosec B101  # addresses linter
             type_ = data.Structure(
                 m_name=c_type.get_model().get_name() if c_type.get_model() else '',
                 c_name=c_name,
@@ -109,6 +114,8 @@ def _build_type(model: data.Model, c_type: c.Type):
 
         model.add_type(type_)
         model.map_item(c_type, type_)
+    else:
+        assert isinstance(type_, data.Type)  # nosec B101  # addresses linter
     return [], type_
 
 
@@ -123,6 +130,7 @@ def _build_operator(model: data.Model, m_op: m.Operator):
 
     # functions
     op.set_cycle(data.Function(c_name=c_op.get_cycle().get_name()))
+    assert op.cycle is not None  # nosec B101  # addresses linter
     pointers = {_.get_name() for _ in c_op.get_cycle().get_parameters() if _.is_pointer()}
     if c_op.get_init():
         op.set_init(data.Function(c_name=c_op.get_init().get_name()))
@@ -133,8 +141,11 @@ def _build_operator(model: data.Model, m_op: m.Operator):
     # _add_c_type(model, c_op.get_state_vector())
     _, type_ = _build_type(model, c_op.get_input_struct())
     if type_:
+        # must be a structure
+        assert isinstance(type_, data.Structure)  # nosec B101  # addresses linter
         # no names
         op.set_in_context(data.Context(kind=data.CK.INPUT))
+        assert op.in_context is not None  # nosec B101  # addresses linter
         op.in_context.link_type(type_)
         op.in_context.c_type = c_op.get_input_struct().get_name()
         op.in_context.pointer = True
@@ -142,13 +153,19 @@ def _build_operator(model: data.Model, m_op: m.Operator):
     # _add_c_type(model, c_op.get_output_struct())
     _, type_ = _build_type(model, c_op.get_context())
     if type_:
+        # must be a structure
+        assert isinstance(type_, data.Structure)  # nosec B101  # addresses linter
         # no names
         op.set_context(data.Context(kind=data.CK.CONTEXT))
+        assert op.context is not None  # nosec B101  # addresses linter
         op.context.link_type(type_)
         op.context.c_type = c_op.get_context().get_name()
         op.context.pointer = True
         # if assertions fail, remove shortcomings in the implementation
         assert len(c_op.get_init().get_parameters()) == 1
+        # if there is a context, init and op functions must exist
+        assert op.init is not None  # nosec B101  # addresses linter
+        assert op.reset is not None  # nosec B101  # addresses linter
         op.init.add_parameter(op.context)
         assert len(c_op.get_reset().get_parameters()) == 1
         op.reset.add_parameter(op.context)
@@ -168,10 +185,9 @@ def _build_operator(model: data.Model, m_op: m.Operator):
         io.sizes, io.type = _build_type(model, c_type)
         op.add_io(io)
         if isinstance(c_input, c.Parameter):
-            assert op.cycle
             op.cycle.add_parameter(io)
         else:
-            assert op.in_context
+            assert op.in_context is not None  # nosec B101  # addresses linter
             op.in_context.add_io(io)
         model.map_item(c_input, io)
 
@@ -190,10 +206,9 @@ def _build_operator(model: data.Model, m_op: m.Operator):
             )
             io.sizes, io.type = _build_type(model, c_type)
             if isinstance(c_output, c.Parameter):
-                assert op.cycle
                 op.cycle.add_parameter(io)
             else:
-                assert op.context
+                assert op.context is not None  # nosec B101  # addresses linter
                 op.context.add_io(io)
             model.map_item(c_output, io)
         else:

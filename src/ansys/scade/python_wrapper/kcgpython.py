@@ -28,7 +28,7 @@ import sys
 from typing import Optional
 
 from scade.code.suite.mapping.c import MappingFile
-import scade.code.suite.sctoc as sctoc
+import scade.code.suite.sctoc as sctoc  # type: ignore  # CPython module defined dynamically
 from scade.code.suite.wrapgen.c import InterfacePrinter
 from scade.code.suite.wrapgen.model import MappingHelpers
 from scade.model.project.stdproject import Configuration, Project
@@ -324,7 +324,7 @@ class KcgPython:
             f.write('_project = "%s"\n' % Path(project.pathname).as_posix())
             f.write('_configuration = "Simulation"\n')
             # take the first root
-            assert wux2.mf
+            assert wux2.mf is not None  # nosec B101  # addresses linter
             root = wux2.mf.get_root_operators()[0].get_scade_path().strip('/')
             f.write('_root = "%s"\n' % root)
             port = project.get_scalar_tool_prop_def('SSM', 'PROXYLISTENPORT', '64064', None)
