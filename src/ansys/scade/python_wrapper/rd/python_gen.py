@@ -22,6 +22,12 @@
 
 """Provides a Python interface to the SCADE DLL."""
 
+# design note: linters complain about unknown attributes such as py_name, py_value, etc.
+# these attributes are added dynamically to SCADE Python API entities at startup.
+# there are two workarounds, not applied since they would introduce too much noise in this file:
+# * add type: ignore comments
+# * use setattr/getattr functions
+
 # TODO:
 # * error (or warning multiple instances not supported) with global context
 # * rename when name of io is either a Python keyword or conflicts with one of:
