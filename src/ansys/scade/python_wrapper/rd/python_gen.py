@@ -438,11 +438,11 @@ def generate_python(
             f.write('        self.cycle_fct = _lib.%s\n' % (op.cycle.c_name))
             f.write('        self.cycle_fct.argtypes = [\n')
             for parameter in op.cycle.parameters:
+                assert isinstance(parameter, (data.IO, data.Context))  # nosec B101  # addresses linter
                 if isinstance(parameter, data.Context) and parameter.kind == data.CK.CONTEXT:
                     # opaque pointer
                     py_type = 'ctypes.c_void_p'
                 else:
-                    assert isinstance(parameter, data.IO)  # nosec B101  # addresses linter
                     sizes = None if isinstance(parameter, data.Context) else parameter.sizes
                     assert parameter.type is not None  # nosec B101  # addresses linter
                     py_type = _get_python_type_name(parameter.type, False, sizes)
