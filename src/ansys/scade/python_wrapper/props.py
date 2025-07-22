@@ -22,7 +22,7 @@
 
 """Defines the properties used for the settings."""
 
-from typing import List
+from typing import List, Optional
 
 from scade.model.project.stdproject import Annotable, Configuration
 
@@ -50,21 +50,21 @@ PROP_PEP8_DEFAULT = True
 
 
 def get_tool_prop(
-    object: Annotable, name: str, default: List[str], configuration: Configuration = None
+    object: Annotable, name: str, default: List[str], configuration: Optional[Configuration] = None
 ) -> List[str]:
     """Get the values of a property for the current tool."""
     return object.get_tool_prop_def(_TOOL, name, default, configuration)
 
 
 def get_scalar_tool_prop(
-    object: Annotable, name: str, default: str, configuration: Configuration = None
+    object: Annotable, name: str, default: str, configuration: Optional[Configuration] = None
 ) -> str:
     """Get the value of a scalar property for the current tool."""
     return object.get_scalar_tool_prop_def(_TOOL, name, default, configuration)
 
 
 def get_bool_tool_prop(
-    object: Annotable, name: str, default: bool, configuration: Configuration = None
+    object: Annotable, name: str, default: bool, configuration: Optional[Configuration] = None
 ) -> bool:
     """Get the bool value of a property for the current tool."""
     return object.get_bool_tool_prop_def(_TOOL, name, default, configuration)
@@ -75,21 +75,29 @@ def set_tool_prop(
     name: str,
     values: List[str],
     default: List[str],
-    configuration: Configuration = None,
+    configuration: Optional[Configuration] = None,
 ):
     """Set the values of a property for the current tool."""
     object.set_tool_prop_def(_TOOL, name, values, default, configuration)
 
 
 def set_scalar_tool_prop(
-    object: Annotable, name: str, value: str, default: str, configuration: Configuration = None
+    object: Annotable,
+    name: str,
+    value: str,
+    default: str,
+    configuration: Optional[Configuration] = None,
 ):
     """Get the scalar value of a property for the current tool."""
     object.set_scalar_tool_prop_def(_TOOL, name, value, default, configuration)
 
 
 def set_bool_tool_prop(
-    object: Annotable, name: str, value: bool, default: bool, configuration: Configuration = None
+    object: Annotable,
+    name: str,
+    value: bool,
+    default: bool,
+    configuration: Optional[Configuration] = None,
 ):
     """Set the bool value of a property for the current tool."""
     object.set_bool_tool_prop_def(_TOOL, name, value, default, configuration)

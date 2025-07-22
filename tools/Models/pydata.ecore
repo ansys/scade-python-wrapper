@@ -1,18 +1,36 @@
-<ecore:EPackage xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:version="2.0" name="Data">
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Data">
   <eAnnotations source="lbsjv">
     <details key="oid" value="1"/>
     <details key="lastOid" value="60"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EEnum" name="CK">
-    <eLiterals name="CONTEXT" value="1"><eAnnotations source="lbsjv"><details key="oid" value="57"/></eAnnotations></eLiterals>
-    <eLiterals name="INPUT"><eAnnotations source="lbsjv"><details key="oid" value="58"/></eAnnotations></eLiterals>
-    <eLiterals name="OUTPUT" value="2"><eAnnotations source="lbsjv"><details key="oid" value="59"/></eAnnotations></eLiterals>
-  <eAnnotations source="lbsjv"><details key="oid" value="56"/></eAnnotations></eClassifiers>
+    <eAnnotations source="lbsjv">
+      <details key="oid" value="56"/>
+    </eAnnotations>
+    <eLiterals name="CONTEXT" value="1">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="57"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="INPUT">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="58"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OUTPUT" value="2">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="59"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Context" eSuperTypes="#//Typed">
     <eAnnotations source="lbsjv">
       <details key="oid" value="20"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO" eOpposite="#//IO/context">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO"
+        eOpposite="#//IO/context">
       <eAnnotations source="lbsjv">
         <details key="oid" value="37"/>
       </eAnnotations>
@@ -22,7 +40,11 @@
         <details key="oid" value="45"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//CK"><eAnnotations source="lbsjv"><details key="oid" value="60"/></eAnnotations></eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//CK">
+      <eAnnotations source="lbsjv">
+        <details key="oid" value="60"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
     <eAnnotations source="lbsjv">
@@ -38,7 +60,8 @@
         <details key="oid" value="5"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Entity" derived="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Entity"
+        derived="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="6"/>
       </eAnnotations>
@@ -63,7 +86,8 @@
     <eAnnotations source="lbsjv">
       <details key="oid" value="38"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1" eType="#//Typed">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+        eType="#//Typed">
       <eAnnotations source="lbsjv">
         <details key="oid" value="39"/>
       </eAnnotations>
@@ -88,12 +112,14 @@
         <details key="oid" value="15"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="return_" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="return_" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
       <eAnnotations source="lbsjv">
         <details key="oid" value="16"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context" eOpposite="#//Context/io">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context"
+        eOpposite="#//Context/io">
       <eAnnotations source="lbsjv">
         <details key="oid" value="36"/>
       </eAnnotations>
@@ -104,21 +130,24 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Model">
+  <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//Entity">
     <eAnnotations source="lbsjv">
       <details key="oid" value="26"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//Type" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//Type"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="27"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operator" upperBound="-1" eType="#//Operator" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operator" upperBound="-1"
+        eType="#//Operator" containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="28"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sensor" upperBound="-1" eType="#//Global" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sensor" upperBound="-1"
+        eType="#//Global" containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="29"/>
       </eAnnotations>
@@ -138,32 +167,38 @@
     <eAnnotations source="lbsjv">
       <details key="oid" value="7"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inContext" eType="#//Context" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inContext" eType="#//Context"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="11"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="12"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="io" upperBound="-1" eType="#//IO"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="13"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cycle" lowerBound="1" eType="#//Function" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cycle" eType="#//Function"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="33"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="#//Function" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="#//Function"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="34"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reset" eType="#//Function" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reset" eType="#//Function"
+        containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="35"/>
       </eAnnotations>
@@ -183,7 +218,8 @@
     <eAnnotations source="lbsjv">
       <details key="oid" value="24"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="field" upperBound="-1" eType="#//Feature" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" upperBound="-1"
+        eType="#//Feature" containment="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="25"/>
       </eAnnotations>
@@ -198,7 +234,8 @@
     <eAnnotations source="lbsjv">
       <details key="oid" value="18"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scalar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" derived="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scalar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        derived="true">
       <eAnnotations source="lbsjv">
         <details key="oid" value="19"/>
       </eAnnotations>

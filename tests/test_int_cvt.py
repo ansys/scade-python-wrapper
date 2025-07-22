@@ -80,7 +80,8 @@ def test_int_cvt(proxy_types):
     old_path = sys.path.copy()
     sys.path.append(str(proxy_types.parent))
     try:
-        import types_ as t
+        # types_ has been produced by proxy_types
+        import types_ as t  # type: ignore
 
         import_error = ''
     except BaseException as e:

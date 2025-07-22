@@ -39,40 +39,40 @@ class SdyProxy:
         self._lib = lib
         # self._lib.py_load_sdy_dlls()
 
+        # predefined interface
         for name in ['init', 'draw', 'lockio', 'unlockio', 'cancelled']:
-            exec('self._{0} = self._lib.{1}__{0}'.format(name, basename))
-            exec('self._{0}.argtypes = []'.format(name))
-            exec('self._{0}.restype = ctypes.c_int'.format(name))
+            layer_fct = getattr(self._lib, f'{basename}__{name}')
+            layer_fct.argtypes = []
+            layer_fct.restype = ctypes.c_int
+            setattr(self, f'_{name}', layer_fct)
         self.init()
+        # layer functions
         for layer_name, layer_type in layer_types:
-            layer_fct = eval('self._lib.{0}_L_{1}'.format(basename, layer_name))
+            layer_fct = getattr(self._lib, f'{basename}_L_{layer_name}')
             layer_fct.argtypes = []
             layer_fct.restype = ctypes.c_void_p
-            exec(
-                'self.{0} = layer_type.from_address(layer_fct())'.format(
-                    layer_name,
-                )
-            )
+            setattr(self, f'{layer_name}', layer_type.from_address(layer_fct()))
 
     def init(self) -> int:
         """Call DLL's ``init`` function."""
-        return self._init()
+        return self._init()  # type: ignore  # method added dynamically
+        # return self._init()
 
     def draw(self) -> int:
         """Call DLL's ``draw`` function."""
-        return self._draw()
+        return self._draw()  # type: ignore  # method added dynamically
 
     def lockio(self) -> int:
         """Call DLL's ``lockio`` function."""
-        return self._lockio()
+        return self._lockio()  # type: ignore  # method added dynamically
 
     def unlockio(self) -> int:
         """Call DLL's ``unlockio`` function."""
-        return self._unlockio()
+        return self._unlockio()  # type: ignore  # method added dynamically
 
     def cancelled(self) -> bool:
         """Call DLL's ``cancelled`` function."""
-        return self._cancelled() != 0
+        return self._cancelled() != 0  # type: ignore  # method added dynamically
 
     # def __del__(self):
     #     self._lib.py_unload_sdy_dlls()

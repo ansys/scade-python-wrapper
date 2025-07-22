@@ -22,7 +22,8 @@
 
 """Provides the Ansys SCADE Python Wrapper's Settings page."""
 
-from typing import List
+from collections.abc import Callable
+from typing import Any, List, Tuple
 
 import scade
 from scade.model.project.stdproject import Configuration, Project
@@ -88,24 +89,28 @@ class PageUtils:
     """Utilities for settings pages."""
 
     def __init__(self):
-        scade.output('initialized controls\n')
+        # scade is a CPython module defined dynamically
+        scade.output('initialized controls\n')  # type: ignore
         # self.controls = []
 
     def add_edit(self, y: int, text: str) -> EditBox:
         """Add an edit box."""
         edit = LabelEditBox(self, text, wl1, x=xl1, y=y, w=wl1 + wf1)
-        self.controls.append(edit)
+        # self.controls is defined in sub-class
+        self.controls.append(edit)  # type: ignore
         return edit
 
     def add_cb(self, y: int, text: str) -> CheckBox:
         """Add a check box."""
         cb = CheckBoxEx(self, text, x=xl1, y=y, w=wl1 + wf1)
-        self.controls.append(cb)
+        # self.controls is defined in sub-class
+        self.controls.append(cb)  # type: ignore
         return cb
 
     def layout_controls(self):
         """Layout the controls."""
-        for control in self.controls:
+        # self.controls is defined in sub-class
+        for control in self.controls:  # type: ignore
             control.on_layout()
 
 
@@ -118,7 +123,7 @@ class SettingsPageEx(SettingsPage, PageUtils):
         # runtime properties
         self.controls = []
         # get, set, prop, prop_default
-        self.properties: List[callable, callable, str, str] = []
+        self.properties: List[Tuple[Callable[[], Any], Callable[[Any], None], Any, Any]] = []
 
     def on_layout(self):
         """Layout the page."""
@@ -186,7 +191,7 @@ class SettingsPagePython(SettingsPageEx):
         # remove the option, requirements to be refined
         # self.cb_pep8 = self.add_cb(y, '&Apply PEP8 naming rules'); y += dy
 
-        self.properties = [
+        self.properties = [  # type: ignore  # set/get functions have incorrect type annotations
             (
                 self.ed_module.get_name,
                 self.ed_module.set_name,
