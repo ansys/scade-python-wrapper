@@ -4,8 +4,7 @@ Usage
 .. toctree::
    :maxdepth: 1
 
-   kcg
-   swancg
+   wrapper
    proxy
    cosim
    display

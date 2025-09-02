@@ -1,9 +1,6 @@
 Python proxy
 ============
 
-The structure of the Python proxy is identical for both SCADE Suite
-and Scade One models.
-
 The Python module defines:
 
 * A class per structure used in the interfaces of the root operators.

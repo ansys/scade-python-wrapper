@@ -22,12 +22,8 @@
 
 """Unit tests utils."""
 
-import os
 from pathlib import Path
-import platform
 from subprocess import run
-import sys
-import winreg as reg
 
 # note: importing apitools modifies sys.path to access SCADE APIs
 from ansys.scade.apitools.info import get_scade_home
@@ -40,32 +36,9 @@ import scade.model.suite as suite
 import scade.model.suite.displaycoupling as dc
 
 from ansys.scade.python_wrapper.kcgpython import get_module_name
-from ansys.scade.python_wrapper.swanpython import SwanPython
 
 # stub the proxy's entries
 import ansys.scade.wux.test.sctoc_stub  # noqa: F401
-
-
-def _get_scade_one_homes(min='v241', max='v999'):
-    """Get the list of Scade One installation directories."""
-    if platform.system() != 'Windows':
-        return []
-    names = []
-    try:
-        hklm = reg.OpenKey(reg.HKEY_LOCAL_MACHINE, r'SOFTWARE\Ansys Inc')
-    except OSError:
-        return []
-    for i in range(reg.QueryInfoKey(hklm)[0]):
-        name = reg.EnumKey(hklm, i)
-        if name < min or name >= max:
-            continue
-        try:
-            dir, _ = reg.QueryValueEx(reg.OpenKey(hklm, r'%s\Ansys Scade One' % name), 'Path')
-            names.append((name, dir))
-        except FileNotFoundError:
-            pass
-    dirs = [dir for _, dir in sorted(names, key=lambda x: x[0])]
-    return dirs
 
 
 def load_session(*paths: Path) -> suite.Session:
@@ -149,46 +122,4 @@ def build_kcg_proxy(path: Path, configuration: str) -> Path | None:
             print(cp.stdout)
         if cp.stderr:
             print(cp.stderr)
-    return dll if dll.exists() else None
-
-
-def build_swancg_proxy(project_dir: Path, configuration: Path) -> Path | None:
-    """Build the Python proxy if obsolete or not present."""
-    s_one_home = 'S_ONE_HOME'
-    home = None
-    if not os.environ.get(s_one_home):
-        homes = _get_scade_one_homes()
-        home = homes[-1] if homes else None
-    if home:
-        os.environ[s_one_home] = home
-        print('set S_ONE_HOME to', os.environ.get(s_one_home))
-    else:
-        print('using S_ONE_HOME =', os.environ.get(s_one_home))
-    # the name of the module is the basename of the configuration file
-    module = configuration.stem
-    # target directory: expected to be the the configuration file's directory
-    target_dir = configuration.parent / 'code'
-    # the name of the project must be the name of its directory
-    project = project_dir / (project_dir.stem + '.sproj')
-    cls = SwanPython(
-        configuration,
-        configuration.stem,
-        str(project),
-        # options.pep8,
-        swan_size='swan_int32',
-        swan_false='0',
-        swan_true='1',
-        # code generation required
-        no_cg=False,
-        # generate only if the dll is obsolete with respect to the Scade One model files
-        all=False,
-    )
-    cls.main()
-    # add the target directory to sys.path
-    if str(target_dir) not in sys.path:
-        sys.path.append(str(target_dir))
-    dll = target_dir / ('%s.dll' % module)
-    if home:
-        # remove the added variable
-        os.environ.pop(s_one_home)
     return dll if dll.exists() else None
