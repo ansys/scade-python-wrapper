@@ -1,5 +1,5 @@
-Usage with SCADE Suite
-======================
+Wrapper
+=======
 
 Settings
 --------

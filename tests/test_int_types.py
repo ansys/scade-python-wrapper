@@ -37,7 +37,7 @@ import sys
 
 import pytest
 
-from conftest import build_kcg_proxy, build_swancg_proxy
+from conftest import build_kcg_proxy
 
 # fixtures
 test_dir = Path(__file__).parent
@@ -55,14 +55,6 @@ def proxy_kcg_types_io() -> Path | None:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python IO')
-
-
-@pytest.fixture(scope='session')
-def proxy_swancg_types() -> Path | None:
-    """Ensure the proxy is built and up-to-date."""
-    path = test_dir / 'Types' / 'SOne' / 'Model'
-    configuration = test_dir / 'Types' / 'SOne' / 'Proxy' / 'types_.json'
-    return build_swancg_proxy(path, configuration)
 
 
 def set_inputs(root, t):
@@ -159,30 +151,6 @@ def test_int_kcg_types_io(proxy_kcg_types_io):
     try:
         # types_ has been produced by proxy_kcg_types_io
         import types_io as t  # type: ignore
-
-        import_error = ''
-    except BaseException as e:
-        import_error = str(e)
-    # restore the path
-    sys.path = old_path
-    assert import_error == ''
-
-    for root in t.Function(cosim=False), t.Node(cosim=False):
-        root.call_reset()
-        set_inputs(root, t)
-        root.call_cycle()
-        check_outputs(root, t)
-
-
-def test_int_swancg_types(proxy_swancg_types):
-    assert proxy_swancg_types
-
-    # update sys.path to access the generated files
-    old_path = sys.path.copy()
-    sys.path.append(str(proxy_swancg_types.parent))
-    try:
-        # types_ has been produced by proxy_swancg_types
-        import types_ as t  # type: ignore
 
         import_error = ''
     except BaseException as e:
