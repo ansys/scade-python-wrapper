@@ -1,0 +1,429 @@
+[
+    {
+        "objectID": "usage/kcg",
+        "href": "usage/kcg.html#usage-with-scade-suite",
+        "title": "Usage with SCADE Suite",
+        "section": "Usage with SCADE Suite",
+        "text": "Usage with SCADE Suite"
+    },
+    {
+        "objectID": "usage/kcg",
+        "href": "usage/kcg.html#settings",
+        "title": "Usage with SCADE Suite > Settings",
+        "section": "Settings",
+        "text": "Select the target Proxy for Python in the Code Integration tab.\nThe settings page Python is visible when the target is selected:\nModule name (default $(project_name)): Name of the Python proxy.\nProvide either a name or use one of the following macros:\n$(project_name): aaa_BbbCcc –> aaa_bbb_ccc\n$(ProjectName): aaa_BbbCcc –> AaaBbbCcc\n$(PROJECT_NAME): aaa_BbbCcc –> AAA_BBB_CCC\n$(projectname): aaa_BbbCcc –> aaa_BbbCcc (unchanged)\nEnable co-simulation (default false): When selected, the Python proxy\ncontains additional instructions to open a SCADE Simulator session and\nautomatically redirects the changes to the inputs and the calls to the\ncyclic function.\nkcg_size (default int64): Corresponding C type for kcg_size,\nwhich is defined as int by default in kcg_types.h.\nkcg_false (default 0): Value of kcg_false.\nkcg_true (default 1): Value of kcg_true.\nSettings\nProxy for Python\nCode Integration\nPython\n$(project_name)\n$(ProjectName)\n$(PROJECT_NAME)\n$(projectname)\nEnable co-simulation\nkcg_size\nkcg_size\nkcg_types.h\nkcg_false\nkcg_false\nkcg_true\nkcg_true"
+    },
+    {
+        "objectID": "usage/kcg",
+        "href": "usage/kcg.html#code-generationbuild",
+        "title": "Usage with SCADE Suite > Code Generation/Build",
+        "section": "Code Generation/Build",
+        "text": "Build the application using the Code Generator target Proxy for Python,\nas described in the former section.\nThis produces a DLL and its Python interface.\nThe implementation of the generated module relies on the ctypes module.\nIt is important to know its usage to access I/Os of complex types,\nfor example structures and arrays.\nCode Generation/Build\nProxy for Python\nctypes"
+    },
+    {
+        "objectID": "usage/cosim",
+        "href": "usage/cosim.html#white-box-simulation-with-scade-suite",
+        "title": "White-Box Simulation with SCADE Suite",
+        "section": "White-Box Simulation with SCADE Suite",
+        "text": "White-Box Simulation with SCADE Suite"
+    },
+    {
+        "objectID": "usage/cosim",
+        "href": "usage/cosim.html#usage",
+        "title": "White-Box Simulation with SCADE Suite > Usage",
+        "section": "Usage",
+        "text": "When the Enable co-simulation option is set, the wrapper produces\nadditional code to connect to the SCADE Simulator, based on the ssmproxy.py\nlibrary file, which is copied to the target directory for convenience.\nIt relies on the C API for Co-Simulation:\nCf. the Using Simulation API for Co-Simulation section in the SCADE Suite User Manual\nfor details.\nThe call_cycle method presents two additional inputs:\nrefresh: bool = True: to refresh the SCADE Suite Simulation\ninterface.\ndebug: bool = False: to pause the SCADE Simulator and wait for its\nGo button being pressed.\nTo use the co-simulation, you must build your model twice,\nusing the same root operator:\nUsing the target Proxy for Python with the Enable co-simulation\noption set.\nUsing the configuration Simulation.\nThe Python class for the root operator has a parameter cosim: bool = True.\nWhen the parameter is set to False, the co-simulation is deactivated:\nYou can alternate both modes without rebuilding the proxy.\nUsage\nEnable co-simulation\nssmproxy.py\ncall_cycle\nrefresh: bool = True\ndebug: bool = False\nProxy for Python\nEnable co-simulation\nSimulation\ncosim: bool = True\nFalse"
+    },
+    {
+        "objectID": "usage/cosim",
+        "href": "usage/cosim.html#basic-customization",
+        "title": "White-Box Simulation with SCADE Suite > Basic Customization",
+        "section": "Basic Customization",
+        "text": "The co-simulation requires several parameters that are initialized as follows\nby default:\nscade_dir: str: Path to the SCADE bin directory.\nDefault: The directory of the tool used to produce the Python proxy,\nfor example r\"C:\\Program Files\\ANSYS Inc\\v242\\SCADE\\SCADE\\bin\".\nhost: str: Hostname to connect and run the SCADE Simulator.\nDefault: “127.0.0.1”\nproject: str: Path to the SCADE Suite project.\nDefault: Path to the project used to build the Python proxy.\nconfiguration: str: Name of the configuration used by the SCADE\nSimulator.\nDefault: \"Simulation\"\nroot: str: Path to the root operator.\nDefault: Root operator of the configuration used to produce the Python proxy.\nport: int: Port used for the communication.\nDefault: Port number specified in the project’s Simulation properties, 64064 by default.\nUse the set_cosim_environment function, defined in the Python proxy,\nto override any of these parameters before creating the instance of the\nroot operator.\nBasic Customization\nscade_dir: str\nr\"C:\\Program Files\\ANSYS Inc\\v242\\SCADE\\SCADE\\bin\"\nhost: str\nproject: str\nconfiguration: str\n\"Simulation\"\nroot: str\nport: int\n64064\nset_cosim_environment"
+    },
+    {
+        "objectID": "usage/cosim",
+        "href": "usage/cosim.html#advanced-customization",
+        "title": "White-Box Simulation with SCADE Suite > Advanced Customization",
+        "section": "Advanced Customization",
+        "text": "It is possible to create your own instance of SCADE Simulator proxy,\nthe SsmProxy class, including using a derived class.\nThis allows using all the capabilities of the API for Co-Simulation to tune\nthe co-simulation with respect to your environment.\nThe client script must create an instance of this class, and declare it using\nthe set_ssm_proxy function. This must be done before creating the instance\nof the Python proxy for the root operator.\nAdvanced Customization\nSsmProxy\nset_ssm_proxy"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#release-notes",
+        "title": "Release notes",
+        "section": "Release notes",
+        "text": "This document contains the release notes for the project.\nRelease notes"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#223---march-20-2025",
+        "title": "Release notes > 2.2.3 - March 20, 2025",
+        "section": "2.2.3 - March 20, 2025",
+        "text": "feat: Add register and unregister entry points for Extensions Manager\n#28\nci: Fix steps for creating a release\n#27\n2.2.3 - March 20, 2025"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#222---2025-01-22",
+        "title": "Release notes > 2.2.2 - 2025-01-22",
+        "section": "2.2.2 - 2025-01-22",
+        "text": "2.2.2 - 2025-01-22"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#fixed",
+        "title": "Release notes > Fixed",
+        "section": "Fixed",
+        "text": "fix: documentation link #23\nFixed"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#20dev0---2025-01-22",
+        "title": "Release notes > 2.0.dev0 - 2025-01-22",
+        "section": "2.0.dev0 - 2025-01-22",
+        "text": "2.0.dev0 - 2025-01-22"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#fixed",
+        "title": "Release notes > Fixed",
+        "section": "Fixed",
+        "text": "fix: trusted publisher permissions #21\nFixed"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#documentation",
+        "title": "Release notes > Documentation",
+        "section": "Documentation",
+        "text": "chore: update CHANGELOG for v2.1.0 #20\nDocumentation"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#test",
+        "title": "Release notes > Test",
+        "section": "Test",
+        "text": "test: Fix the tests that produce a DLL #13\nTest"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#210---2025-01-20",
+        "title": "Release notes > 2.1.0 - 2025-01-20",
+        "section": "2.1.0 - 2025-01-20",
+        "text": "2.1.0 - 2025-01-20"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#added",
+        "title": "Release notes > Added",
+        "section": "Added",
+        "text": "feat: Accept Python literals for inputs #19\nAdded"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#fixed",
+        "title": "Release notes > Fixed",
+        "section": "Fixed",
+        "text": "fix: technical review #12\nfix: Avoid name conflict with legacy WrapUtilsEx 1.x #18\nFixed"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#dependencies",
+        "title": "Release notes > Dependencies",
+        "section": "Dependencies",
+        "text": "chore(deps): bump the dependencies group with 4 updates #9\nchore(deps): bump the dependencies group across 1 directory with 4 updates #16\nDependencies"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#documentation",
+        "title": "Release notes > Documentation",
+        "section": "Documentation",
+        "text": "chore: update CHANGELOG for v2.0.0 #6\nchore: update CHANGELOG for v2.0.1 #8\ndocs: Add minimal doc-strings. #10\ndocs: review of user documentation #11\nDocumentation"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#maintenance",
+        "title": "Release notes > Maintenance",
+        "section": "Maintenance",
+        "text": "chore(deps): bump codecov/codecov-action from 4 to 5 in the actions group #15\nMaintenance"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#test",
+        "title": "Release notes > Test",
+        "section": "Test",
+        "text": "chore: Update license headers #17\nTest"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#201---2024-10-10",
+        "title": "Release notes > 2.0.1 - 2024-10-10",
+        "section": "2.0.1 - 2024-10-10",
+        "text": "2.0.1 - 2024-10-10"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#fixed",
+        "title": "Release notes > Fixed",
+        "section": "Fixed",
+        "text": "fix: Fix the path of the registered scripts #7\nFixed"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#200---2024-10-10",
+        "title": "Release notes > 2.0.0 - 2024-10-10",
+        "section": "2.0.0 - 2024-10-10",
+        "text": "2.0.0 - 2024-10-10"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#added",
+        "title": "Release notes > Added",
+        "section": "Added",
+        "text": "feat: Migrate the original repository to GitHub #1\nAdded"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#fixed",
+        "title": "Release notes > Fixed",
+        "section": "Fixed",
+        "text": "fix: Minor issues #5\nFixed"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#dependencies",
+        "title": "Release notes > Dependencies",
+        "section": "Dependencies",
+        "text": "Bump the dependencies group with 4 updates #3\nDependencies"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#maintenance",
+        "title": "Release notes > Maintenance",
+        "section": "Maintenance",
+        "text": "Bump the actions group with 2 updates #2\nci: Activate the unit tests #4\nMaintenance"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#ansys-scade-python-wrapper",
+        "title": "Ansys SCADE Python Wrapper",
+        "section": "Ansys SCADE Python Wrapper",
+        "text": "This tool provides a Python proxy to a SCADE Suite or Scade One application.\nIt allows running the application in regular batch mode, or using\nSCADE Suite white box co-simulation, through SsmSlaveLib.c services.\nThe package is made of the following components:\nSCADE Suite (2021 R2 and greater)\nSCADE Suite Code Generator extension\nSCADE Suite Custom Extension: Settings page for the wrapper\nRefer to the section Generating Integration Code from SCADE Suite, in the\ndocument SCADE Python API Guide of the SCADE Suite documentation,\nfor a complete reference of SCADE Code Generator extensions, also known as\nwrappers.\nScade One (2024 R2)\nCommand-line tool\nAnsys SCADE Python Wrapper\nSsmSlaveLib.c"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#contents",
+        "title": "Ansys SCADE Python Wrapper > Contents",
+        "section": "Contents",
+        "text": "Contents"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#indices-and-tables",
+        "title": "Ansys SCADE Python Wrapper > Indices and tables",
+        "section": "Indices and tables",
+        "text": "genindex\nsearch\nIndices and tables"
+    },
+    {
+        "objectID": "usage/proxy",
+        "href": "usage/proxy.html#python-proxy",
+        "title": "Python proxy",
+        "section": "Python proxy",
+        "text": "The structure of the Python proxy is identical for both SCADE Suite\nand Scade One models.\nThe Python module defines:\nA class per structure used in the interfaces of the root operators.\nThese classes derive from ctypes.Structure.\nA global variable sensors with one read/write property per sensor in the\nmodel.\nA class per root operator which defines:\nOne read/write property per input\nOne read-only property per output\nTwo functions to address the C code:\ncall_reset(self) -> None\ncall_cycle(self, cycles: int = 1, refresh: bool = True, debug: bool = False) -> None\nThe refresh and debug parameters are used for SCADE Suite co-simulation.\nPython proxy\nctypes.Structure\nsensors\ncall_reset(self) -> None\ncall_cycle(self, cycles: int = 1, refresh: bool = True, debug: bool = False) -> None\nrefresh\ndebug"
+    },
+    {
+        "objectID": "usage/proxy",
+        "href": "usage/proxy.html#example",
+        "title": "Python proxy > Example",
+        "section": "Example",
+        "text": "The python module’s usage is straightforward:\nCreate an instance of a root operator.\nCall its reset function.\nLoop:\nSet the sensors\nSet the inputs\nCall the cyclic function\nGet the outputs\nThe script hereafter is an example of client for the following model:\nExample"
+    },
+    {
+        "objectID": "usage/proxy",
+        "href": "usage/proxy.html#access-to-values",
+        "title": "Python proxy > Access to values",
+        "section": "Access to values",
+        "text": "Scalar values: Use Python literals\nComplex Values: Use Python tuples or ctypes literals\nConsider the following types:\nOK\nNOK\nAccess to values\nctypes"
+    },
+    {
+        "objectID": "usage/proxy",
+        "href": "usage/proxy.html#limitations",
+        "title": "Python proxy > Limitations",
+        "section": "Limitations",
+        "text": "The wrapper does not support for now the input_threshold and\nglobal_context KCG options.\nLimitations\ninput_threshold\nglobal_context"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#contribute",
+        "title": "Contribute",
+        "section": "Contribute",
+        "text": "Overall guidance on contributing to a PyAnsys library appears in\nContributing\nin the PyAnsys developer’s guide. Ensure that you are thoroughly familiar\nwith this guide before attempting to contribute to Ansys SCADE Python Wrapper.\nThe following contribution information is specific to Ansys SCADE Python Wrapper.\nContribute"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#install-in-developer-mode",
+        "title": "Contribute > Install in developer mode",
+        "section": "Install in developer mode",
+        "text": "Installing Ansys SCADE Python Wrapper in developer mode allows you to modify the\nsource and enhance it.\nClone the ansys-scade-python-wrapper repository:\nAccess the scade-python-wrapper directory where the repository has been cloned:\nCreate a clean Python 3.10 environment and activate it:\nYou should use the interpreter delivered with Ansys SCADE. For example,\nC:\\Program Files\\ANSYS Inc\\v241\\SCADE\\contrib\\Python310\\python.exe.\nMake sure that you have the latest required build system, documentation, testing,\nand CI tools:\nInstall the project in editable mode:\nUse tox to verify your development installation:\nInstall in developer mode\nansys-scade-python-wrapper\nscade-python-wrapper\nC:\\Program Files\\ANSYS Inc\\v241\\SCADE\\contrib\\Python310\\python.exe"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#unit-test",
+        "title": "Contribute > Unit test",
+        "section": "Unit test",
+        "text": "Ansys SCADE Python Wrapper uses tox for testing. This tool allows you to\nautomate common development tasks (similar to Makefile), but it is oriented\ntowards Python development.\nUnit test\nMakefile"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#use-tox",
+        "title": "Contribute > Use tox",
+        "section": "Use tox",
+        "text": "While Makefile has rules, tox has environments. In fact, tox creates its\nown virtual environment so that anything being tested is isolated from the project\nto guarantee the project’s integrity.\nThe following tox commands are provided:\ntox -e style: Checks for coding style quality.\ntox -e py: Checks for unit tests.\ntox -e py-coverage: Checks for unit testing and code coverage.\ntox -e doc: Checks for the documentation-building process.\nUse tox\ntox\nMakefile\ntox\ntox\ntox\ntox -e style\ntox -e py\ntox -e py-coverage\ntox -e doc"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#use-raw-testing",
+        "title": "Contribute > Use raw testing",
+        "section": "Use raw testing",
+        "text": "If required, from the command line, you can call style commands like\nruff. You can also call unit testing commands like pytest.\nHowever, running these commands does not guarantee that your project is being tested in an\nisolated environment, which is the reason why tools like tox exist.\nUse raw testing\ntox"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#use-pre-commit",
+        "title": "Contribute > Use pre-commit",
+        "section": "Use pre-commit",
+        "text": "Ansys SCADE Python Wrapper follows the PEP8 standard as outlined in\nPEP 8 in\nthe PyAnsys developer’s guide and implements style checking using\npre-commit.\nTo ensure your code meets minimum code styling standards, run these commands:\nYou can also install this as a pre-commit hook by running this command:\nThis way, it’s not possible for you to push code that fails the style checks:\nUse pre-commit\npre-commit"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#build-documentation",
+        "title": "Contribute > Build documentation",
+        "section": "Build documentation",
+        "text": "For building documentation, you can run the usual rules provided in the\nSphinx make file. Here are some examples:\nHowever, the recommended way of checking documentation integrity is to use\ntox:\nBuild documentation\nmake\ntox"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#debug-and-integration-test",
+        "title": "Contribute > Debug and integration test",
+        "section": "Debug and integration test",
+        "text": "Ansys SCADE Python Wrapper needs to be registered to SCADE for integration testing.\nIndeed, the generation modules are called from a SCADE code generator session.\nDebug and integration test"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#install-in-user-mode",
+        "title": "Contribute > Install in user mode",
+        "section": "Install in user mode",
+        "text": "It is not possible to reuse the virtual environment setup for the repository.\nYou must install the package in an environment accessible by SCADE, for\nexample its own Python distribution, although this is not advised,\nor the Python 3.10 user distribution:\nYou can reuse any <install>\\SCADE\\contrib\\Python310\\python.exe\nor Python 3.10 installation on your computer.\nIf you are using Ansys SCADE 2024 R2 or below, you must perform one additional\nstep, to install a registration file in %APPDATA%\\SCADE\\Customize:\nInstall in user mode\n<install>\\SCADE\\contrib\\Python310\\python.exe\n%APPDATA%\\SCADE\\Customize"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#debug",
+        "title": "Contribute > Debug",
+        "section": "Debug",
+        "text": "The .\\tests\\Debug\\debug.py script uses internal SCADE Code Generator entry points\nto start a debug session for the scripts.\nYou must use the Python 3.10 environment delivered with SCADE, located in\n<install>\\contrib\\Python310.\nFor example:\nC:\\Program Files\\ANSYS Inc\\v251\\SCADE\\contrib\\Python310.\nConfigure PYTHONPATH to refer to <install>\\SCADE\\bin and\n<install>\\SCADE\\APIs\\Python\\lib. For example:\nRefer to .\\tests\\Debug\\debug.py for its command line parameters.\nDebug\n.\\tests\\Debug\\debug.py\n<install>\\contrib\\Python310\nC:\\Program Files\\ANSYS Inc\\v251\\SCADE\\contrib\\Python310\n<install>\\SCADE\\bin\n<install>\\SCADE\\APIs\\Python\\lib\n.\\tests\\Debug\\debug.py"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#run-the-integration-tests",
+        "title": "Contribute > Run the integration tests",
+        "section": "Run the integration tests",
+        "text": "These are manual tests. Refer to the test procedures, contained in each test\ndirectory as readme files.\nRun the integration tests"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#uninstall",
+        "title": "Contribute > Uninstall",
+        "section": "Uninstall",
+        "text": "Once the test or debug sessions are completed, you may uninstall the package\nas follows:\nIf you are using Ansys SCADE 2024 R2 or below, you should remove the\nregistration file:\nUninstall"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#distribute",
+        "title": "Contribute > Distribute",
+        "section": "Distribute",
+        "text": "If you would like to create either source or wheel files, start by installing\nthe building requirements and then executing the build module:\nDistribute"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#post-issues",
+        "title": "Contribute > Post issues",
+        "section": "Post issues",
+        "text": "Use the Ansys SCADE Python Wrapper Issues\npage to submit questions, report bugs, and request new features. When possible, use\nthese templates:\nBug, problem, error: For filing a bug report\nDocumentation error: For requesting modifications to the documentation\nAdding an example: For proposing a new example\nNew feature: For requesting enhancements to the code\nIf your issue does not fit into one of these template categories, click\nthe link for opening a blank issue.\nTo reach the project support team, email pyansys.core@ansys.com.\nPost issues"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#getting-started",
+        "title": "Getting started",
+        "section": "Getting started",
+        "text": "To use Ansys SCADE Python Wrapper, you must have a valid license for Ansys SCADE.\nFor information on getting a licensed copy, see the\nAnsys SCADE Suite\npage on the Ansys website.\nGetting started"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#requirements",
+        "title": "Getting started > Requirements",
+        "section": "Requirements",
+        "text": "The ansys-scade-python-wrapper package supports only the versions of Python delivered with\nAnsys SCADE, starting from 2021 R2:\n2021 R2 to 2023 R1: Python 3.7\n2023 R2 and later: Python 3.10\nRequirements\nansys-scade-python-wrapper"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#install-in-user-mode",
+        "title": "Getting started > Install in user mode",
+        "section": "Install in user mode",
+        "text": "The following steps are for installing Ansys SCADE Python Wrapper in user mode.\nIf you want to contribute to Ansys SCADE Python Wrapper,\nsee contribute_scade_python-wrapper for installing in developer mode.\nBefore installing Ansys SCADE Python Wrapper in user mode, run this command to ensure that\nyou have the latest version of pip:\nInstall Ansys SCADE Python Wrapper with this command:\nFor Ansys SCADE releases 2024 R2 and below, complete the installation with\nthese commands:\nThis additional step is not required when installing the package with\nAnsys SCADE Extension Manager.\nInstall in user mode"
+    },
+    {
+        "objectID": "usage/swancg",
+        "href": "usage/swancg.html#usage-with-scade-one",
+        "title": "Usage with Scade One",
+        "section": "Usage with Scade One",
+        "text": "The tool, run through the Command Line Interface, launches swan-cg with a\nconfiguration, builds the corresponding DLL, and generates the Python proxy\nfor the DLL.\nUsage with Scade One\nswan-cg"
+    },
+    {
+        "objectID": "usage/swancg",
+        "href": "usage/swancg.html#configuration",
+        "title": "Usage with Scade One > Configuration",
+        "section": "Configuration",
+        "text": "The syntax of the configuration file is provided in the\nJSON Schema Syntax of Code Generator Configuration File\nsection of the user documentation.\nHowever, it is easier to derive the configuration file from a template,\nconfig.json, you obtain with a Code Generator job:\nCreate your configuration file from the template and edit it with\nrespect to your model. For example:\nConfiguration\nconfig.json"
+    },
+    {
+        "objectID": "usage/swancg",
+        "href": "usage/swancg.html#command-line-interface",
+        "title": "Usage with Scade One > Command Line Interface",
+        "section": "Command Line Interface",
+        "text": "The tool has the following parameters:\nYou must set the S_ONE_HOME environment variable to the Scade One installation\nto consider, for example:\nset S_ONE_HOME=C:\\Program Files\\ANSYS Inc\\v242\\Scade One\nThe Scade One project is only used to access the resources for imported code.\nFor now, the wrapper supports only header files, for imported types and macros.\nOnce the package is installed in a Python 3.10 environment, that can be\nvirtual, the tool can be run using three different modes.\nFor example:\nThis produces my_module.dll and my_module.py.\nCommand Line Interface\nS_ONE_HOME\nset S_ONE_HOME=C:\\Program Files\\ANSYS Inc\\v242\\Scade One\nmy_module.dll\nmy_module.py"
+    },
+    {
+        "objectID": "usage/display",
+        "href": "usage/display.html#graphical-panels",
+        "title": "Graphical panels",
+        "section": "Graphical panels",
+        "text": "Graphical panels"
+    },
+    {
+        "objectID": "usage/display",
+        "href": "usage/display.html#overview",
+        "title": "Graphical panels > Overview",
+        "section": "Overview",
+        "text": "The support of SCADE Display or SCADE Rapid Prototyper is possible and is\npartially automated: the SCADE Display DLLs are built and loaded at run time,\nand the DLL exports all the required functions to access the displays.\nHowever, the Python ctype structures corresponding to the layers’ contexts\nmust be written manually for now.\nThe graphical panels are accessed independently from Python and thus,\nexisting mappings between SCADE Suite and SCADE Display are not considered.\nRationale: Although the proxy considers a single instance of each\ngraphical panel, the current design allows several instances of SCADE\nroot operators. The mapping cannot be applied.\nOverview\nctype"
+    },
+    {
+        "objectID": "usage/display",
+        "href": "usage/display.html#usage",
+        "title": "Graphical panels > Usage",
+        "section": "Usage",
+        "text": "The wrapper generates the file sdy_xxx.py where xxx is the name of the\nmodule generated for SCADE Suite. This file defines one global variable\nsdy_yyy per graphical panel Yyy with the following members:\nreset(): Reset the graphical panel, automatically called when the Python\nmodule is imported\ndraw(): Render the image\nlockio(): Lock the contexts before accessing any I/O\nunlockio(): Release the lock on the contexts\ncancelled() -> bool: Return True when the window is closed\nOne member per layer in the graphical panels, corresponding to the contexts:\nThe name of the variable is the name of the layer.\nThe type of these contexts must be written manually in a file called\nusr_xxx.py.\nThe class defining these contexts must inherit from SdyLayer, defined in\nthe sdyproxy.py resource file and must be named XxxLayer, where Xxx\nis the name of the corresponding layer.\nUsage\nsdy_xxx.py\nxxx\nsdy_yyy\nYyy\nreset()\ndraw()\nlockio()\nunlockio()\ncancelled() -> bool\nTrue\nusr_xxx.py\nSdyLayer\nsdyproxy.py\nXxxLayer\nXxx"
+    },
+    {
+        "objectID": "usage/display",
+        "href": "usage/display.html#example",
+        "title": "Graphical panels > Example",
+        "section": "Example",
+        "text": "Consider a SCADE Suite project application.etp containing a\nSCADE Display project with a graphical specification Panel.sgfx defining\na layer Symbology with the following interface:\nVariable\nType\nactive\nbool\nspeed\nfloat64\nSCADE KCG Display generates the following C context:\nYou must provide the corresponding Python structure in usr_application.py:\nNo consistency check is performed between the structure you define and the\none generated by SCADE Display KCG.\nThe Python code to access the graphical panel is rather straightforward:\nExample\napplication.etp\nPanel.sgfx\nSymbology\nusr_application.py"
+    },
+    {
+        "objectID": "usage/index",
+        "href": "usage/index.html#usage",
+        "title": "Usage",
+        "section": "Usage",
+        "text": "Usage"
+    }
+]
