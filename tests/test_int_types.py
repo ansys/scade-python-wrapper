@@ -27,16 +27,15 @@ Test objectives:
 
 Verify the output values are identical to the input values for a
 significant set of types.
-
-Reminder: The tests using build_kcg_proxy require specific installation
-steps, that can't be executed for automated tests on ci-cd runners.
 """
 
 from pathlib import Path
 import sys
+from typing import Optional
 
 import pytest
 
+from ansys.scade.apitools.info import get_scade_version
 from conftest import build_kcg_proxy
 
 # fixtures
@@ -44,14 +43,14 @@ test_dir = Path(__file__).parent
 
 
 @pytest.fixture(scope='session')
-def proxy_kcg_types() -> Path | None:
+def proxy_kcg_types() -> Optional[Path]:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python')
 
 
 @pytest.fixture(scope='session')
-def proxy_kcg_types_io() -> Path | None:
+def proxy_kcg_types_io() -> Optional[Path]:
     """Ensure the proxy is built and up-to-date."""
     path = test_dir / 'Types' / 'Model' / 'Model.etp'
     return build_kcg_proxy(path, 'Python IO')
@@ -113,10 +112,12 @@ def check_outputs(root, t):
 
 # unit tests
 def test_int_kcg_types(proxy_kcg_types):
-    if proxy_kcg_types is None:
-        # DLL can't be built on GH runners
-        print('test skipped')
+    version = get_scade_version()
+    if version < 261:
+        print(f'test skipped: requires at least SCADE 2026 R1 (current: v{version})')
         return
+
+    assert proxy_kcg_types is not None
 
     # update sys.path to access the generated files
     old_path = sys.path.copy()
@@ -140,10 +141,12 @@ def test_int_kcg_types(proxy_kcg_types):
 
 
 def test_int_kcg_types_io(proxy_kcg_types_io):
-    if proxy_kcg_types_io is None:
-        # DLL can't be built on GH runners
-        print('test skipped')
+    version = get_scade_version()
+    if version < 261:
+        print(f'test skipped: requires at least Python 3.12 (current: v{version})')
         return
+
+    assert proxy_kcg_types_io is not None
 
     # update sys.path to access the generated files
     old_path = sys.path.copy()

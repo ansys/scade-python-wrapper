@@ -22,11 +22,14 @@
 
 """Unit tests utils."""
 
+import os
 from pathlib import Path
 from subprocess import run
+import sys
+from typing import Optional
 
 # note: importing apitools modifies sys.path to access SCADE APIs
-from ansys.scade.apitools.info import get_scade_home
+from ansys.scade.apitools.info import get_scade_home, get_scade_version
 
 # must be imported after apitools
 # isort: split
@@ -79,14 +82,15 @@ def find_configuration(project: std.Project, name: str) -> std.Configuration:
     assert False
 
 
-def build_kcg_proxy(path: Path, configuration: str) -> Path | None:
+def build_kcg_proxy(path: Path, configuration: str) -> Optional[Path]:
     """
     Build the Python proxy if obsolete or not present.
 
-    This requires the package to be registered to the version of SCADE used
-    to run the tests, which is possible only on host systems, with a manual
-    installation step.
+    Requires SCADE 2026 R1/Python 3.12
     """
+    if get_scade_version() < 261:
+        return None
+
     project = load_project(path)
     # retrieve the configuration
     conf = find_configuration(project, configuration)
@@ -114,10 +118,18 @@ def build_kcg_proxy(path: Path, configuration: str) -> Path | None:
         else:
             obsolete = False
     if obsolete:
+        env = os.environ
+        if not env.get('VIRTUAL_ENV'):
+            # variable not set when tests are run from VS Code or VS 2022
+            venv = Path(sys.executable).parent.parent.as_posix()
+            print('setting VIRTUAL_ENV to', venv)
+            env = env.copy()
+            env['VIRTUAL_ENV'] = venv
         # run scade -code to rebuild the python proxy
         exe = get_scade_home() / 'SCADE' / 'bin' / 'scade.exe'
-        cmd = [exe, '-code', str(path), '-conf', configuration, '-sim']
-        cp = run(cmd, capture_output=True, encoding='utf-8')
+        cmd = [str(exe), '-code', str(path), '-conf', configuration, '-sim']
+        print('cmd:', cmd)
+        cp = run(cmd, capture_output=True, encoding='utf-8', env=env)
         if cp.stdout:
             print(cp.stdout)
         if cp.stderr:
