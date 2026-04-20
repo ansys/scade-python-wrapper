@@ -28,7 +28,7 @@
 # * add type: ignore comments
 # * use setattr/getattr functions
 
-# TODO:
+# room for improvements:
 # * error (or warning multiple instances not supported) with global context
 # * rename when name of io is either a Python keyword or conflicts with one of:
 #   * call_reset
@@ -38,7 +38,7 @@
 #   * in_c
 # * declare a structure of classes corresponding to the package hierarchy
 # * refactor the design:
-#   * rely more on c_op.get_cycle().get_parameters() to simply the algorithms
+#   * rely more on c_op.get_cycle().get_parameters() to simplify the algorithms
 
 from collections import namedtuple
 from keyword import iskeyword
@@ -113,7 +113,7 @@ def _get_python_type_name(type_: data.Type, native: bool, sizes=None) -> str:
     # make anonymous structures, that must be contexts, private
     if type_.scalar:
         # must be a predefined type
-        # TODO: what about imported scalar types?
+        # (imported scalar types are nbot supported)
         pi = _get_predef_info(type_.m_name, native)
         assert pi is not None  # nosec B101  # addresses linter
         name = pi.type_name
@@ -208,6 +208,7 @@ def generate_python(
     global _pep8
 
     def write_accessors(typed: data.Feature):
+        """Generate accessors to the feature."""
         # typed is either a sensor or an i/o
         type_ = typed.type
         assert type_ is not None  # nosec B101  # addresses linter
@@ -217,12 +218,12 @@ def generate_python(
         else:
             assert isinstance(typed, data.IO)  # nosec B101  # addresses linter
             setter = typed.input
-        # TODO: no name for not scalar types
         if typed.scalar():
             type_name = _get_python_type_name(type_, True)
             arg_type = ': %s' % type_name
             return_type = ' -> %s' % type_name
         else:
+            # no name for not scalar types
             arg_type = ''
             return_type = ''
         f.write('    @property\n')
@@ -480,7 +481,6 @@ def generate_python(
             if op.context:
                 f.write('\n')
                 f.write('    def __del__(self):\n')
-                # TODO: separate_io
                 f.write('        free_fct = _lib.py_free_%s\n' % op.c_name)
                 f.write('        free_fct.argtypes = [ctypes.c_void_p]\n')
                 f.write('        free_fct.restype = None\n')
@@ -488,7 +488,6 @@ def generate_python(
             f.write('\n')
             f.write('    def call_reset(self) -> None:\n')
             if op.reset:
-                # TODO: reuse function.parameters instead of hard-coding op.context
                 arg = ('ctypes.byref(%s)' % op.context.py_member) if op.reset.parameters else ''
                 f.write('        self.reset_fct(%s)\n' % arg)
             else:
@@ -540,7 +539,7 @@ def generate_python(
             f.write('\n')
 
             for c_type in sorted(c_interface_types):
-                # TODO: share code with _get_cvt_name
+                # code could be shared with _get_cvt_name
                 f.write(
                     '_%s_cvt = _cvt(_lib.%s_to_string)\n'
                     % ((utils.lower_name(c_type) if _pep8 else c_type), c_type)

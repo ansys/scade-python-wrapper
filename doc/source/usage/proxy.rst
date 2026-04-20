@@ -102,5 +102,6 @@ Access to values
 Limitations
 -----------
 
-The wrapper does not support for now the ``input_threshold`` and
-``global_context`` KCG options.
+* The wrapper does not support for now the ``input_threshold`` and
+  ``global_context`` KCG options.
+* Imported types are not supported.

@@ -32,6 +32,7 @@ def generate_def(model: data.Model, def_pathname: Path, cosim: bool, banner: str
     """Generate the C definition file for the DLL."""
 
     def add_export(function: Optional[data.Function]):
+        """Add an export declaration for a declaration."""
         nonlocal f, i
         if function:
             f.write('\t%s @ %d;\n' % (function.c_name, i))
