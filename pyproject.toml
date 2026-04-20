@@ -126,6 +126,10 @@ convention = "numpy"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = ["D",]
+# generated file
+"src/ansys/scade/python-wrapper/pydata.py" = ["D101", "D102", "D103"]  # sync: skip
+# naming rules not applicable
+"tools/BuildData/*.py" = ["N",]  # sync: skip
 
 
 [tool.coverage.run]
@@ -216,5 +220,7 @@ exclude = [
     '\._',  # ignore private definitions
     'conftest.',
     'test.',
+    # generated file
+    'pydata\.',
 ]
 
