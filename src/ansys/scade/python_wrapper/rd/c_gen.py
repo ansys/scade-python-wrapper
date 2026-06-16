@@ -63,9 +63,7 @@ def generate_c(model: data.Model, c_pathname: Path, banner: str = '') -> None:
                     f.write('    return 0;\n')
                 else:
                     # regular context to allocate
-                    f.write(
-                        '    {0} *ctx = ({0}*)malloc(sizeof({0}));\n'.format(op.context.c_type)
-                    )
+                    f.write('    {0} *ctx = ({0}*)malloc(sizeof({0}));\n'.format(op.context.c_type))
                     if op.init is not None:
                         f.write('    %s(ctx);\n' % op.init.c_name)
                     f.write('    return (void*)ctx;\n')

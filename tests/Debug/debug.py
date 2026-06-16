@@ -37,9 +37,7 @@ from ansys.scade.apitools.info import get_scade_home
 from scade.code.suite.sctoc import raw_tcl, sc_to_c_core
 
 parser = argparse.ArgumentParser(description='Python way for scade -code')
-parser.add_argument(
-    '-p', '--project', metavar='<Scade project>', help='SCADE Suite', required=True
-)
+parser.add_argument('-p', '--project', metavar='<Scade project>', help='SCADE Suite', required=True)
 parser.add_argument(
     '-c', '--configuration', metavar='<configuration>', help='configuration', required=True
 )

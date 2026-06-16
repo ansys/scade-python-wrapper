@@ -87,9 +87,7 @@ def _build_type(model: data.Model, c_type: c.Type) -> Tuple[List[int], data.Type
             )
             if c_type.is_context():
                 # consider only the interface, if any
-                c_fields = [
-                    _ for _ in c_type.get_fields() if isinstance(_.get_model(), m.Variable)
-                ]
+                c_fields = [_ for _ in c_type.get_fields() if isinstance(_.get_model(), m.Variable)]
             else:
                 c_fields = [_ for _ in c_type.get_fields()]
             for c_field in c_fields:
@@ -136,7 +134,7 @@ def _build_operator(model: data.Model, m_op: m.Operator):
     if c_op.get_reset():
         op.set_reset(data.Function(c_name=c_op.get_reset().get_name()))
 
-    # TODO?
+    # is that needed?
     # _add_c_type(model, c_op.get_state_vector())
     _, type_ = _build_type(model, c_op.get_input_struct())
     if type_:
@@ -148,7 +146,7 @@ def _build_operator(model: data.Model, m_op: m.Operator):
         op.in_context.link_type(type_)
         op.in_context.c_type = c_op.get_input_struct().get_name()
         op.in_context.pointer = True
-    # TODO?
+    # is that needed?
     # _add_c_type(model, c_op.get_output_struct())
     _, type_ = _build_type(model, c_op.get_context())
     if type_:

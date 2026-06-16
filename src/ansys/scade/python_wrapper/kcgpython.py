@@ -375,7 +375,7 @@ class KcgPython:
             ['%sLayer' % layer.name for spec in specifications for layer in spec.layers]
         )
 
-        with open(str(pathname), 'w') as f:
+        with pathname.open('w') as f:
             f.write('import os.path\n')
             f.write('import ctypes\n')
             f.write('from sdyproxy import SdyProxy, SdyLayer\n')
